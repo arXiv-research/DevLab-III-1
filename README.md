@@ -1,3 +1,3 @@
 # devLab-3
-A repository of fundamental machine-learning algorithms/principles in research and development.
+A repository of experimental machine-learning algorithms/principles for research and development.
 

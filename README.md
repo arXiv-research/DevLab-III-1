@@ -1,6 +1,6 @@
 # devLab-3
 An Experimental Repository in construction for research and development purposes.
-The repository is for an experiment with Gitpod, VsCode, and more...utilizing multiple DSL. 
+The repository is for an experiment with Gitpod, VsCode, Glow, Haskell, and more...utilizing multiple DSL. 
 
 This experiment is for research, development,and advancement of Machine-Learning algorithms and Blockchain in general. It is only a "testing grounds" for integrating higher level DSL's, and utilizing the execution of smart-contracts acrossed multiple platforms.
 

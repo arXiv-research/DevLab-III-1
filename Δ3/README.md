@@ -1,1 +1,1 @@
-This repository is for Delta3 research, integrations, and testing only 
+This repository is for an experiment with Gitpod, VsCode, and multiple DSL. This experiment is for research, development,and advancement of Machine-Learning algorithms and Blockchain. It is only my experimental repository or "testing grounds" for integrating higher level DSL and execution of smart-contracts acrossed multiple platforms.

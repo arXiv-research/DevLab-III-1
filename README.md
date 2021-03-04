@@ -4,7 +4,10 @@ The repository is for an experiment with Gitpod, VsCode, and more...with multipl
 
 This experiment is for research, development,and advancement of Machine-Learning algorithms and Blockchain. It is only my experimental repository or "testing grounds" for integrating higher level DSL and utilizing the execution of smart-contracts acrossed multiple platforms for testing purposes.
 
+
+
 CODE_OF_CONDUCT for developers
+
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 Our Standards

@@ -1,12 +1,15 @@
 # devLab-3
 An Experimental Repository in construction for research and development purposes.
-The repository is for an experiment with Gitpod, VsCode, Glow, Haskell, and more...utilizing multiple DSL and Blockchain integrations.
 
-The experiment is for research, development, and advancement of Machine-Learning algorithms and Blockchains in general. This is a "testing grounds" for integrating with higher level DSL's, and utilizing the execution of smart-contracts acrossed multiple platforms or protocols.
+The repository is for an experiment which utilizes fundamental Machine-Learning algorithms with Gitpod, VsCode, Glow, Solidity, and Remix... multiple DSL's, and smart-contracts simultaneously.
+
+For development, testing and advancement of Blockchain Technology and Machine-Learning algorithms. This is a "testing grounds" for integrating with higher level DSL's, and integrating smart-contracts acrossed multiple protocols in a testing/developing environment.
 
 
 
-CODE_OF_CONDUCT for developers
+NOTICE:
+
+CODE_OF_CONDUCT 
 
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
@@ -37,3 +40,28 @@ Enforcement
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the projects Lead Developer at Mitchelltesla103@gmail.com . All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
+
+
+
+
+MIT License
+
+Copyright (c) 2021 Justin Mitchell
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

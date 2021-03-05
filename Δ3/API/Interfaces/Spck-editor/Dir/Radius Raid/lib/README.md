@@ -22,7 +22,9 @@ I so badly wanted to use [@rezoner](https://twitter.com/rezoner)'s JavaScript ch
 # Credits #
 
 **Created By:** [@jackrugile](https://twitter.com/jackrugile)
-**M-L Development by:** [@mitchell_tesla](https://twitter.com/mitchell_tesla)  
+
+**M-L Development by:** [@mitchell_tesla](https://twitter.com/mitchell_tesla)
+  
 **Inspiration and Support:** [@rezoner](https://twitter.com/rezoner), [@loktar00](https://twitter.com/loktar00), [@end3r](https://twitter.com/end3r), [@austinhallock](https://twitter.com/austinhallock), [@chandlerprall](https://twitter.com/chandlerprall)  
 **Audio Processing:** [JSFXR](https://github.com/mneubrand/jsfxr) by [@markusneubrand](https://twitter.com/markusneubrand)  
 **Game Inspiration and Ideas:** [Asteroids](http://www.atari.com/arcade/asteroids), [Cell Warfare](http://armorgames.com/play/3204/cell-warfare), [Space Pips](http://armorgames.com/play/3097/space-pips), and many more  

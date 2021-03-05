@@ -1,0 +1,82 @@
+In the previous section, you created a greetings module. In this section, you'll write code to make calls to the Hello function in the module you just wrote. You'll write code you can execute as an application, and which calls code in the greetings module.
+
+Note: This topic is part of a multi-part tutorial that begins with Create a Go module.
+Create a hello directory for your Go module source code. This is where you'll write your caller.
+
+For example, if your current directory in the command prompt is the greetings directory, you could use the following commands:
+
+cd ..
+mkdir hello
+cd hello
+In your text editor (in the hello directory), create a file in which to write your code and call it hello.go.
+Write code to call the Hello function, then print the function's return value.
+To do that, paste the following code into hello.go.
+
+package main
+
+import (
+    "fmt"
+
+    "example.com/greetings"
+)
+
+func main() {
+    // Get a greeting message and print it.
+    message := greetings.Hello("Gladys")
+    fmt.Println(message)
+}
+
+
+In this code, you:
+
+Declare a main package. In Go, code executed as an application must go in a main package.
+Import two packages: example.com/greetings and fmt. This gives your code access to functions in those packages. Importing example.com/greetings (the package contained in the module you created earlier) gives you access to the Hello function. You also import fmt, with functions for handling input and output text (such as printing text to the console).
+Get a greeting by calling the greetings package’s Hello function.
+Create a new module for this hello package.
+
+From the command line at the hello directory, run the go mod init command, giving it the name of the module your code will be in (here, just use "hello").
+
+$ go mod init hello
+go: creating new go.mod: module hello
+Edit the hello module to use the unpublished greetings module.
+
+
+For production use, you’d publish your modules on a server, either inside your company or on the internet, and the Go command will download them from there. For now, you need to adapt the caller's module so it can find the greetings code on your local file system.
+
+To do that, make a small change to hello module’s go.mod file.
+
+In the hello directory, open the go.mod file, change it so that it looks like the following, and save the file.
+module hello
+
+go 1.14
+
+replace example.com/greetings => ../greetings
+
+Here, the replace directive tells Go to replace the module path (the URL example.com/greetings) with a path you specify. In this case, that's a greetings directory next to the hello directory.
+
+In the hello directory, run go build to make Go locate the module and add it as a dependency to the go.mod file.
+$ go build
+go: found example.com/greetings in example.com/greetings v0.0.0-00010101000000-000000000000
+Look at go.mod again to see the changes made by go build, including the require directive Go added.
+module hello
+
+go 1.14
+
+replace example.com/greetings => ../greetings
+
+require example.com/greetings v0.0.0-00010101000000-000000000000
+
+To build the module, Go found the local code in the ../greetings directory, then added a require directive to specify that hello is dependent on (requires) example.com/greetings. You created this dependency when you imported the greetings package (contained in the greetings module) in hello.go. The replace directive tells Go where to find the greetings module, because it isn't published yet.
+
+To reference a published module, a go.mod file would omit the replace directive and use a require directive with a tagged version number at the end.
+
+require example.com/greetings v1.1.0
+In the hello directory, run the hello executable (created by go build) to confirm that the code works.
+On Linux or Mac:
+$ ./hello
+Hi, Gladys. Welcome!
+On Windows:
+$ hello.exe
+Hi, Gladys. Welcome!
+
+Congrats! You've written two functioning modules. In the tutorial's next topic, you'll add some error handling

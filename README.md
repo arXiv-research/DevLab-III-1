@@ -1,7 +1,7 @@
 # devLab-3
 An Experimental Repository in construction for research and development purposes.
 
-The repository is for an experiment which utilizes Gitpod, VsCode, Glow, Solidity, and Remix... multiple DSL's, and smart-contracts simultaneously.
+The repository is for an experiment which utilizes fundamental Machine-Learning algorithms with Gitpod, VsCode, Glow, Solidity, and Remix... multiple DSL's, and smart-contracts simultaneously.
 
 For development, testing and advancement of Blockchain Technology and Machine-Learning algorithms. This is a "testing grounds" for integrating with higher level DSL's, and integrating smart-contracts acrossed multiple protocols in a testing/developing environment.
 

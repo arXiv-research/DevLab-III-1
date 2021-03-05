@@ -18,8 +18,11 @@ I hate having to say this, but from my testing, if you are not running the game 
 
 I so badly wanted to use [@rezoner](https://twitter.com/rezoner)'s JavaScript chiptune composer, [CHIRP](http://chirp.rezoner.net/), but I just couldn't fit it in the limit. It really bummed me out. I composed a few ideas and really loved the feel of the music with the game. So upsetting. You should definitely check out the tool, it is amazing and will be incredibly useful for game music in the future!
 
+
 # Credits #
-**Created By:** [@jackrugile](https://twitter.com/jackrugile)  
+
+**Created By:** [@jackrugile](https://twitter.com/jackrugile)
+**M-L Development by:** [@mitchell_tesla](https://twitter.com/mitchell_tesla)  
 **Inspiration and Support:** [@rezoner](https://twitter.com/rezoner), [@loktar00](https://twitter.com/loktar00), [@end3r](https://twitter.com/end3r), [@austinhallock](https://twitter.com/austinhallock), [@chandlerprall](https://twitter.com/chandlerprall)  
 **Audio Processing:** [JSFXR](https://github.com/mneubrand/jsfxr) by [@markusneubrand](https://twitter.com/markusneubrand)  
 **Game Inspiration and Ideas:** [Asteroids](http://www.atari.com/arcade/asteroids), [Cell Warfare](http://armorgames.com/play/3204/cell-warfare), [Space Pips](http://armorgames.com/play/3097/space-pips), and many more  

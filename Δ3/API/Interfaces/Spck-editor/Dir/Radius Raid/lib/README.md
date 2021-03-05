@@ -23,13 +23,18 @@ I so badly wanted to use [@rezoner](https://twitter.com/rezoner)'s JavaScript ch
 
 **Created By:** [@jackrugile](https://twitter.com/jackrugile)
 
-**M-L Development by:** [@mitchell_tesla](https://twitter.com/mitchell_tesla)
+**Machine-Learning by:** [@mitchell_tesla](https://twitter.com/mitchell_tesla)
   
 **Inspiration and Support:** [@rezoner](https://twitter.com/rezoner), [@loktar00](https://twitter.com/loktar00), [@end3r](https://twitter.com/end3r), [@austinhallock](https://twitter.com/austinhallock), [@chandlerprall](https://twitter.com/chandlerprall)  
+
 **Audio Processing:** [JSFXR](https://github.com/mneubrand/jsfxr) by [@markusneubrand](https://twitter.com/markusneubrand)  
 **Game Inspiration and Ideas:** [Asteroids](http://www.atari.com/arcade/asteroids), [Cell Warfare](http://armorgames.com/play/3204/cell-warfare), [Space Pips](http://armorgames.com/play/3097/space-pips), and many more  
+
 **HTML5 Canvas Reference:** [HTML5 Canvas Cheat Sheet](https://simon.html5.org/dump/html5-canvas-cheat-sheet.html)  
+
 **Game Math Reference:** Billy Lamberta - [Foundation HTML5 Animation with JavaScript](http://lamberta.github.io/html5-animation/)
+
+
 
 # Screenshots #
 ![Radius Raid Menu](http://jackrugile.com/radius-raid/images/menu-screenshot.png "Radius Raid Menu")

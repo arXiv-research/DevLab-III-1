@@ -1,9 +1,9 @@
 # devLab-3
-An Experimental Repository in under heavy construction.....¹⁹¹⁴
+An Experimental Repository under heavy construction.....¹⁹
 
-The repository is an experiment with a plug-n-play(removable storage) integration - Execute fundamental Machine-Learning algorithms and Smart-Contract libraries using multiple Domain Specific Languages and Integrated Development Environments.
+The repository is an experiment with a plug-n-play(removable storage) integration - Execute fundamental Machine-Learning algorithms and Smart-Contracts across multiple Domain Specific Languages and Integrated Development Environments.
 
-For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
+For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. ¹⁴
 
 This is the "testing grounds" for integrating with higher level DSL's, smart-contracts and ML libraries acrossed multiple protocols or environments.
 

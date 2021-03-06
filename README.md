@@ -1,7 +1,7 @@
 # devLab-3
 An Experimental Repository in construction for research and development purposes.
 
-The repository is an experiment with a plug-n-play integration for fundamental Machine-Learning algorithms and Smart-Contract libraries using multiple DSL's.
+The repository is an experiment with a plug-n-play integration for fundamental Machine-Learning algorithms and Smart-Contract libraries that execute using multiple Domain Specific Languages and Integrated Development Environments.
 
 For further development, testing, and advancement of Machine-Learning and Blockchain Technology. This is a "testing grounds" for integrating with higher level DSL's, and executing smart-contracts and ML libraries acrossed multiple protocols or environments.
 

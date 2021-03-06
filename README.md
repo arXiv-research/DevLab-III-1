@@ -1,16 +1,16 @@
 # devLab-3
-An Experimental Repository under heavy construction.....¹⁹
+An Experimental Repository under heavy construction.....
 
 The repository is an experiment with a plug-n-play(removable storage) integration - Execute fundamental Machine-Learning algorithms and Smart-Contracts with multiple Domain Specific Languages and Integrated Development Environments.
 
-For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. ¹⁴
+For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
 
 This is the "testing grounds" for integrating with higher level DSL's, smart-contracts and ML libraries acrossed multiple protocols or environments.
 
 The project is for personal research and development, but I will add,....developers are welcome to use, contribute, redistribute, or fork.
 I will try to include documentation and tutorials to help guide developers with how to properly utilize the repository for the best results. 
 
-Recommendation: clone/copy the repository to a removable device for future advancements and usage...🤔😉
+Recommendation: clone/copy the repository to a removable device for future advancements and usage...¹⁹¹⁴
 
 NOTICE:
 CODE_OF_CONDUCT 

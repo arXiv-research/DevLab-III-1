@@ -1,11 +1,16 @@
 # devLab-3
-An Experimental Repository in construction for research and development purposes.¹⁹¹⁴
+An Experimental Repository in under heavy construction.....¹⁹¹⁴
 
-The repository is an experiment with a plug-n-play integration - fundamental Machine-Learning algorithms and Smart-Contract libraries that execute using multiple Domain Specific Languages and Integrated Development Environments.
+The repository is an experiment with a plug-n-play(removable storage) integration - Execute fundamental Machine-Learning algorithms and Smart-Contract libraries using multiple Domain Specific Languages and Integrated Development Environments.
 
-For further development, testing, and advancement of Holochain, Machine-Learning and Blockchain Technology. This is a "testing grounds" for integrating with higher level DSL's, and executing smart-contracts and ML libraries acrossed multiple protocols or environments.
+For further development, testing, and advancement of Holochain, Machine-Learning algorithms, and Blockchain Technology. 
 
+This is the "testing grounds" for integrating with higher level DSL's, smart-contracts and ML libraries acrossed multiple protocols or environments.
 
+The project is for personal research and development, but I will add,....developers are welcome to use, contribute, redistribute, or fork. Idgaf...
+I will try to include documentation and tutorials to help guide developers on how to properly utilize this repository. 
+
+Recommendation: clone/copy the repository to a removable device for future advancements and usage...🤔😉
 
 NOTICE:
 CODE_OF_CONDUCT 

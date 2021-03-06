@@ -1,7 +1,7 @@
 # devLab-3
 An Experimental Repository in construction for research and development purposes.¹⁹¹⁴
 
-The repository is an experiment with a plug-n-play integration for fundamental Machine-Learning algorithms and Smart-Contract libraries that execute using multiple Domain Specific Languages and Integrated Development Environments.
+The repository is an experiment with a plug-n-play integration with fundamental Machine-Learning algorithms and Smart-Contract libraries that execute using multiple Domain Specific Languages and Integrated Development Environments.
 
 For further development, testing, and advancement of Machine-Learning and Blockchain Technology. This is a "testing grounds" for integrating with higher level DSL's, and executing smart-contracts and ML libraries acrossed multiple protocols or environments.
 
@@ -46,6 +46,7 @@ Project maintainers who do not follow or enforce the Code of Conduct in good fai
 
 
 
+NOTICE:
 
 MIT License
 
@@ -70,6 +71,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+NOTICE: LICENSE 
 
 Cryptographic Autonomy License version 1.0
 

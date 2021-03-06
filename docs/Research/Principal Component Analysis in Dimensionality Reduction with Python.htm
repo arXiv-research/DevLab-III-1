@@ -1,7 +1,6 @@
 Principal Component Analysis Projections.
 
 In this article, we will discuss the feature reduction methods that deals with over-fitting problems occurs in large number of features. When a high dimension data fits in the model then it confused sometimes in between features of similar information. To find the main features/components that are going to impact more on target variable and those components have maximum variance. The 2-dimension feature convert to 1- dimension feature so that computational will be fast.
-Image for post
 
 In machine Learning, the dimensions are the number of features in the data set. As the more dimension added in the data then it will make more dimension space exponentially with this it will cost more for processing that cause “curse of dimensionality”.
 
@@ -78,6 +77,8 @@ pca = PCA()
 X_train = pca.fit_transform(X_train)
 X_test = pca.transform(X_test)
 
+
+
 After this we have to know the variance of all principal components
 
 explained_variance = pca.explained_variance_ratio_
@@ -132,5 +133,7 @@ Conclusion:
 The PCA works perfectly well with high dimension data. The richness of PCA is it reduces the training cost time.
 I hope you like the article. 
 
-Reach the developer of DevLab-3 on twitter @mitchell_tesla 
+Reach the developer and creator of DevLab-3 on twitter @mitchell_tesla 
 -3-
+
+[19 14]

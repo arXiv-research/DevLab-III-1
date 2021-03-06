@@ -3,12 +3,12 @@ An Experimental Repository in under heavy construction.....¹⁹¹⁴
 
 The repository is an experiment with a plug-n-play(removable storage) integration - Execute fundamental Machine-Learning algorithms and Smart-Contract libraries using multiple Domain Specific Languages and Integrated Development Environments.
 
-For further development, testing, and advancement of Holochain, Machine-Learning algorithms, and Blockchain Technology. 
+For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
 
 This is the "testing grounds" for integrating with higher level DSL's, smart-contracts and ML libraries acrossed multiple protocols or environments.
 
-The project is for personal research and development, but I will add,....developers are welcome to use, contribute, redistribute, or fork. Idgaf...
-I will try to include documentation and tutorials to help guide developers on how to properly utilize this repository. 
+The project is for personal research and development, but I will add,....developers are welcome to use, contribute, redistribute, or fork.
+I will try to include documentation and tutorials to help guide developers with how to properly utilize the repository for the best results. 
 
 Recommendation: clone/copy the repository to a removable device for future advancements and usage...🤔😉
 

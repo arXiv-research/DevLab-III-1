@@ -164,7 +164,7 @@ generated every 10 minutes, 80 bytes * 6 * 24 * 365 = 4.2MB per year. With compu
 typically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of
 1.2GB per year, storage should not be a problem even if the block headers must be kept in memory.
 
-8-Simplified Payment Verification
+8. Simplified Payment Verification
 It is possible to verify payments without running a full network node. A user only needs to keep
 a copy of the block headers of the longest proof-of-work chain, which he can get by querying
 network nodes until he's convinced he has the longest chain, and obtain the Merkle branch
@@ -192,7 +192,7 @@ transactions depend on many more, is not a problem here. There is never the need
 complete standalone copy of a transaction's history.
 
 
-Privacy
+10. Privacy
 The traditional banking model achieves a level of privacy by limiting access to information to the
 parties involved and the trusted third party. The necessity to announce all transactions publicly
 precludes this method, but privacy can still be maintained by breaking the flow of information in
@@ -207,7 +207,7 @@ transactions, which necessarily reveal that their inputs were owned by the same 
 is that if the owner of a key is revealed, linking could reveal other transactions that belonged to
 the same owner.
 
-Calculations
+11. Calculations
 We consider the scenario of an attacker trying to generate an alternate chain faster than the honest
 chain. Even if this is accomplished, it does not throw the system open to arbitrary changes, such
 as creating value out of thin air or taking money that never belonged to the attacker. Nodes are
@@ -224,6 +224,7 @@ The probability of an attacker catching up from a given deficit is analogous to 
 Ruin problem. Suppose a gambler with unlimited credit starts at a deficit and plays potentially an
 infinite number of trials to try to reach breakeven. We can calculate the probability he ever
 reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [8]:
+
 p = probability an honest node finds the next block
 q = probability the attacker finds the next block
 qz = probability the attacker will ever catch up from z blocks behind

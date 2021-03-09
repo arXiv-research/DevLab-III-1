@@ -1,7 +1,7 @@
 # devLab-3 pre-release
 An Experimental Repository under heavy construction.....
 
-The repository is an experiment with a plug-n-play (removable storage) w/bluetooth integrations for executing fundamental Machine-Learning algorithms, and Smart-Contracts with multiple Domain Specific Languages, and Integrated Development Environments.
+The repository is an experiment with a plug-n-play (removable storage) with a bluetooth integration for executing fundamental Machine-Learning algorithms, Smart-Contracts with multiple Domain Specific Languages, and Integrated Development Environments.
 
 For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
 

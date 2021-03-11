@@ -7,7 +7,7 @@ For further development, testing, and advancement of Machine-Learning algorithms
 
 This is the "testing grounds" research and reference library for integrating with higher level DSL's, smart-contracts, and M-L libraries acrossed multiple virtual environments.
 
-The project is for personal research and development, but developers are welcome to contribute, redistribute, use, or fork and clone the repository for their own research and development.
+The project is for personal research and development, and developers are welcome to contribute, redistribute, use, or fork and clone the repository for their own research and development.
 I will include documentation and tutorials to help guide developers on how to properly utilize this repository for the best results. 
 
 Recommendation: clone/copy the repository to a removable device for future usage and integrations...¹⁹¹⁴

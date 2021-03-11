@@ -1,0 +1,39 @@
+var mysql = require("mysql");
+var connection = mysql.createConnection({
+  "host": "127.0.0.1",
+  "database": "test"
+});/*from  w w w  . j a  va  2  s .  c  o  m*/
+//Open MySQL server connection
+connection.connect(function(error) {
+  if(error) {
+    console.log("There was an error connecting to the MySQL server.", error);
+  } else {
+    //Insert some test data
+    console.log("Inserting test data into test_table.")
+    connection.query("INSERT INTO test_table SET ?", {"data":"test"}, function(error, result) {
+      if(error) {
+        console.log("There was an error instering data into test_table: ", error);
+      } else {
+        console.log("Successfully inserted data into test_table: ", result);
+      }
+    });
+    //Query the inserted test data
+    console.log("Selecting data from test_table.");
+    connection.query("SELECT * FROM test_table", function(error, result) {
+      if(error) {
+        console.log("There was an error selecting data from test_table: ", error);
+      } else {
+        console.log("Data selected from test_table: ", result);
+      }
+    });
+    //Close the MySQL server connection
+    console.log("Closing connection to the MySQL server.");
+    connection.end(function(error) {
+      if(error) {
+        console.log("There was an error while disconnecting from the MySQL server: ", error);
+      } else {
+        console.log("Successfully disconnected from the MySQL server.");
+      }
+    });
+  }
+});

@@ -1,0 +1,511 @@
+Quartznet
+As their paper states, Jasper is an end-to-end neural acoustic model for automatic speech recognition. All Nvidia’s speech recognition models, like Quartz Net, come from Jasper. 
+
+Since it’s end-to-end, the overall architecture supports all required stages from input audio process to text transcription. The pipeline behind the infrastructure deals with three main parts:
+
+Encoders and Decoders, to transform audio inputs to Mel spectrograms;
+Statistical Language models, namely reinforced n-gram language models, that seek the word sequence most likely to be produced from acoustic input, and generate specific embeddings that closely match the spectrogram sampling rate;
+Producing textual output corresponding to the audio input.  
+ASR pipeline
+ASR pipeline using NeMo modules | Source: Nvidia Developer
+The principal layers that conform to Jasper’s architecture are convolutional neural nets. They’re designed to facilitate fast GPU inference by allowing whole sub-blocks to be fused into a single GPU kernel. This is extremely important for strict real-time scenarios during deployment phases.
+
+Each block input is tightly connected to the last subblock of all following blocks, using a dense residual connection (to learn more about residual nets, check this article). Every block differs in kernel size and number of filters, which increase in size for deeper layers.
+
+Jasper BxR model
+Jasper BxR model | Source: An End-to-End Convolutional Neural Acoustic Model
+Tacotron II
+The overall architecture of Tacotron follows similar patterns to Quartznet in terms of Encoder-Decoder pipelines. Tacotron can also be viewed as a sequence-to-sequence model that maps character embeddings to scalable Mel-spectrograms, followed by a modified vocoder (WaveNet), to help synthesize time-domain waveforms and generate human audible output. 
+
+Note: Mel Spectrograms are time-frequency distribution graphs based on Mel Curves, which reflect the characteristics of the human cochlea.
+
+The key stages in the architecture are:
+
+A first recurrent seq-to-seq attention-based feature extractor that processes character embedding. It yields Mel spectrogram frames as a forward input for the second stage;
+A modified WaveNet vocoder that generates time-domain waveform samples previously conditioned on the Mel spectrograms.
+Tacotron2 Block Diagram
+Tacotron2 Block Diagram | Source: Natural TTS synthesis by conditioning WaveNet on Mel spectrogram predictions.
+The decoder is based on an autoregressive recurrent neural network. It attempts to predict Mel-spectrograms from the encoded input sequence, one frame at a time. The prediction from previous steps is passed through a small pre-net, with 2 fully connected layers of 256 hidden ReLU units. The main idea is to use the fully connected layers as an information bottleneck, so it can efficiently learn attention. For more insight on the attention mechanism, you can check these articles:
+
+A Comprehensive Guide to Attention Mechanism in Deep Learning for Everyone
+Intuitive Understanding of Attention Mechanism in Deep Learning
+Note: Both models achieved a mean opinion score MOS of 4.53 on the popular Librispeech and WSJ datasets, almost comparable to professionally recorded speech.
+
+Neural Modules Toolkit, NeMo
+NeMo is a programming library that leverages the power of reusable neural components to help you build complex architectures easily and safely. Neural modules are designed for speed, and can scale out training on parallel GPU nodes. 
+
+With Neural Modules, they wanted to create general-purpose Pytorch classes from which every model architecture derives. The library is robust, and gives a holistic tour of different deep learning models needed for conversational AI. Speech recognition, speech synthesis, text-to-speech to natural language processing, and many more.  
+
+Typically, a neural module is a software abstraction that corresponds to a conceptual piece of the neural network, such as Encoders, Decoders, dedicated losses, language and acoustic models, or audio and spectrogram data processors.
+
+The library is built on top of CUDA and cuDNN low-level software to leverage Nvidia GPUs for parallel training and speed inferencing. 
+
+Neural Modules Toolkit 
+Neural Modules Toolkit stack | Source: Nvidia developer blog
+Check out their Github repo, it’s very insightful.
+
+Serving models through Pytorch handlers
+To build and expose API endpoints for accessing the model’s inference, we need to create a class that manages the intermediate required steps; from pre-processing raw incoming data, initializing a model instance with the configuration and checkpoints files, to running inference and yielding suitable results — this needs to be well-managed. 
+
+In addition, if we want to combine multiple models to build a more sophisticated pipeline, organizing our work is key to separate the concerns of each part, and make our code easy to maintain. 
+
+For example, the ASR output is generally never punctuated whatsoever. If we’re employing the model in a sensitive scenario, we must chain the textual raw output from the ASR model with a punctuator, to help clarify the context and enhance readability.
+
+In that regard, the following code illustrates the different model handlers:
+
+Tacotron Handler
+class TacotronHandler(nn.Module):
+   def __init__(self):
+       super().__init__()
+       self.tacotron_model = None
+       self.waveglow = None
+       self.device = None
+       self.initialized = None
+
+   def _load_tacotron2(self, checkpoint_file, hparams_config: Hparams):
+       tacotron2_checkpoint = torch.load(os.path.join(_WORK_DIR, _MODEL_DIR, checkpoint_file))
+       self.tacotron_model = Tacotron2(hparams= hparams_config)
+       self.tacotron_model.load_state_dict(tacotron2_checkpoint['state_dict'])
+       self.tacotron_model.to(self.device)
+       self.tacotron_model.eval()
+
+   def _load_waveglow(self, checkpoint_file, is_fp16: bool):
+       waveglow_checkpoint = torch.load(os.path.join(_WORK_DIR, _MODEL_DIR, checkpoint_file))
+       waveglow_model = WaveGlow(
+           n_mel_channels=waveglow_params.n_mel_channels,
+           n_flows=waveglow_params.n_flows,
+           n_group=waveglow_params.n_group,
+           n_early_every=waveglow_params.n_early_every,
+           n_early_size=waveglow_params.n_early_size,
+           WN_config=WN_config
+       )
+       self.waveglow = waveglow_model
+       self.waveglow.load_state_dict(waveglow_checkpoint)
+       self.waveglow = waveglow_model.remove_weightnorm(waveglow_model)
+       self.waveglow.to(self.device)
+       self.waveglow.eval()
+       if is_fp16:
+           from apex import amp
+           self.waveglow, _ = amp.initialize(waveglow_model, [], opt_level="3")
+
+   def initialize(self):
+       if not torch.cuda.is_available():
+           raise RuntimeError("This model is not supported on CPU machines.")
+       self.device = torch.device('cuda')
+
+       self._load_tacotron2(
+           checkpoint_file='tacotron2.pt',
+           hparams_config=tacotron_hparams)
+
+       self._load_waveglow(
+           is_fp16=False,
+           checkpoint_file='waveglow_weights.pt')
+
+       self.initialized = True
+
+       logger.debug('Tacotron and Waveglow models successfully loaded!')
+
+   def preprocess(self, text_seq):
+       text = text_seq
+       if text_seq[-1].isalpha() or text_seq[-1].isspace():
+           text = text_seq + '.'
+       sequence = np.array(text_to_sequence(text, ['english_cleaners']))[None, :]
+       sequence = torch.from_numpy(sequence).to(device=self.device, dtype=torch.int64)
+       return sequence
+
+   def inference(self, data):
+       start_inference_time = time.time()
+       _, mel_output_postnet, _, _ = self.tacotron_model.inference(data)
+       with torch.no_grad():
+           audio = self.waveglow.infer(mel_output_postnet, sigma=0.666)
+       return audio, time.time() - start_inference_time
+
+   def postprocess(self, inference_output):
+       audio_numpy = inference_output[0].data.cpu().numpy()
+       output_name = 'tts_output_{}.wav'.format(uuid.uuid1())
+       path = os.path.join(_AUDIO_DIR, output_name)
+       print(path)
+       write(path, tacotron_hparams.sampling_rate, audio_numpy)
+       return 'API/audio/'+ output_name
+initialize(): Load Tacontron and Wave Glow with their respective checkpoints. 
+preprocess(text_seq): Transform raw text into suitable input for the model. Convert it 
+to a specific set of character sequences.
+inference(data): Run inference on the previous processed input and return a corresponding synthesized audio matching the input text.
+postprocess(inference_output): Save the wav audio file to a directory under the container file system.
+Quartznet  Loader
+class Quartznet_loader():
+   def __init__(self, torch_device=None):
+       if torch_device is None:
+           if torch.cuda.is_available():
+               torch_device = torch.device('cuda')
+           else:
+               torch_device = torch.device('cpu')
+
+       self.file_config = path.join(WORK_DIR, _MODEL_CONFIG)
+       self.file_checkpoints = path.join(WORK_DIR, _MODEL_WEIGHTS)
+
+       model_config = OmegaConf.load(self.file_config)
+       OmegaConf.set_struct(model_config, True)
+
+       if isinstance(model_config, DictConfig):
+           self.config = OmegaConf.to_container(model_config, resolve=True)
+           self.config = OmegaConf.create(self.config)
+           OmegaConf.set_struct(self.config, True)
+
+       # EncDecCTCModel.set_model_restore_state(is_being_restored=True)
+       instance = EncDecCTCModel(cfg=self.config)
+
+       self.model_instance = instance
+       self.model_instance.to(torch_device)
+       self.model_instance.load_state_dict(torch.load(self.file_checkpoints, torch_device), False)
+
+   def covert_to_text(self, audio_files):
+       return self.model_instance.transcribe(paths2audio_files=audio_files)
+
+   def create_output_manifest(self, file_path):
+       # create manifest
+       manifest = dict()
+       manifest['audio_filepath'] = file_path
+       manifest['duration'] = 18000
+       manifest['text'] = 'todo'
+
+       with open(file_path + ".json", 'w') as fout:
+           fout.write(json.dumps(manifest))
+
+       return file_path + ".json"
+init(torch_device): Initialize the hardware device in which the model checkpoints will be running, whether it is on CPU or Cuda capable GPU.
+model_config = OmegaConf.load(self.file_config):  Loading the configuration file for the model with the corresponding structure of the Encoder, Decoder, optimizer, preprocessor and spectrogram augmentor. 
+instance = EncDecCTCModel(cfg=self.config): Calling the neural module EncDecCTCModel to instantiate from the respective Quartz-Net config file. The module will create a specific NeMo instance that gives access to some very handy functions that drive the model’s behavior. convert_to_text(audio_files): calls the EncDecCTCModel.instance to transcribe audio wav format files into textual output. 
+create_output_manifest(file_path): saves the final result into a json file with the input audio file path, the audio duration, the audio sampling rate and the corresponding transcribed text.  
+Bert Loader
+class Bert_loader():
+   def __init__(self, torch_device=None):
+       if torch_device is None:
+           if torch.cuda.is_available():
+               torch_device = torch.device('cuda')
+           else:
+               torch_device = torch.device('cpu')
+
+       self.file_config = path.join(WORK_DIR, _MODEL_CONFIG)
+       self.file_checkpoints = path.join(WORK_DIR, _MODEL_WEIGHTS)
+
+       model_config = OmegaConf.load(self.file_config)
+       OmegaConf.set_struct(model_config, True)
+
+       if isinstance(model_config, DictConfig):
+           self.config = OmegaConf.to_container(model_config, resolve=True)
+           self.config = OmegaConf.create(self.config)
+           OmegaConf.set_struct(self.config, True)
+
+       # PunctuationCapitalizationModel.super().__set_model_restore_state(_MODEL_IS_RESTORED)
+       instance = PunctuationCapitalizationModel(cfg=self.config)
+
+       self.model_instance = instance
+       self.model_instance.to(torch_device)
+       self.model_instance.load_state_dict(torch.load(self.file_checkpoints, torch_device), False)
+
+   def punctuate(self, query):
+       return self.model_instance.add_punctuation_capitalization(query)[0]
+init(torch_device): Initialize the hardware device in which the model checkpoints will be running, on CPU or Cuda-capable GPU.
+model_config = OmegaConf.load(self.file_config):  Loading the configuration file for the model with the corresponding structure of the Encoder, Decoder, optimizer, preprocessor and spectrogram augmentor. 
+Instance = PunctuationCapitalizationModel(cfg=self.config): call to the neural module that implements internal code for light Bert language models behavior. The actual instance will be able to punctuate out raw input text. 
+punctuate(query): takes raw input text in the form of a query and outputs a neat version of the text completely punctuated and perfectly readable. 
+Note: For more details in the code, please refer to my github repo, where I sourced the entire project — Conversational-API
+
+Building the Django API
+We’ll be using the Django REST Framework to build a simple API for serving our models. The  idea is to configure all the required files, including the models, routing pipes, and views, so that we can easily test the inference through forward POST and GET requests.
+
+If you need a thorough tour of doing a Django Rest project, check out my previous article on the subject: Semantic Segmentation using a Django API
+
+For the project requirements, we’ll be relying on a third-party service to store and retrieve speech generated data through our endpoints. So, Django ORM helpers and serializers will come in handy. As their documentation states, Django ORM is “a Pythonical way to create SQL to query and manipulate your database and get results in a Pythonic fashion.”
+
+Now:
+
+Create your ORM model for the TTS, ASR output;
+Create the corresponding serializers;
+Build your views (POST, DELETE) and your routing.
+# Create your models here.
+class ASRText(models.Model):
+   uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+   name = models.CharField(max_length=255,null=True, blank=True)
+   Output = models.TextField(null=True, blank=True)
+   inference_time = models.CharField(max_length=255,null=True, blank=True)
+   audio_join_Transformed = models.FileField(upload_to=get_asr_media, null=True, blank=True)
+   created_at = models.DateTimeField(auto_now_add=True)
+
+
+   class Meta:
+       verbose_name = "ASRText"
+       verbose_name_plural = "ASRTexts"
+       # ordering = ["name"]
+
+   def __str__(self):
+       return "%s" % self.name
+
+class TTSSound(models.Model):
+   uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+   name = models.CharField(max_length=255,null=True, blank=True)
+   text_content = models.TextField(null=True, blank=True)
+   audio_join = models.FileField(upload_to=get_tts_media, null=True, blank=True)
+   inference_time = models.CharField(max_length=255,null=True, blank=True)
+   created_at = models.DateTimeField(auto_now_add=True)
+Consecutively, create your views. For the sake of the example, I’ll be showing two simple POST requests that do the job for both scenarios, ASR and TTS:
+
+ASRText for ASR text instances
+TTSound for TTS audio instances
+But before actually implementing the API view, we need to instantiate model handlers in the global scope of the project, so that heavy config files and checkpoints can be loaded into memory and prepared for usage.
+
+# Load NLP and ASR Nemo alongside with Tacotron Model
+bert_punctuator = Bert_loader()
+quartznet_asr =Quartznet_loader()
+tacotron2_tts = TTS_loader()
+ASR_SAMPLING_RATE = 22050
+ASR Post request
+@api_view(['POST'])
+def asr_conversion(request):
+   data = request.FILES['audio']
+
+   audio = ASRInputSound.objects.create(audio_file=data)
+
+   file = [audio.audio_file.path]
+   start_time = time.time()
+   transcription = quartznet_asr.covert_to_text(file)
+   well_formatted = bert_punctuator.punctuate(transcription)
+
+   text = ASRText.objects.create(
+       name='ASR_Text_%02d' % uuid.uuid1(),
+       Output=well_formatted,
+       inference_time=str((time.time() - start_time)),
+       audio_join_Transformed=audio.audio_file.path
+   )
+
+   serializer = ASROutputSeralizer(text)
+   return Response(serializer.data, status=status.HTTP_200_OK)
+It gets the stored path of the audio file sent from the POST api call file = [audio.audio_file.path]. Immediately after getting the file, the quartznet instance runs inference on the latter to extract a raw transcription that gets punctuated calling the bert_punctuator.punctuate(transcription). 
+Next, the ASRText serializer gets called to save the instance object into the Database, and if it went well it outputs an HTTP success status of 200 with the formatted JSON response containing the actual transcribed output. 
+TTS POST Request
+@api_view(['POST'])
+def tts_transcription(request):
+   text = request.data.get('text')
+   tts_id = uuid.uuid1()
+   path = "Audio/tts_output_%02d.wav" % tts_id
+
+   start_time = time.time()
+   output_audio = tacotron2_tts.tts_inference(text)
+
+   write(path, int(ASR_SAMPLING_RATE), output_audio)
+   audio = TTSSound.objects.create(
+       audio_join=path,
+       name='Sound_%02d' % tts_id,
+       text_content=text,
+       inference_time=str((time.time() - start_time))
+   )
+
+   audio.save()
+   serializer = TTSOutputSerializer(audio)
+   return Response(serializer.data, status=status.HTTP_200_OK)
+The same goes with the tts_transcription post method, where we run inference on input text to generate an output audio file with a sampling rate of 22050, and we save it with the write(path) method locally in the file system. 
+
+Similarly, we return an HTTP 200 status if the request succeeded with a formatted JSON response containing the audio path.
+
+Creating iOS application to consume the service
+In this section, we’ll be creating a simple IOS application with two ViewControllers to consume the API in a fun way. 
+
+We’ll be building the application programmatically, without using a storyboard, which means no boxes or buttons to toggle — just pure code. 
+
+IOS app
+To completely remove the storyboard from the project settings, you need to follow these steps:
+
+Delete the main.storyboard file in the structure of your project.
+For Xcode 11 or later go to your info.plist file and delete the Storyboard Name attribute.
+Storyboard Name 
+Change the code residing in the SceneDelegate.swift file as follows, make the AudioViewController the main UINavigationController
+func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+       guard let windowScence = (scene as? UIWindowScene) else { return }
+      
+       window = UIWindow(frame: windowScence.coordinateSpace.bounds)
+       window?.windowScene = windowScence
+       let recordingController = AudioRecordingViewController() as AudioRecordingViewController
+       let navigationController = UINavigationController(rootViewController: recordingController)
+       navigationController.navigationBar.isTranslucent = false
+       window?.rootViewController = navigationController
+       window?.makeKeyAndVisible()
+   }
+
+Now, you’re ready to start coding your main View Controllers. 
+
+For this simple app, we’ll be presenting two screens, where each one focuses on a specific part:
+
+AudioViewController will be in charge of recording your voice and setting up the general UI with the recording buttons.
+ASRViewController will send an HTTP Post request with the audio file you’ve recorded, and receive the transcribed text. The JSON response will be parsed and the text content will be displayed. 
+Structure the Layout and UI disposition for your AudioViewContoller
+The AudioViewController has two buttons: one for recording, one for stopping the recording. There’s a final label beneath the recording button that displays a message informing the user that his voice is being recorded. 
+
+To build the view without AutoLayout, we need to set up our custom constraints on each UI element. 
+
+The following code does this:
+
+func constrainstInit(){
+   NSLayoutConstraint.activate([
+      
+       // Constraints for the Recording Button:
+       recordingButton.widthAnchor.constraint(equalToConstant: view.frame.width - 60),
+       recordingButton.heightAnchor.constraint(equalToConstant: 60),
+       recordingButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+       recordingButton.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: view.frame.height/6),
+      
+       // Constraints for the Label:
+       recordingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+       recordingLabel.topAnchor.constraint(equalTo: recordingButton.bottomAnchor, constant: 10),
+      
+       // Constraints for the Stop Recording Button:
+       stopRecordingButton.widthAnchor.constraint(equalToConstant: view.frame.width - 60),
+       stopRecordingButton.heightAnchor.constraint(equalToConstant: 60),
+       stopRecordingButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+       stopRecordingButton.topAnchor.constraint(equalTo: recordingButton.bottomAnchor, constant: 40)
+   ])
+}
+Add the layout to the main view:
+
+override func viewDidLoad() {
+   super.viewDidLoad()
+   view.backgroundColor = .white
+  
+   view.addSubview(recordingButton)
+   view.addSubview(recordingLabel)
+   view.addSubview(stopRecordingButton)
+   view.addSubview(logo)
+  
+   constrainstInit()
+}
+Audio recording logic
+For the recording part, we’ll be using the widely known AVFoundation library from UIKit which perfectly serves our purpose. 
+
+Three main functions will implement the core logic:
+
+1. recordAudio()
+Handles all the logic related to voice recording using AVAudioRecorder shared instances, and setting up the internal directory path to save the generated audio file.
+
+@objc
+func recordAudio(){
+   recordingButton.isEnabled = false
+   recordingLabel.isHidden = false
+   stopRecordingButton.isEnabled = true
+  
+   // Code for audio record:
+   let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+   let recordedFileName = "recording.wav"
+   let pathArray = [dirPath, recordedFileName]
+   let filePath = URL(string: pathArray.joined(separator: "/"))
+  
+   let recordingSession = AVAudioSession.sharedInstance()
+   try! recordingSession.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
+  
+   try! audioRecorder = AVAudioRecorder(url: filePath!, settings:  [:])
+   audioRecorder.delegate = self
+   audioRecorder.isMeteringEnabled = true
+   audioRecorder.prepareToRecord()
+   audioRecorder.record()
+  
+}
+2. stopRecording()
+Finishes the recording session and mutes the default iphone speaker to avoid any undesirable noise on top of the original record. 
+
+@objc
+func stopRecording() {
+   stopRecordingButton.isEnabled = false
+   recordingButton.isEnabled = true
+  
+   // Stop the recording and AVAudioRecord session previously active:
+   audioRecorder.stop()
+   let audioSession = AVAudioSession.sharedInstance()
+   try! audioSession.setActive(false)
+}
+
+3. audioRecorderDidFinishRecording() delegate
+Triggered when the AVAudioRecorder session ends successfully without throwing any hardware related error. It sends the path of the recorder file to the ASRViewController.
+
+func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+   if flag {
+       asrController.recorderAudioURL = audioRecorder.url
+       self.navigationController?.pushViewController(asrController, animated: true)
+   }
+   else {
+       print("Your audio was not saved")
+   }
+}
+The ASRViewController, handling the API Callbacks
+The API expects a dictionary of type [String: String]—the key being “audio”, and the value is the audio file path which is actually a string.
+
+We’ll be using Alamofire, a widely-used Swift package for handling Elegant HTTP networking with Swift. Install the package using your preferred method, I used CocoaPod.
+
+Create the parameter that will be used to send the POST request value to be encoded into the URLRequest;
+Perform the request using the Alamofire request method. Pass the API entry point, the type of method (POST in our case), and the parameters;
+Handle the API response result. If successful, we’ll parse the API response as a JSON object and extract the output text to display it. 
+func transcribeAudio() {
+   let audioFilePath = audioRecorder.url! as String
+  
+   AF.request(URL.init(string: self.apiEntryPoint)!, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: .none).responseJSON { (response) in
+      
+   switch response.result {
+       case .success(let value):
+               if let JSON = value as? [String: Any] {
+                   let trasncribedText = JSON["Output"] as! String
+               }
+           break
+       case .failure(let error):
+           print(error)
+           break
+       }
+   }
+}
+Results
+For the following audio file: Sample ASR, we obtain the resulting JSON response from the API call:
+
+
+Conclusion
+Okay, this was a general overview of the whole project. From building a backend API to serve our deep learning models, to a small application that consumes the services in a fun and simple way. I strongly recommend you to check the Github repos for more in-depth insights:
+
+Github repo for the IOS app: IOS-Conversational-AI
+Github repo for the API: Conversational-AI API
+As you can see, speech synthesis and speech recognition are very promising, and they will keep improving until we reach stunning results. 
+
+Conversational AI is getting closer to seamlessly discussing intelligent systems, without even noticing any substantial difference with human speech.
+
+I’ll leave you with a few more resources if you want to do some digging:
+
+SPEECH RECOGNITION BY SIMPLY FINE-TUNING BERT
+Colorizing Images in an iOS App Using DeOldify and a Flask API
+NVIDIA NeMo: Neural Modules and Models for Conversational AI
+Thanks for reading!
+
+Aymane Hachcham
+Aymane Hachcham
+Data Scientist at Spotbills | Machine Learning enthusiast.
+
+Follow me on
+READ NEXT
+
+ML Experiment Tracking: What It Is, Why It Matters, and How to Implement It
+Jakub Czakon | Posted November 26, 2020
+
+Let me share a story that I’ve heard too many times.
+
+”… We were developing an ML model with my team, we ran a lot of experiments and got promising results…
+
+…unfortunately, we couldn’t tell exactly what performed best because we forgot to save some model parameters and dataset versions…
+
+…after a few weeks, we weren’t even sure what we have actually tried and we needed to re-run pretty much everything”
+
+– unfortunate ML researcher.
+
+And the truth is, when you develop ML models you will run a lot of experiments.
+
+Those experiments may:
+
+use different models and model hyperparameters
+use different training or evaluation data, 
+run different code (including this small change that you wanted to test quickly)
+run the same code in a different environment (not knowing which PyTorch or Tensorflow version was installed)
+
+And as a result, they can produce completely different evaluation metrics. 

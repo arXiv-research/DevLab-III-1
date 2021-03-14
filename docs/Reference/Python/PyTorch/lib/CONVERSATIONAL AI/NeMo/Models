@@ -1,0 +1,70 @@
+These are amazing ecosystems to help with Automatic Speech Recognition (ASR), Natural Language Processing (NLP), and Text to speech (TTS).
+
+NeMo
+NVIDIA NeMo is a toolkit for building new State-of-the-Art Conversational AI models. NeMo has separate collections for Automatic Speech Recognition (ASR), Natural Language Processing (NLP), and Text-to-Speech (TTS) models. Each collection consists of prebuilt modules that include everything needed to train on your data. Every module can easily be customized, extended, and composed to create new Conversational AI model architectures.
+
+Conversational AI architectures are typically very large and require a lot of data and compute for training. NeMo uses PyTorch Lightning for easy and performant multi-GPU/multi-node mixed-precision training.
+
+NOTE
+
+Every NeMo model is a LightningModule that comes equipped with all supporting infrastructure for training and reproducibility.
+
+NeMo Models
+NeMo Models contain everything needed to train and reproduce state of the art Conversational AI research and applications, including:
+
+neural network architectures
+
+datasets/data loaders
+
+data preprocessing/postprocessing
+
+data augmentors
+
+optimizers and schedulers
+
+tokenizers
+
+language models
+
+NeMo uses Hydra for configuring both NeMo models and the PyTorch Lightning Trainer. Depending on the domain and application, many different AI libraries will have to be configured to build the application. Hydra makes it easy to bring all of these libraries together so that each can be configured from .yaml or the Hydra CLI.
+
+NOTE
+
+Every NeMo model has an example configuration file and a corresponding script that contains all configurations needed for training.
+
+The end result of using NeMo, Pytorch Lightning, and Hydra is that NeMo models all have the same look and feel. This makes it easy to do Conversational AI research across multiple domains. NeMo models are also fully compatible with the PyTorch ecosystem.
+
+Installing NeMo
+Before installing NeMo, please install Cython first.
+
+pip install Cython
+For ASR and TTS models, also install these linux utilities.
+
+apt-get update && apt-get install -y libsndfile1 ffmpeg
+Then installing the latest NeMo release is a simple pip install.
+
+pip install nemo_toolkit[all]==1.0.0b1
+To install the main branch from GitHub:
+
+python -m pip install git+https://github.com/NVIDIA/NeMo.git@main#egg=nemo_toolkit[all]
+To install from a local clone of NeMo:
+
+./reinstall.sh # from cloned NeMo's git root
+For Docker users, the NeMo container is available on NGC.
+
+docker pull nvcr.io/nvidia/nemo:v1.0.0b1
+docker run --runtime=nvidia -it --rm -v --shm-size=8g -p 8888:8888 -p 6006:6006 --ulimit memlock=-1 --ulimit stack=67108864 nvcr.io/nvidia/nemo:v1.0.0b1
+Experiment Manager
+NeMo’s Experiment Manager leverages PyTorch Lightning for model checkpointing, TensorBoard Logging, and Weights and Biases logging. The Experiment Manager is included by default in all NeMo example scripts.
+
+exp_manager(trainer, cfg.get("exp_manager", None))
+And is configurable via .yaml with Hydra.
+
+exp_manager:
+    exp_dir: null
+    name: *name
+    create_tensorboard_logger: True
+    create_checkpoint_callback: True
+Optionally launch Tensorboard to view training results in ./nemo_experiments (by default).
+
+tensorboard --bind_all --logdir nemo_experiments

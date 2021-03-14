@@ -1,0 +1,141 @@
+Everything needed to train Convolutional ASR models is included with NeMo. NeMo supports multiple Speech Recognition architectures, including Jasper and QuartzNet. NeMo Speech Models can be trained from scratch on custom datasets or fine-tuned using pre-trained checkpoints trained on thousands of hours of audio that can be restored for immediate use.
+
+Some typical ASR tasks are included with NeMo:
+
+Audio transcription
+
+Byte Pair/Word Piece Training
+
+Speech Commands
+
+Voice Activity Detection
+
+Speaker Recognition
+
+See this asr notebook for a full tutorial on doing ASR with NeMo, PyTorch Lightning, and Hydra.
+
+Specify ASR Model Configurations with YAML File
+NeMo Models and the PyTorch Lightning Trainer can be fully configured from .yaml files using Hydra.
+
+See this asr config for the entire speech to text .yaml file.
+
+# configure the PyTorch Lightning Trainer
+trainer:
+    gpus: 0 # number of gpus
+    max_epochs: 5
+    max_steps: null # computed at runtime if not set
+    num_nodes: 1
+    distributed_backend: ddp
+    ...
+# configure the ASR model
+model:
+    ...
+    encoder:
+        cls: nemo.collections.asr.modules.ConvASREncoder
+        params:
+            feat_in: *n_mels
+            activation: relu
+            conv_mask: true
+
+        jasper:
+            - filters: 128
+            repeat: 1
+            kernel: [11]
+            stride: [1]
+            dilation: [1]
+            dropout: *dropout
+            ...
+    # all other configuration, data, optimizer, preprocessor, etc
+    ...
+Developing ASR Model From Scratch
+speech_to_text.py
+
+# hydra_runner calls hydra.main and is useful for multi-node experiments
+@hydra_runner(config_path="conf", config_name="config")
+def main(cfg):
+    trainer = Trainer(**cfg.trainer)
+    asr_model = EncDecCTCModel(cfg.model, trainer)
+    trainer.fit(asr_model)
+Hydra makes every aspect of the NeMo model, including the PyTorch Lightning Trainer, customizable from the command line.
+
+python NeMo/examples/asr/speech_to_text.py --config-name=quartznet_15x5 \
+    trainer.gpus=4 \
+    trainer.max_epochs=128 \
+    +trainer.precision=16 \
+    model.train_ds.manifest_filepath=<PATH_TO_DATA>/librispeech-train-all.json \
+    model.validation_ds.manifest_filepath=<PATH_TO_DATA>/librispeech-dev-other.json \
+    model.train_ds.batch_size=64 \
+    +model.validation_ds.num_workers=16 \
+    +model.train_ds.num_workers=16
+NOTE
+
+Training NeMo ASR models can take days/weeks so it is highly recommended to use multiple GPUs and multiple nodes with the PyTorch Lightning Trainer.
+
+Using State-Of-The-Art Pre-trained ASR Model
+Transcribe audio with QuartzNet model pretrained on ~3300 hours of audio.
+
+quartznet = EncDecCTCModel.from_pretrained('QuartzNet15x5Base-En')
+
+files = ['path/to/my.wav'] # file duration should be less than 25 seconds
+
+for fname, transcription in zip(files, quartznet.transcribe(paths2audio_files=files)):
+    print(f"Audio in {fname} was recognized as: {transcription}")
+To see the available pretrained checkpoints:
+
+EncDecCTCModel.list_available_models()
+NeMo ASR Model Under the Hood
+Any aspect of ASR training or model architecture design can easily be customized with PyTorch Lightning since every NeMo model is a Lightning Module.
+
+class EncDecCTCModel(ASRModel):
+    """Base class for encoder decoder CTC-based models."""
+...
+    @typecheck()
+    def forward(self, input_signal, input_signal_length):
+        processed_signal, processed_signal_len = self.preprocessor(
+            input_signal=input_signal, length=input_signal_length,
+        )
+        # Spec augment is not applied during evaluation/testing
+        if self.spec_augmentation is not None and self.training:
+            processed_signal = self.spec_augmentation(input_spec=processed_signal)
+        encoded, encoded_len = self.encoder(audio_signal=processed_signal, length=processed_signal_len)
+        log_probs = self.decoder(encoder_output=encoded)
+        greedy_predictions = log_probs.argmax(dim=-1, keepdim=False)
+        return log_probs, encoded_len, greedy_predictions
+
+    # PTL-specific methods
+    def training_step(self, batch, batch_nb):
+        audio_signal, audio_signal_len, transcript, transcript_len = batch
+        log_probs, encoded_len, predictions = self.forward(
+            input_signal=audio_signal, input_signal_length=audio_signal_len
+        )
+        loss_value = self.loss(
+            log_probs=log_probs, targets=transcript, input_lengths=encoded_len, target_lengths=transcript_len
+        )
+        wer_num, wer_denom = self._wer(predictions, transcript, transcript_len)
+        tensorboard_logs = {
+            'train_loss': loss_value,
+            'training_batch_wer': wer_num / wer_denom,
+            'learning_rate': self._optimizer.param_groups[0]['lr'],
+        }
+        return {'loss': loss_value, 'log': tensorboard_logs}
+Neural Types in NeMo ASR
+NeMo Models and Neural Modules come with Neural Type checking. Neural type checking is extremely useful when combining many different neural network architectures for a production-grade application.
+
+@property
+def input_types(self) -> Optional[Dict[str, NeuralType]]:
+    if hasattr(self.preprocessor, '_sample_rate'):
+        audio_eltype = AudioSignal(freq=self.preprocessor._sample_rate)
+    else:
+        audio_eltype = AudioSignal()
+    return {
+        "input_signal": NeuralType(('B', 'T'), audio_eltype),
+        "input_signal_length": NeuralType(tuple('B'), LengthsType()),
+    }
+
+@property
+def output_types(self) -> Optional[Dict[str, NeuralType]]:
+    return {
+        "outputs": NeuralType(('B', 'T', 'D'), LogprobsType()),
+        "encoded_lengths": NeuralType(tuple('B'), LengthsType()),
+        "greedy_predictions": NeuralType(('B', 'T'), LabelsType()),
+    }

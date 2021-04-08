@@ -1,0 +1,169 @@
+4.1 Adversarial Attacks of Neural Network Policies applied to the
+environment
+
+To improve the robustness of an agent to unknown situations and uncertainty in
+the environment, we propose a new approach which uses adversarial attacks of
+Neural networks to disturb the environment, by modifying the state s of envi-
+ronment rather that the observation x as done by existing approaches. The goal
+is to perform an adversarial training of the protagonist agent against focused
+disturbances in the environment, hence improving the robustness of the agent’s
+policy to changes in the environment. A scheme of the adversarial training pro-
+cess of an RL agent against adversarial attacks of neural network is shown in
+Figure 1. ( see Figure 1.)
+
+The principle of our method is to use an adversarial attack of neural networks
+method Att, which generates an adversarial observation x
+0 = Att(x, π(x)). Then
+instead of giving x
+0
+to the agent, use a environment modifier function M which
+uses the adversarial observation x
+0
+to modify the environment in a manner that
+the state of the environment s actually changes to a state s
+0 = M(x
+0
+), with
+s
+0 ' x
+0
+. The function M that does the modification of the environment shall
+modify the environment in a realistic manner, such as the perturbed state s
+0
+is
+still a valid state of the environment s
+0 ∈ S.
+
+The method we propose thus allows to use any existing adversarial attack
+methods of neural networks to define disturbances in the environment. To do
+so, we need to focus on environments with observation spaces which are mapped
+to features spaces that one can manipulate from disturbances crafted from ob-
+servations. This thus requires to know the mapping function from observations
+to features from the environment. in the following, for simplicity purposes, we
+discuss about environments with direct one to one connections between observa-
+tions and features of the environment but this could be easily extended to more
+complicated mapping functions to include in M.
+
+4.2 Meaningful Adversarial Attacks applied to the environment
+Applying adversarial attack method on neural network policies are used to
+change agents decisions by perturbing its inputs, these methods are designed
+to fool classifiers, which is the same thing as fooling an RL agents by perturbing
+its observations. In our case of adversarial attacks applied to the environment,
+our goal is not to make the decision of the agent change by providing an adver-
+sarial observation. Rather, our goal is to create disturbance in the environment
+via adversarial attack methods to generate meaningful disturbance in the envi-
+ronment. in the following, we first discuss of an approach based on the Actor
+network, which presents limitations, that we overcome with the second approach
+based on the Critic network of the protagonist, that corresponds our main con-
+tribution.
+
+Attacking the Actor Neural Network The first method we propose is to
+generate adversarial examples by attacking the Actor Neural Network of an agent
+with discrete action space. As done in works crafting attacks on observations
+given an actor policy [], we seek at crafting a perturbation δx of x that minimizes
+the probability of the dominant action. The principle is to leverage the Jacobian
+matrix of the function learned by the actor network.
+
+Consider the Actor Network πθ, and denote by Π(x) its logit outputs. Πaj
+(x)
+is the value of the action aj in the output given the input x and aj ∈ A the
+different possible actions. To craft an adversarial example x
+0
+from a given input
+x at a distance of ||x
+0 − x|| = ε, we first define a perturbation map H, based on
+the jacobian ∇xΠ(x), as:
+H[i] =
+
+
+X
+aj 6=ad
+aj∈A
+∂Πaj
+(x)
+∂xi
+
+ −
+
+∂Πad
+(x)
+∂xi
+
+(1)
+where ad = argmax
+a∈A
+πθ(a|x) is the preferred action for πθ in x.
+Assuming local smoothness of the actor function, this allows to generate the
+normalized perturbation η as:
+η =
+ε
+||H||H (2)
+Then, η is used to create the adversarial observation x
+0
+:
+x
+0 = x + η (3)
+
+Finally, the idea is to modify the environment to set the current state to
+s
+0 = M(x
+0
+). Given this process, x
+0
+is an observation which reduces the probability
+of the chosen action a and increases the probability of all other actions. s
+0
+is thus
+a state in which the agent is less confident in the dominant action. During the
+adversarial learning procedure, this lean the sampling process toward less known
+situations, possibly outside the original space of reachable states S˜ ⊂ S, with
+greater uncertainty of the agent. However, attacking the actor does not allow
+to choose the state modification with a long term disturbance feedback. It only
+looks at punctual decision modifications, while an attack that would consider
+the expected cumulative reward could be more efficient. For this purpose, we
+propose a second approach below.
+Attacking the Critic Neural Network The second method we propose is to
+produce the attack on the base of the Critic Neural Network, used for example in
+the PPO algorithm, which carries more long term knowledge than the actor. The
+output of this neural network is a single scalar, which is an approximation of the
+discounted sum of the future expected rewards starting from this observation,
+V (xt) = E[
+P∞
+t=0 γ
+t
+r(st, at)]. The method relies on the Jacobian matrix of this
+output with respect to inputs to generate perturbations. The goal of this attack
+is to decrease the value of the output of the neural network given an observation,
+by adding perturbations which are to the opposite of the normalized Jacobian
+matrix.
+Consider the Critic Neural Network and denote by V (x) the output of the
+neural network. To craft an adversarial example x
+0
+from a given input x at a
+distance of ||x
+0 − x|| = ε , our method first computes the gradient ∇V (x) which
+is the Jacobian matrix of the neural network with respect to the input, and then
+generates the perturbation η
+η =
+ε
+||∇V (x)||∇V (x) (4)
+Then, to decrease the value of the output of the critic network, we generate the
+adversarial example x
+0 as :
+x
+0 = x − η (5)
+Assuming local smoothness of the critic function, this method creates an
+adversarial example x
+0
+for which the V (x
+0
+) is worse, thus being likely to allow
+for a lower expected cumulative reward according to the current actor policy.
+For instance in autonomous driving systems, where the goal of the agent is to
+survive as long as possible without having an accident, a lower critic value is
+likely to correspond to a dangerous situation, while a higher value is safer. So
+by modifying the environment current state to s
+0 = M(x
+0
+), it creates unwanted
+and dangerous situations for the agent.

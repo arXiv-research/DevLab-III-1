@@ -1,0 +1,36 @@
+Deep Reinforcement Learning (DRL) is widely used to train autonomous agents
+in many different contexts. Autonomous agents trained with these methods
+can be very efficient and reach super-human level for the targeted task they
+were trained for [14,5]. However, when the environment conditions change, even
+slightly, the agent performances can drop dramatically. These issues can be ob-
+served, for instance, when going from the simulation to the real world. One of
+the main challenges in autonomous systems is to obtain policies that are robust
+to disturbances and changes in the environment, in particular to resolve problem
+of the gap between the simulation and real world.
+
+To improve robustness of autonomous agent policies, a line of approaches
+focus on Adversarial Reinforcement Learning methods (AdvRL), in particular
+on methods formulated as two-player games between a protagonist agent, which
+learns to perform a task, and an adversary, which learns to generate efficient
+disturbances in the environment to defeat the protagonist. The goal is to train
+the protagonist agent to become more resistant to the disturbances generated
+by the adversary agent, assuming that this can generalize in slightly different,
+possibly more complex, environments in which it can be deployed. In this paper,
+we propose a new approach which is to rely on Adversarial Attacks of Neural
+Networks, and in particular based on the Critic Network of the protagonist agent,
+to generate meaningful disturbances in the environment, without having to train
+an adversary agent.
+
+Our contribution is :
+– Applying adversarial attacks of neural networks to generate disturbances in
+the environment.
+
+– Using the gradient of the Critic Network to generate meaningful distur-
+bances.
+
+– Showing the efficiency of our approach in comparison to existing methods of
+the literature which generates disturbances in the environment.
+
+– Showing the benefits of attacking the environment rather than attacking
+observations with adversarial attacks of neural networks, to improve the
+robustness of the policy.

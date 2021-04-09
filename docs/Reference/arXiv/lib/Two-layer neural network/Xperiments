@@ -1,0 +1,25 @@
+Setting In order to verify our theoretical findings, we ran some experiments to measure
+empirically the values of k∇f(x)k and the probability of finding an adversarial example in
+that direction. More precisely, we take a random point x of norm √
+d and initialize a network
+using the procedure described in Section 1. We then find the smallest η such that a gradient
+step η∇f(x) changes the sign of the function. η is of the opposite sign of f(x) and we limit
+our search to |η| < 20. We explore various values of d and k. We also consider deeper
+networks with L = 1 through L = 6 hidden layers. All the hidden layers are of width k.
+Results Figure 1a shows the average of the smallest η required to switch the sign of
+the function. We note that the average only includes cases where an η was indeed found.
+Figure 1b shows the gradient norm in x (all cases included). As we see, both the smallest
+η and the gradient norm are approximately constant both in d and in k. This finding also
+holds for deeper networks (see Appendix A). In Figure 2, we show the fraction of examples
+(out of 10, 000 samples) whose sign is switched for |η| < 20. We see that with L = 1 and
+values of d and k larger than 50, 100% of samples are switched. This confirms our theoretical
+results. Additionally, we also observe that for deeper networks, the same statement holds.
+The values of d and k at which 100% switching is reached appears to grow with L
+1
+.
+
+Acknowledgments:
+
+We thank Mark Sellke for pointing out to us the reference Ben Arous et al. [2020], and Peter
+Bartlett for several discussions on this problem.
+1Due to GPU memory limitations, k could not reach 1,000,000 for deeper networks.

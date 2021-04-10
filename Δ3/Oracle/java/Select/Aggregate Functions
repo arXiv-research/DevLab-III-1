@@ -1,0 +1,11 @@
+Aggregate Functions
+Name	Description
+AVG	Calculates the average
+COUNT(x)	Returns the number of rows returned by a query involving x
+MAX	Returns the maximum value
+MEDIAN	Returns the median value
+MIN	Returns the minimum value
+STDDEV	Returns the standard deviation
+SUM	Returns the sum
+VARIANCE	Returns the variance
+Incorrect Usage of Aggregate Functions

@@ -1,0 +1,21 @@
+What is Self-Supervised Learning?
+Self-Supervised Learning is a relatively new approach in Machine Learning, mainly applied in Computer Vision and Natural Language Processing. These fields require large datasets to learn a task, but as I discussed earlier, it is expensive to obtain a clean labeled large dataset.
+
+Large amounts of unlabeled data are generated every day – tweets, Instagram posts, and many others. The idea of Self-Supervised Learning is to take advantage of all the available data. The learning task is constructed from a supervised problem using unlabeled data. The key is that the labels for the supervised task are a subset of the input. In other words, the data is transformed so that a piece of the input is used as the label and the model’s objective is to predict the missing piece of the input. This way, the data is supervising itself.
+
+There are different ways to transform input data. A simple one is through rotation. As depicted in figure 2, a transformation is applied to each input image. The modified image is input for the model, and the applied rotation is the target to predict. To predict different rotations for the same image, the model must learn to recognize high-level image semantics – such as sky, terrain, heads, eyes, and the relative position of these parts.
+
+Self-Supervised Learning
+Figure 3: Illustration of Self-Supervised Learning using rotation of the input image. The model learns to predict the applied rotation.
+In conclusion, the performance of the model predicting the rotation of the image is irrelevant; it is just a means to an end. While solving the rotation prediction task, the model implicitly learns a generally good understanding of images. In the context of language models, an initial objective could be to predict the next word in the text. Through this task, the model already learns the structure of a language. This part of the model can be extracted and further used for a more specialized task using Supervised Learning. The benefit is that the model already learned a broad understanding and doesn’t need to start from scratch to learn a task.
+
+Use Case
+Speech recognition models can translate human speech into text. It is used in many services, most prominently in home-assistance systems like Alexa.
+
+In a Self-Supervised setting, unlabeled data (for example, audiobooks) can be used for pretraining. Through an auxiliary task, the model learns a broad understanding of speech and language. That part of the model is extracted and combined with Supervised Learning techniques. Hence, Self-Supervised Learning can be used to improve the performance of Supervised Learning approaches.
+
+Frameworks
+Few frameworks provide access to Self-Supervised Learning models. PyTorch, e.g., provides pre-trained models that can be used for Computer Vision tasks. Besides that, the models can be reproduced – but that is quite a challenging task and can be costly.
+
+Considerations
+Recent papers show promising results, but they are often focusing on one area. For instance, Self-Supervised Learning is yielding provable improvements for image classification. Translating the progress to object detection, however, has shown to be quite tricky and not straightforward. Nevertheless, the approaches and improvements are exciting.

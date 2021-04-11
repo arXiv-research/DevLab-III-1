@@ -1,0 +1,1 @@
+mp.spawn(self.ddp_train, nprocs=self.num_processes, args=(model, ))

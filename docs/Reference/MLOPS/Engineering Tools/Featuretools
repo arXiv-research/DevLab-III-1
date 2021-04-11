@@ -1,0 +1,116 @@
+One of the most popular libraries for automated feature engineering. It supports a lot of functionalities, including:
+
+feature selection, 
+feature construction, 
+using relational databases to create new features,
+etc.
+Apart from these it provides a whole lot of primitives, which are basic transformations using, max, sum, mode, and so on. These are useful operations. Say you have to find the mean time between events from a log file, you can use the primitives to do that.
+
+But one of the most important aspects of featuretools is that it uses deep feature synthesis (DFS) to construct features. 
+
+Let’s understand what DFS is. This algorithm needs entities. Think of entities as multiple interconnected data tables. Then it stacks primitives, and performs transformations on the columns. 
+
+These operations can mimic the kind of transformations that humans do. The length of the stack of primitives is considered as the depth, hence the name deep feature synthesis. Let’s understand with an example:
+
+Example of DFS
+Fig. 1 – An example of DFS in action | Source
+In this figure, you can see we start with the column where price is defined for “ProductID”. The first operation connects the existing table to the table with “OrderID”. Now, all the “OrderID”s are unique in the next transformation while ‘sum’ primitive is used and “CustomerID” are picked from another table for each respective “OrderID”. And in the third transformation, “OrderID”s are removed and “CustomerID”s are made unique, using the average operation which gives an average price for each customer. Here, DFEAT are the direct features and RFEAT are the relational features.
+
+This is a great library to create baseline models, it can mimic what humans do manually. Once the baseline is achieved you would know the direction you want to move in.
+
+Let’s solve one example using DFS to understand the Featuretools API:
+
+import featuretools as ft
+es = ft.demo.load_retail()
+print(es)
+
+ 
+Entityset: demo_retail_data
+  Entities:
+    order_products [Rows: 1000, Columns: 7]
+    products [Rows: 606, Columns: 3]
+    orders [Rows: 67, Columns: 5]
+    customers [Rows: 50, Columns: 2]
+  Relationships:
+    order_products.product_id -> products.product_id
+    order_products.order_id -> orders.order_id
+    orders.customer_name -> customers.customer_name
+I loaded the load_retail data from Featuretools. Now that we have the entity set, let’s apply DFS and get some new features:
+
+feature_matrix, feature_defs = ft.dfs(entityset=es,
+                                      target_entity="orders",
+                                      agg_primitives=["sum", "mean"],
+                                      max_depth=3)
+print(feature_matrix)
+target_entity argument defines for which entity we would create new features. And agg_primitives are the transformations which will be applied. More depth means more features. You can use feature selection after this to find the best features.
+
+Featuretools is by far the best feature engineering tool I’ve come across. There are many papers on various different methods, but most of them don’t have open source code implemented yet.
+
+AutoFeat
+Autofeat is another good feature engineering open-source library. It automates feature synthesis, feature selection, and fitting a linear machine learning model. 
+
+The algorithm behind Autofeat is quite simple. It generates non-linear features, for example log(x), x2, or x3. And different operands are used like negative, positive and decimals, while creating the feature space. This results in exponential growth in the feature space. The categorical features are converted into one-hot encoded features.
+
+Now that we have so many features, it’s necessary to select important features. First Autofeat removes the highly correlated features, so now it relies on L1 regularization and removes the feature with low coefficient(features with low weights after training linear/logistic regression with L1 regularization). This process of selecting correlated features and removing the features with L1 regularization is repeated several times until only a few features are left. These features are selected through this iterative process which actually describes the dataset.
+
+Refer to the notebook in this link for an example of AutoFeat.
+
+TSFresh
+TSFresh
+Next on our list is TSFresh, a library focused on time series data. It includes both feature synthesis and feature selection. The library contains more than 60 feature extractors. These operations include Global Maximum, Standard Deviation, Fast Fourier transformation, etc. The transformations can turn 6 original features to 1200 features. Which is why a feature selector is also given in the library, which removes the redundant features. The library is really useful for time series data.
+
+You can find a good quick start in the documentation.
+
+FeatureSelector
+Feature Selector is a Python library for feature selection. It’s a small library with pretty basic options. It identifies feature importance based on missing values, single unique values, collinear features, zero importance and low importance features. It uses tree-based learning algorithms from ‘lightgbm’ for calculating feature importance. The library also includes a number of visualization methods, which can help you get more insights about the dataset.
+
+Here’s a link to the example code for the library.
+
+OneBM
+OneBM, or One Button Machine, works with relational data. It starts by joining different tables incrementally, and identifies the type of features, for example time series, categorical, or numerical. Then it applies a set of pre-defined feature engineering operations.
+
+The downside is that there is no open-source implementation for OneBM.
+
+Cognito
+Promising in theory, but unfortunately no open-source code available. The concept here is quite similar to TSFresh, it applies a bunch of transformations recursively on features. When this exponentially increases the dimension of data, feature selection is used.
+
+Comparison
+To finish, let’s compare these libraries so you can see which will fit your work:
+
+Tools/Measures	Support for Type of Databases	Feature Engineering	Feature Selection	Open Source Implementation	Support for Time Series
+Featuretools	Relational Tables	Yes	Yes	Yes	Yes
+AutoFeat	Single Table	Yes	Yes	Yes	No
+TSFresh	Single Table	Yes	Yes	Yes	Yes
+FeatureSelector	Single Table	No	Yes	Yes	No
+OneBM	Relational Tables	Yes	Yes	No	Yes
+Cognito	Single Table	Yes	Yes	No	No
+
+Featuretools can fulfill most of your requirements. TSFresh works specifically on time series data, so I would prefer to use it while working with such datasets. 
+
+
+
+
+Conclusions
+I hope that now you understand feature engineering, and know which tools you want to try out next. 
+
+Feature engineering is still one of those problems that are hard to automate. Even though there are libraries, the best results are achieved when features are engineered manually. Feature engineering is usually the least discussed problem, but it’s a really important one. 
+
+It’s difficult to understand the underlying descriptions of features that predictive models understand. Autoencoders and restricted boltzmann machines are a step towards understanding the features that models understand. The future will surely bring interesting developments in this area.
+
+Here are some additional resources for you to check out:
+
+Papers
+DFS: http://groups.csail.mit.edu/EVO-DesignOpt/groupWebSite/uploads/Site/DSAA_DSM_2015.pdf
+Autofeat: https://arxiv.org/pdf/1901.07329.pdf
+TSFresh: 
+https://arxiv.org/pdf/1610.07717.pdf
+https://www.sciencedirect.com/science/article/pii/S0925231218304843?via%3Dihub
+OneBM: https://arxiv.org/pdf/1706.00327.pdf
+
+
+Code
+
+Featuretools: https://github.com/alteryx/featuretools
+AutoFeat: https://github.com/cod3licious/autofeat
+TSFresh: https://github.com/blue-yonder/tsfresh
+FeatureSelector: https://github.com/WillKoehrsen/feature-selector

@@ -1,0 +1,36 @@
+The starting point of the proof for both the smooth and ReLU case is to show (2) and (3),
+which we essentially do below in Section 1.4. In the smooth case, one could then prove
+formally (4) and conclude as indicated in the last paragraph of Section 1.2. Of course, (4) is
+simply ill-defined for the ReLU case, so one has to take a different route there. Instead we
+propose to directly prove (6), that is we study the difference of gradients at the mesoscopic
+scale. Using that khk = supv∈S
+d−1 v · h, we thus need to control (for some R = o(
+√
+d)):
+sup
+δ∈Rd:kδk≤R
+k∇f(x)−∇f(x+δ)k = sup
+v∈S
+d−1
+,
+δ∈Rd:kδk≤R
+1
+√
+k
+X
+k
+`=1
+a`(w`
+·v)(ψ
+0
+(w`
+·x)−ψ
+0
+(w`
+·(x+δ))). (7)
+
+We execute this strategy first for the smooth case in Section 2. We then prove the ReLU
+case in Section 3, where we face an extraneous difficulty since the gradient is not Lipschitz at
+very small scale, which introduces a third scale (the microscopic scale) that has to be dealt
+with differently. Technically, this issue appears when we try to move from the discretization
+over v and δ in (7) to the whole space (a so-called ε-net argument).

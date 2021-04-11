@@ -1,0 +1,257 @@
+In this section, we consider a 1-Lipschitz and L-smooth activation function, that is for all
+s, t ∈ R,
+|ψ(s) − ψ(t)| ≤ |s − t| and |ψ
+0
+(s) − ψ
+0
+(t)| ≤ L|s − t| . (10)
+We also assume ψ(0) = 0 and denote c
+2
+ψ = EX∼N (0,1)[(ψ
+0
+(X))2
+] which we assume to be
+non-zero (that is ψ is not a constant function).
+Lemma 5 Under the above assumptions, one has with probability at least 1 − γ,
+|f(x)| ≤ p
+2 log(1/γ)
+ 
+1 + r
+log(2/γ)
+k
+!
+,
+and
+k∇f(x)k ≥ 
+c
+2
+ψ −
+r
+2 log(4/γ)
+k
+ 
+1 + r
+log(4/γ)
+k
+!!1/2 
+1 − 5
+r
+log(8/γ)
+d
+!
+Proof. With the assumptions we have |ψ(X)| ≤ |X| and thus in Lemma 2 we can take
+σ = c = 1 which yields the first claimed equation. For the second equation we use that
+|ψ
+0
+(X)| ≤ 1 (since ψ is 1-Lipschitz) and thus, in Lemma 4, we can also take σ
+0 = c
+0 = 1
+which yields the second claimed equation. 
+Next we need to control (7) where we use crucially the smoothness of the activation
+function.
+Lemma 6 Fix δ ∈ R
+d
+such that kδk ≤ R and v ∈ S
+d−1
+. Then with probability at least 1 − γ
+one has:
+1
+√
+k
+X
+k
+`=1
+a`(w`
+· v)(ψ
+0
+(w`
+· x) − ψ
+0
+(w`
+· (x + δ))) ≤
+4RL
+d
+p
+log(1/γ)
+ 
+1 + r
+log(1/γ)
+k
+!
+.
+Proof. We apply Bernstein’s inequality with X` =
+a`
+L
+(w`
+· v)(ψ
+0
+(w`
+· x) − ψ
+0
+(w`
+· (x + δ)).
+We have E[X`
+] = 0 and (by smoothness of ψ)
+E[|X`
+|
+q
+] ≤ E[|w`
+· v|
+q
+|w`
+· δ|
+q
+] ≤
+p
+E[|w`
+· v|
+2q
+]E[|w`
+· δ|
+2q
+]
+=
+kδk
+q
+d
+q
+EX∼N (0,1)[|X|
+2q
+] ≤ (2q − 1)!! 
+R
+d
+q
+≤
+q!
+2
+
+2R
+d
+q
+.
+Thus we can apply Bernstein with σ = c =
+2R
+d which yields the claimed bound. 
+Lemma 7 Let R ≥ 1. With probability at least 1 − γ one has
+sup
+v∈S
+d−1,δ∈Rd:δ≤R
+1
+√
+k
+X
+k
+`=1
+a`(w`
+·v)(ψ
+0
+(w`
+·x)−ψ
+0
+(w`
+·(x+δ))) ≤ 20RL r
+log(k/γ)
+d
++
+log(1/γ)
+√
+k
+!
+
+Proof. Denote Φ(v, δ) = √
+1
+k
+Pk
+`=1 a`(w`
+· v)(ψ
+0
+(w`
+· x) − ψ
+0
+(w`
+· (x + δ))). In Lemma
+6, we controlled Φ(v, δ) for a fixed v and δ. We now want to control it uniformly over
+Ω = {(v, δ) : kvk = 1, kδk ≤ R}. To do so, we apply an union bound over an ε-net for Ω,
+denote it Nε, whose size is then at most (10R/ε)
+2d
+. In particular; we obtain with probability
+at least 1 − γ:
+sup
+(v,δ)∈Ω
+Φ(v, δ) ≤ sup
+(v,δ)∈Nε
+Φ(v, δ) + sup
+(v,δ),(v
+0
+,δ0)∈Ω:kv−v
+0k+kδ−δ
+0k≤ε
+|Φ(v, δ) − Φ(v
+0
+, δ0
+)|
+≤
+4RL
+d
+p
+2d log(10/ε) + log(1/γ)
+ 
+1 + r
+2d log(10/ε) + log(1/γ)
+k
+!
++ ε × Lip(Φ). (11)
+Thus, it only remains to estimate the Lipschitz constant of the mapping Φ. To do so, note
+that for any δ, δ0
+,
+|Φ(δ, v) − Φ(δ
+0
+, v)| ≤ Lkδ − δ
+0k
+√
+k
+X
+k
+`=1
+kw`k
+2
+,
+and similarly for any v, v0
+,
+|Φ(δ, v) − Φ(δ, v0
+)| ≤ RLkv − v
+0k
+√
+k
+X
+k
+`=1
+kw`k
+2
+.
+Using (8), we have with probability at least 1 − γ that
+X
+k
+`=1
+kw`k
+2 ≤ k + 4r
+k log(1/γ)
+d
+. (12)
+Thus with see that with probability at least 1 − γ,
+Lip(Φ) ≤ RL 
+√
+k + 4r
+log(1/γ)
+d
+!
+.
+Combining this with (11) concludes the proof (by taking ε = 1/k and with straightforward
+algebraic manipulations). 
+
+Finally we can turn to the proof of Theorem 1:
+Proof.[of Theorem 1] We make the following claims which hold with probability at least
+1 − γ. With the assumptions on k, d and η, Lemma 5 shows that |f(x)| ≤ 0.1|η| and
+k∇f(x)k ≥ c for some small constant c > 0. Moreover Lemma 7 shows that for all δ such
+that kδk ≤ |η|/k∇f(x)k we have k∇f(x) − ∇f(x + δ)k ≤ c/10. Thus Lemma 1 easily allows
+us to conclude (using in particular that f(x)(f(x) + η) < 0).

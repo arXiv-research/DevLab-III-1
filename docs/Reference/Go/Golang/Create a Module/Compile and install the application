@@ -1,0 +1,29 @@
+In the last section, you'll learn a new go command. While the go run command is a useful shortcut for compiling and running a single-file program, it doesn't generate a binary executable you can easily run again. If you want one of those, a good choice is to run the go install command, which compiles your code and installs the resulting binary executable where you can run it.
+
+Note: This topic is part of a multi-part tutorial that begins with Create a Go module.
+At the command line, change to the directory that contains hello/hello.go.
+Discover the Go install path, where the go command will install the current package.
+You can discover the install path by running the go list command, as in the following example:
+
+go list -f '{{.Target}}'
+For example, the command's output might say /home/gopher/bin/hello, meaning that binaries are installed to /home/gopher/bin. This is the install directory you'll need in the next step.
+
+Add the Go install directory to your system's shell path.
+That way, you'll be able to run your program's executable without specifying where the executable is.
+
+On Linux or Mac, run the following command:
+export PATH=$PATH:/path/to/your/install/directory
+On Windows, run the following command:
+set PATH=%PATH%;C:\path\to\your\install\directory
+As an alternative, if you already have a directory like $HOME/bin in your shell path and you'd like to install your Go programs there, you can change the install target by setting the GOBIN variable using the go env command:
+
+go env -w GOBIN=/path/to/your/bin
+or
+
+go env -w GOBIN=C:\path\to\your\bin
+Once you've updated the shell path, run the go install command to compile and install the package.
+$ go install
+Run your application by simply typing its name.
+$ hello
+map[Darrin:Hail, Darrin! Well met! Gladys:Great to see you, Gladys! Samantha:Hail, Samantha! Well met!]
+That wraps up this Go tutorial! For a next step that introduces many more of Go features, check out the Tour of Go.

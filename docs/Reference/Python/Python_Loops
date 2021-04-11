@@ -1,0 +1,187 @@
+What is looping?
+
+In programming, looping means repeating the same set of computations in the same sequence for a number of times.
+Think about a real-life situation. You are a field biologist who’s taking measurements of trees in the forest. You pick a tree, measure its diameter and height, write them down in your notebook and make an estimate of its total volume.
+
+Next, you pick another tree, measure its diameter and height, write them down in your notebook and make an estimate of its total volume.
+Then, you pick yet another tree, measure its diameter and height, write them down in your notebook and make an estimate of its total volume.
+You keep repeating the same process until all trees in the sample are exhausted. In programming lingo, you are looping over each tree and doing the same set of tasks in the same sequence.
+Going back to programming, if you are given a list of integer values and asked to square each item, then add 5 to them and finally report back the result — that would be an example of looping.
+
+What can we loop over?
+
+So what can we loop over? Basically, any data type that is iterable. Iterable objects in Python are a sequence of values stored in different kinds of data formats such as:
+lists (e.g. [10,12,13,15])
+tuples (e.g. ( 10,12,13,15)
+dictionaries (e.g. {‘Name’: ‘Alan’, ‘Age’: 25})
+strings (e.g. ‘Data Science’)
+
+What are different kinds of loops?
+Two kinds of loops you will mainly encounter: for loop and while loop. Among them, for loops are the most common kind applied in data science problems. The key differences are:
+for loops iterate a finite number of times for each element in the iterable object
+while loops keep going until a certain condition is met
+
+Looping over lists
+Looping over a list is quite straightforward. You are given a list of values and asked to do something with each item. Let’s say you have:
+my_list = [1,2,3,4]
+And you are asked to compute the square of each value in the list:
+for each_value in my_list:
+    print(each_value * each_value)
+Out:
+1
+4
+9
+16
+
+Similarly, you can do a bit more complicated loops (e.g. ‘nested loops’). For example, you are given the two lists and asked to (i) multiply values of one list with the other, (ii) append them in an empty list, and (iii) print the new list out. Let’s do that in sequence:
+new_list = []
+list1 = [2, 3, 4]
+list2 = [4, 5, 6]
+for i in list1:
+    for j in list2:
+        new_list.append(i*j)
+        
+print(new_list)
+Out:
+[8, 10, 12, 12, 15, 18, 16, 20, 24]
+
+Looping over tuples
+Looping over tuples can be a bit complicated depending on how the tuples are structured and what is to be accomplished.
+Let’s have some tuples stored in a list, each tuple representing names and ages of students in a class:
+students = [('Allie', 22), ('Monty', 18), ('Rebecca', 19)]
+Now the task is to (i) extract all the ages and (ii) store them in a list and (iii) compute the average age:
+ages = []
+for i,j in students:
+    ages.append(j)
+avg = sum(ages)/len(ages)
+print(avg)
+Out: 
+19.666666666666668
+
+Each tuple here contains two items (name and age). Even if you are not interested in names, by i and j you are specifying both of these items and asking to append the item j (age) in a new list. It’s called “tuple unpacking”.
+
+Looping over dictionaries
+Dictionaries in Python are a collection of key-value pairs — meaning, every item in the dictionary has a key and an associated value. An example of a dictionary:
+# fruit price dictionary
+fruit_prices = {"apple": 2.50, "orange": 4.99, "banana": 0.59}
+You can loop over these dictionary elements and do a variety of operations. Here are a few examples:
+Extracting all keys in the dictionary:
+for i in fruit_prices.keys():
+    print(i)
+Out:
+apple
+orange
+banana
+Storing all the values in a list:
+values = []
+for i in fruit_prices.values():
+    values.append(i)
+print(values)
+Out:
+[2.5, 4.99, 0.59]
+
+Challenge: can you find the average of all prices in the dictionary?
+Looping over Strings
+Let’s consider the string — “Hello”. Does it look like an iterable object? In fact it is.
+for i in 'Hello':
+    print(i)
+Out:
+H
+e
+l
+l
+o
+
+You can unpack every character in a string with a for loop and do all kinds of operations with them.
+Similarly, it is also possible to iterate over every word in a sentence. However, in this case, an extra step is needed to split the sentence.
+sent = 'the sky is blue'
+# splitting the sentence into words
+sent_split = sent.split()
+# extract each word with a loop
+for i in sent_split:
+    print(i)
+Out:
+the
+sky
+is
+blue
+
+While loops
+Like for loops, while loops repeatedly execute a block of code — as long as a condition is true. The loop only breaks out once the looping condition is false.
+
+A general structure of while loops is like this:
+i = 0
+while i <=5:
+    print(i)
+    i = i+1 # option to break out of the loop
+Out:
+0
+1
+2
+3
+4
+5
+
+
+In the above, in every iteration, the value of i is printed until it reaches 5. After that point the while loop condition becomes false (i.e. i ≤ 5 becomes false when i = 6).
+
+A practical use case of a while loop is when you use your login credentials on a website. You can not log in while you are not providing the correct username or password.
+user_id = 'user101'
+while True:
+    user = input('Enter your user ID: ')
+    
+    if user == user_id:
+        print("You have entered ", user) 
+        break
+    else:
+        print("Enter a valid user ID ")
+Loop control: continue, break, pass
+
+There are three kinds of so-called loop control keywords: break, continue and pass. These statements alter the flow of a loop and allow the program to exit or skip part of the loop when a certain external condition is triggered.
+Break
+If a break statement is present in the loop, it terminates the loop when a condition is satisfied.
+string = 'hello, there'
+for i in string:
+    if i == ',':
+        break
+    print(i)
+Out:
+h
+e
+l
+l
+o
+
+In the snippet above, we ask the program to exist as soon as it finds a comma in a string and executes the next statement (which is to print i). Think about the real-life example given in the beginning. You as a field biologist are taking tree measurements repeatedly. But you will break out of this loop — if it rains!
+Continue
+
+Instead of breaking out of the loop, continue statement simply skips an iteration and continues to the next.
+Let’s execute the same code above but with the continue keyword.
+string = 'hello, there'
+for i in string:
+    if i == ',':
+        continue
+    print(i)
+Out:
+h
+e
+l
+l
+o
+ 
+t
+h
+e
+r
+e
+
+So in this case, if the loop encounters a comma the loop just continues on skipping the comma.
+So in the tree measurement example, if you encounter a dead/broken tree, you just skip it and move on to the next one.
+
+Pass
+pass doesn’t do anything, it is just a placeholder for a statement that hasn’t been written yet.
+string = 'hello, there'
+for i in string:
+    pass
+    
+If we didn’t put a pass in there, it will throw an error message and the rest of the code will not execute.

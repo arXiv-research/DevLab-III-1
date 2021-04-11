@@ -1,0 +1,178 @@
+Everything needed to finetune BERT-like language models for NLP tasks is included with NeMo. NeMo NLP Models include HuggingFace Transformers and NVIDIA Megatron-LM BERT and Bio-Megatron models. NeMo can also be used for pretraining BERT-based language models from HuggingFace.
+
+Any of the HuggingFace encoders or Megatron-LM encoders can easily be used for the NLP tasks that are included with NeMo:
+
+Glue Benchmark (All tasks)
+
+Intent Slot Classification
+
+Language Modeling (BERT Pretraining)
+
+Question Answering
+
+Text Classification (including Sentiment Analysis)
+
+Token Classification (including Named Entity Recognition)
+
+Punctuation and Capitalization
+
+Named Entity Recognition (NER)
+NER (or more generally token classification) is the NLP task of detecting and classifying key information (entities) in text. This task is very popular in Healthcare and Finance. In finance, for example, it can be important to identify geographical, geopolitical, organizational, persons, events, and natural phenomenon entities. See this NER notebook for a full tutorial on doing NER with NeMo, PyTorch Lightning, and Hydra.
+
+Specify NER Model Configurations with YAML File
+NOTE
+
+NeMo Models and the PyTorch Lightning Trainer can be fully configured from .yaml files using Hydra.
+
+See this token classification config for the entire NER (token classification) .yaml file.
+
+# configure any argument of the PyTorch Lightning Trainer
+trainer:
+    gpus: 1 # the number of gpus, 0 for CPU
+    num_nodes: 1
+    max_epochs: 5
+    ...
+# configure any aspect of the token classification model here
+model:
+    dataset:
+        data_dir: ??? # /path/to/data
+        class_balancing: null # choose from [null, weighted_loss]. Weighted_loss enables the weighted class balancing of the loss, may be used for handling unbalanced classes
+        max_seq_length: 128
+        ...
+  tokenizer:
+    tokenizer_name: ${model.language_model.pretrained_model_name} # or sentencepiece
+    vocab_file: null # path to vocab file
+    ...
+# the language model can be from HuggingFace or Megatron-LM
+language_model:
+    pretrained_model_name: bert-base-uncased
+    lm_checkpoint: null
+    ...
+# the classifier for the downstream task
+  head:
+    num_fc_layers: 2
+    fc_dropout: 0.5
+    activation: 'relu'
+    ...
+# all other configuration: train/val/test/ data, optimizer, experiment manager, etc
+...
+Developing NER Model From Scratch
+token_classification.py
+
+# hydra_runner calls hydra.main and is useful for multi-node experiments
+@hydra_runner(config_path="conf", config_name="token_classification_config")
+def main(cfg: DictConfig) -> None:
+    trainer = pl.Trainer(**cfg.trainer)
+    model = TokenClassificationModel(cfg.model, trainer=trainer)
+    trainer.fit(model)
+After training, we can do inference with the saved NER model using PyTorch Lightning.
+
+Inference from file:
+
+gpu = 1 if cfg.trainer.gpus != 0 else 0
+trainer = pl.Trainer(gpus=gpu)
+model.set_trainer(trainer)
+model.evaluate_from_file(
+    text_file=os.path.join(cfg.model.dataset.data_dir, cfg.model.validation_ds.text_file),
+    labels_file=os.path.join(cfg.model.dataset.data_dir, cfg.model.validation_ds.labels_file),
+    output_dir=exp_dir,
+    add_confusion_matrix=True,
+    normalize_confusion_matrix=True,
+)
+Or we can run inference on a few examples:
+
+queries = ['we bought four shirts from the nvidia gear store in santa clara.', 'Nvidia is a company in Santa Clara.']
+results = model.add_predictions(queries)
+
+for query, result in zip(queries, results):
+    logging.info(f'Query : {query}')
+    logging.info(f'Result: {result.strip()}\n')
+Hydra makes every aspect of the NeMo model, including the PyTorch Lightning Trainer, customizable from the command line.
+
+python token_classification.py \
+    model.language_model.pretrained_model_name=bert-base-cased \
+    model.head.num_fc_layers=2 \
+    model.dataset.data_dir=/path/to/my/data  \
+    trainer.max_epochs=5 \
+    trainer.gpus=[0,1]
+Tokenizers
+Tokenization is the process of converting natural language text into integer arrays which can be used for machine learning. For NLP tasks, tokenization is an essential part of data preprocessing. NeMo supports all BERT-like model tokenizers from HuggingFace’s AutoTokenizer and also supports Google’s SentencePieceTokenizer which can be trained on custom data.
+
+To see the list of supported tokenizers:
+
+from nemo.collections import nlp as nemo_nlp
+
+nemo_nlp.modules.get_tokenizer_list()
+See this tokenizer notebook for a full tutorial on using tokenizers in NeMo.
+
+Language Models
+Language models are used to extract information from (tokenized) text. Much of the state-of-the-art in natural language processing is achieved by fine-tuning pretrained language models on the downstream task.
+
+With NeMo, you can either pretrain a BERT model on your data or use a pretrained language model from HuggingFace Transformers or NVIDIA Megatron-LM.
+
+To see the list of language models available in NeMo:
+
+nemo_nlp.modules.get_pretrained_lm_models_list(include_external=True)
+Easily switch between any language model in the above list by using .get_lm_model.
+
+nemo_nlp.modules.get_lm_model(pretrained_model_name='distilbert-base-uncased')
+See this language model notebook for a full tutorial on using pretrained language models in NeMo.
+
+Using a Pre-trained NER Model
+NeMo has pre-trained NER models that can be used to get started with Token Classification right away. Models are automatically downloaded from NGC, cached locally to disk, and loaded into GPU memory using the .from_pretrained method.
+
+# load pre-trained NER model
+pretrained_ner_model = TokenClassificationModel.from_pretrained(model_name="NERModel")
+
+# define the list of queries for inference
+queries = [
+    'we bought four shirts from the nvidia gear store in santa clara.',
+    'Nvidia is a company.',
+    'The Adventures of Tom Sawyer by Mark Twain is an 1876 novel about a young boy growing '
+    + 'up along the Mississippi River.',
+]
+results = pretrained_ner_model.add_predictions(queries)
+
+for query, result in zip(queries, results):
+    print()
+    print(f'Query : {query}')
+    print(f'Result: {result.strip()}\n')
+NeMo NER Model Under the Hood
+Any aspect of NLP training or model architecture design can easily be customized with PyTorch Lightning since every NeMo model is a Lightning Module.
+
+class TokenClassificationModel(ModelPT):
+    """
+    Token Classification Model with BERT, applicable for tasks such as Named Entity Recognition
+    """
+    ...
+    @typecheck()
+    def forward(self, input_ids, token_type_ids, attention_mask):
+        hidden_states = self.bert_model(
+            input_ids=input_ids, token_type_ids=token_type_ids, attention_mask=attention_mask
+        )
+        logits = self.classifier(hidden_states=hidden_states)
+        return logits
+
+    # PTL-specfic methods
+    def training_step(self, batch, batch_idx):
+        """
+        Lightning calls this inside the training loop with the data from the training dataloader
+        passed in as `batch`.
+        """
+        input_ids, input_type_ids, input_mask, subtokens_mask, loss_mask, labels = batch
+        logits = self(input_ids=input_ids, token_type_ids=input_type_ids, attention_mask=input_mask)
+
+        loss = self.loss(logits=logits, labels=labels, loss_mask=loss_mask)
+        tensorboard_logs = {'train_loss': loss, 'lr': self._optimizer.param_groups[0]['lr']}
+        return {'loss': loss, 'log': tensorboard_logs}
+    ...
+Neural Types in NeMo NLP
+NeMo Models and Neural Modules come with Neural Type checking. Neural type checking is extremely useful when combining many different neural network architectures for a production-grade application.
+
+@property
+def input_types(self) -> Optional[Dict[str, NeuralType]]:
+    return self.bert_model.input_types
+
+@property
+def output_types(self) -> Optional[Dict[str, NeuralType]]:
+    return self.classifier.output_types

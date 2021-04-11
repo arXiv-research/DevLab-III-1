@@ -1,0 +1,17 @@
+What is Semi-Supervised Learning?
+Supervised and Unsupervised Learning are combined in Semi-Supervised Learning.
+
+There are different approaches to Semi-Supervised Learning. Usually, it is divided into multiple steps.
+
+First, a model is trained in a Self-Supervised Learning manner. For instance, the model learns a good understanding of a language using unlabeled text data and an auxiliary task (a simple example would be to predict the next word in the text). The elements of the model responsible for succeeding in the auxiliary task can be cut off. The rest of the model contains a high-level understanding of a language.
+
+The truncated model is then trained on the labeled data in a Supervised Learning fashion. Since the model already learned some understanding of a language, it does not need a massive amount of labeled data to learn another specialized task connected to language understanding. Semi-Supervised Learning is primarily applied in the fields of Computer Vision and Natural Language Processing.
+
+Use Case
+People are sharing their thoughts and opinions daily on social media. These comments in the form of text can be valuable for companies. Tracking customer satisfaction over time generates a deeper understanding of the customer experience. Sentiment analysis, a subfield of Natural Language Processing, can be used to classify the customer views based on tweets, Facebook comments, or blog posts. Before being able to classify sentiment from text, the model is pretrained on text documents from Wikipedia, books, and many other resources. Usually, the model’s task is to predict the next word in a sentence. The objective is to learn the structure of a language in a first step before specializing in a particular task. After the pretraining, the model parameters are fine-tuned on a dataset with labels. In this scenario, the model is trained on a dataset with tweets, each with a tag, whether the sentiment is negative, neutral, or positive.
+
+Frameworks
+Semi-Supervised Learning covers all approaches that combine Unsupervised and Supervised Learning. Hence, practitioners can use well established frameworks from both areas.
+
+Considerations
+Semi-Supervised Learning is combining unlabeled and labeled data to increase the predictive performance of the model. But a prerequisite is that the size of the unlabeled data is substantially larger compared to the labeled data. Otherwise, just Supervised Learning could be used.

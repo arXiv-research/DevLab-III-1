@@ -1,0 +1,25 @@
+Introduction – Machine Learning Impact
+The conceptual fundamentals for Machine Learning (ML) were developed in the second half of the 20th century. But computational limitations and sparsity of data postponed the enthusiasm around artificial intelligence (AI) to recent years. Since then, computers have become exponentially faster, and cloud services have emerged with nearly limitless resources. The progress in computational power, combined with the abundance of data, makes Machine Learning algorithms applicable in many fields today.
+
+AI systems are beating human domain experts at complex games, such as the board game Go or video games like Dota2. Surprisingly, the algorithms can find ways to solve the task that human experts haven’t even considered. In this sense, humans can learn from their behavior.
+
+All these success stories have to be put in context. ML algorithms are well suited for specialized tasks; however, they still generalize poorly as of today.
+
+One recent exception is an enormous model in Natural Language Processing – the use of a human language (e.g., English) by a computer. The model is called GPT-3 and has performed exceptionally well in multiple tasks. It is an objective of the AI research community to make models applicable for different jobs.
+
+Machine Learning is a branch of Artificial Intelligence
+In the early beginnings of artificial intelligence, applications were built on rule-based programs, which means humans encoded their knowledge into the computer. This approach is extremely rigid since only scenarios are covered that the developer considered, and there is no learning taking place. With the significant increase in computing power and the accompanied data generation, algorithms can learn tasks without human interaction. The terms algorithm and model are used interchangeably here.
+
+The process of extracting knowledge from data is called Machine Learning, and it is a subarea of AI. There are various Machine Learning models, and they all use different approaches. Most of them are based on two elements: parameters and an objective function. The objective function returns a value, which signals the performance of the model, and parameters can be thought of as adjustable screws. Hence, the goal is to find those parameters yielding the best possible performance of the model on a specific dataset.
+
+The format of the data determines which algorithms are applicable. Data can be structured or unstructured. Structured data is arranged in a table-like form, whereas unstructured data represents images, audio, or text.
+
+Moreover, data can be labeled or unlabeled. In the case of Labeled data, as one could guess,  each data sample has a tag. For example, in figure 1, each image in the dataset is tagged with a description of the animal seen in the picture. Unlabeled data is simply a dataset without any tags. As you can see in figure 1, the dataset no longer has tags with the information that the image represents.
+
+labeled data
+Figure 1: Illustration of labeled and unlabeled data using images.
+When working with unstructured data, there often isn’t a natural tag that can be collected. Usually, humans have to go through all examples and tag them with predefined labels. However, models need a lot of data to learn a task – similar to humans, who encounter a lot of information in their first few years of life before they succeed in walking and talking. That’s what motivated Fei Fei Li, former Director of Stanford’s AI Lab, to create a large database with cleanly labeled images, the ImageNet. Currently, ImageNet encompasses more than 14 million images with more than 20,000 categories  – you can, for example, find images showing a banana several hundred times. ImageNet became the largest database with labeled images, and it is the starting point for most state-of-the-art Computer Vision models.
+
+We are encountering Machine Learning algorithms in our daily lives. Some are practical, like Google Translate; others are fun, like Snapchat Filters. Our interaction with artificial intelligence will most likely increase in the next few years. Given the potential impact of Machine Learning models on our future lives, let me present to you the five branches of Machine Learning and their key concepts.
+
+We currently have 5 Main Types of Machine Learning Algorithms.

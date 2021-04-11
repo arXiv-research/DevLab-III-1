@@ -1,0 +1,19 @@
+If you only wish to profile the standard actions, you can set profiler=”simple” when constructing your Trainer object.
+
+trainer = Trainer(..., profiler="simple")
+The profiler’s results will be printed at the completion of a training fit().
+
+Profiler Report
+
+Action                  |  Mean duration (s)    |  Total time (s)
+-----------------------------------------------------------------
+on_epoch_start          |  5.993e-06            |  5.993e-06
+get_train_batch         |  0.0087412            |  16.398
+on_batch_start          |  5.0865e-06           |  0.0095372
+model_forward           |  0.0017818            |  3.3408
+model_backward          |  0.0018283            |  3.4282
+on_after_backward       |  4.2862e-06           |  0.0080366
+optimizer_step          |  0.0011072            |  2.0759
+on_batch_end            |  4.5202e-06           |  0.0084753
+on_epoch_end            |  3.919e-06            |  3.919e-06
+on_train_end            |  5.449e-06            |  5.449e-06

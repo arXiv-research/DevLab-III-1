@@ -1,0 +1,82 @@
+n this paper, we proposed a method for improving robustness of RL agents
+based on adversarial attacks of the environment. In particular, we proposed to
+craft an environment attack based on the critic network (EACN), which gives
+insights on the long term impact of candidate attacks, without having to learn
+an adversarial agent as required in greatly more costly methods such as RARL or
+FSP. Our experiments showed the efficiency of the approach for learning robust
+agents, even significantly exceeding performances of the costly methods RARL,
+FSP, SC RARL and SC FSP in the two considered environments. Future works
+concern the application of the method when the environment features are not
+directly linked to observations as it is the case in this work, for more complicated
+functions M that we can learn from experience.
+
+References
+
+1. Behzadan, V., Munir, A.: Vulnerability of deep reinforcement learning to policy
+induction attacks. In: International Conference on Machine Learning and Data
+Mining in Pattern Recognition. pp. 262–275. Springer (2017)
+
+2. Bellman, R.: A markovian decision process. Journal of mathematics and mechanics
+6(5), 679–684 (1957)
+
+3. Chakraborty, A., Alam, M., Dey, V., Chattopadhyay, A., Mukhopadhyay, D.: Ad-
+versarial Attacks and Defences: A Survey. arXiv e-prints arXiv:1810.00069 (Sep
+2018)
+
+4. Fischer, M., Mirman, M., Stalder, S., Vechev, M.: Online robustness training for
+deep reinforcement learning. arXiv preprint arXiv:1911.00887 (2019)
+
+5. Fuchs, F., Song, Y., Kaufmann, E., Scaramuzza, D., Duerr, P.: Super-human per-
+formance in gran turismo sport using deep reinforcement learning. arXiv preprint
+arXiv:2008.07971 (2020)
+
+6. Goodfellow, I.J., Shlens, J., Szegedy, C.: Explaining and harnessing adversarial
+examples. arXiv preprint arXiv:1412.6572 (2014)
+
+7. Heinrich, J., Lanctot, M., Silver, D.: Fictitious self-play in extensive-form games.
+In: International conference on machine learning. pp. 805–813. PMLR (2015)
+
+8. Heinrich, J., Silver, D.: Deep reinforcement learning from self-play in imperfect-
+information games. arXiv preprint arXiv:1603.01121 (2016)
+
+9. Huang, S., Papernot, N., Goodfellow, I., Duan, Y., Abbeel, P.: Adversarial attacks
+on neural network policies. arXiv preprint arXiv:1702.02284 (2017)
+
+10. Huang, Y., Zhu, Q.: Deceptive reinforcement learning under adversarial manipula-
+tions on cost signals. In: International Conference on Decision and Game Theory
+for Security. pp. 217–237. Springer (2019)
+
+11. Leurent, E.: An Environment for Autonomous Driving Decision-Making (2018),
+https://github.com/eleurent/highway-env
+
+12. Littman, M.L.: Markov games as a framework for multi-agent reinforcement learn-
+ing. In: Machine learning proceedings 1994, pp. 157–163. Elsevier (1994)
+
+13. Ma, X., Driggs-Campbell, K., Kochenderfer, M.J.: Improved robustness and safety
+for autonomous vehicle control with adversarial reinforcement learning. In: 2018
+IEEE Intelligent Vehicles Symposium (IV). pp. 1665–1671. IEEE (2018)
+
+14. Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D.,
+Riedmiller, M.: Playing atari with deep reinforcement learning. arXiv preprint
+arXiv:1312.5602 (2013)
+
+15. Nogueira, G.: flappy-bird-gym (2021), https://github.com/Talendar/
+flappy-bird-gym
+
+16. Papernot, N., McDaniel, P., Jha, S., Fredrikson, M., Celik, Z.B., Swami, A.: The
+limitations of deep learning in adversarial settings. In: 2016 IEEE European sym-
+posium on security and privacy (EuroS&P). pp. 372–387. IEEE (2016)
+
+17. Pinto, L., Davidson, J., Sukthankar, R., Gupta, A.: Robust adversarial reinforce-
+ment learning. In: International Conference on Machine Learning. pp. 2817–2826.
+PMLR (2017)
+
+18. Schulman, J., Wolski, F., Dhariwal, P., Radford, A., Klimov, O.: Proximal policy
+optimization algorithms. arXiv preprint arXiv:1707.06347 (2017)
+
+19. Sutton, R.S., Barto, A.G., et al.: Introduction to reinforcement learning, vol. 135.
+MIT press Cambridge (1998)
+
+20. Wang, J., Liu, Y., Li, B.: Reinforcement learning with perturbed rewards. In:
+Proceedings of the AAAI Conference on Artificial Intelligence. vol. 34, pp. 6202–
+6209 (2020)

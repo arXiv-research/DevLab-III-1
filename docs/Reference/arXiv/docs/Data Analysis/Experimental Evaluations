@@ -1,0 +1,192 @@
+5.1 Experimental Setup
+The aim is to assess the efficiency of our method in terms of robustness against
+environment changes, as defined in the task definition in section 2.2. For this
+purpose, we train different agents with reinforcement learning by using different
+learning methods, including RARL, FSP, SC-RARL, SC-FSP and our method
+of adversarial attack applied to the environment, in environments in a base/easy
+configuration, which we test in a harder configuration of the same environment.
+
+We consider two different environments, as described below.
+FlappyBird-v0 [15] is an Open source environment in 2 dimensions where the
+agent is a bird which tries to fly and avoid pipe obstacles as long as possible.
+The MDP in this environment can be represented by the tuple (S, A, P, R). The
+states s ∈ S are (see Fig. 2):
+s = (y, h1, vu1, vl1, h2, vu2, vl2) (6)
+where y is the altitude of the bird from the ground, h1 is the horizontal distance
+between the bird and the first next couple of pipes, vu1 and vl1 are the vertical
+signed distances between the agent and the upper and lower pipes. h2, vu2 and
+vl2 are the same for second couple of pipes behind.
+
+The action of the agent at ∈ A is a discrete choice between 2 possibilities:
+0: do nothing (let the gravity pull down the bird)
+1: flap the bird’s wings (add an instantaneous upward velocity)
+
+The reward function of the agent is at each time step R = 1. The episodes
+end when the bird has a collision with a pipe or with the ground, or if the agent
+reaches 1000 time steps. The goal of the agent is to survive to keep collecting
+this reward at each time step.
+
+Highway-v0 [11] is a 2D open-source autonomous car driving simulation en-
+vironment. In this environment the agent drives a car on an infinite 4 lanes
+unidirectional highway. The vehicle piloted by the agent (the ego-vehicle) is in-
+serted in a traffic flow of other vehicles (the exo-vehicles). All exo-vehicles follows
+a basic driving algorithm. The goal of the agent is to drive as fast as possible
+without having an accident.
+
+The MDP in this environment and our configuration in the following can be
+represented by the tuple (S, A, P, R), where states s ∈ S are (see Fig. 3):
+s = [ yego, vego,
+xbl, vbl, xf l, vf l,
+xb, vb, xf , vf ,
+xbr, vbr, xf r, vf r ]
+(7)
+Where yego is the transverse position of the agent in the width of the road, vego
+is the velocity of the agent, the xs are the positions of the exo-vehicles relative
+to the agent in the longitudinal direction of the road. vs are the velocities of the
+exo-vehicles relatively to the agent velocity. bl, fl, b, f, br, and fr represents
+respectively closest exo-vehicles to the agents, in the back-left, front-left, back,
+front, back-right, and front-right positions. At each time step the agent observes
+only 3 lanes, the one it is on, the two adjacent lanes, left and right, and observes
+2 exo-vehicles on each lanes.
+
+The action of the agent at ∈ A is a discrete choice between 5 possibilities:
+0: change lane to the left
+1: nothing (stay on the same lane, at the same velocity)
+2: change lane to the right
+3: accelerate (+5m · s
+−1
+)
+4: decelerate (−5m · s
+−1
+)
+The reward function of the agent is at each time step
+R =
+
+
+
+0 if vego < 20m · s
+−1
+−1 if collision
+1
+15
+× (vego − 20) otherwise
+(8)
+
+The episode ends when the agent has a collision with another vehicle, or when
+it reaches 60 time steps. The goal of the agent is to drive as long as possible
+without having a collision, and the faster as possible to get the maximum reward
+at each time step.
+
+Environment Configurations For this experiment we use two different con-
+figuration of the two environments, a base configuration and a complexified one.
+For FlappyBird-v0, the base configuration is the environment with the size of
+the gap between the two pipes between 140 and 180px, and in the complexified
+configuration the size of the gap is between 100 and 120px. For Highway-v0 the
+base configuration is the highway with a standard density of exo-vehicles around
+the agent. The complexfixied configuration is the highway with a higher den-
+sity of exo-vehicles around the agent, set to 1.75 times the density of the base
+configuration.
+
+Disturbances In FlappyBird-v0 the disturbances we apply in the environment
+are on vu1 and vu2, the vertical positions of the upper pipes. The disturbances
+we apply on Highway-v0 are modifications of vexo and xexo, the velocities and
+the positions of the exo-vehicles.
+
+Training For both environments we first pre-train a protagonist agent in the
+base configuration. Then starting from this pre-trained agent we finish the train-
+ing of a Base Agent in the base environment and a Complex Agent in the com-
+plexified environment. Starting from the pre-trained agent we also finish the
+training by adversarial training of an agent using different attacks, where en-
+vironment based settings correspond to the approaches we proposed in previ-
+ous section: environment attack based on actor network (EAAN), observations
+attack based on actor network (OAAN), environment attack based on critic
+network (EACN), observations attack based on critic network (OACN), for
+different amount of perturbation ε.
+
+For comparison purposes, we also co-train an agent starting from the pre-
+trained agent for both methods RARL and FSP methods, by first training the
+adversary until convergence, and then alternating training the protagonist and
+adversary until convergence of both policies. We perform these co-training for
+different amount of perturbation ε. And then we take the ε which gives the
+better performances for the protagonist agent in the complexified environment.
+Finally, we co-train a protagonist and the adversary for methods SC-RARL and
+SC-FSP with the selected value of ε, for different cooperation coefficient α.
+
+5.2 Results
+Attacking the agent with the different methods, for different amount
+of disturbances ε. We compared the effect of the different attack methods on
+the performance of the agents on the environment FlappyBird-v0 and Highway-
+v0 (see Fig. 4 and 5). For all graphs presented in this paper, the shaded areas
+correspond to 95% confidence intervals. We see that RARL and FSP are better
+than EACN to perturb the agent in FlappyBird-v0 but not in Highway-v0, this is
+because FlappyBird is a very basic environment, and we only attack 2 variables
+so it is very easy for the adversary agents to learn the optimal disturbance policy.
+
+This is not the case in Highway-v0 which is much more complex, and in which we
+attack 12 variables, so it is much more complicated for adversary agents to learn
+the optimal disturbance policy. EACN keeps its efficiency in Highway-v0 because
+it leverages the knowledge of the critic network to produce disturbances. We also
+see that applying adversarial attacks of neural networks on the environment is
+more efficient than applying these attacks on the observations.
+
+Evaluating the adversarial trained agents for the different attack meth-
+ods, on the base environments. We learned different agents by adversarial
+training against each of the attack methods, for different ε, in both environ-
+ments. All adversarial trained agents against the different methods keep being
+efficient in the base environments for low amount of disturbances ε during the
+adversarial training. And then their performances drop for too high ε because
+the amounts of disturbances are no more realistic (see Fig. 6 and 7).
+
+Evaluating the adversarial trained agents for the different attack meth-
+ods, on the complex environments. In the complexified configuration of the
+environments FlappyBird-v0 and Highway-v0 we can see that RARL, FSP and
+EACN allow to greatly increase the performances of the agents by adversarial
+training for some amount of disturbances ε. The attack on the observations also
+allows to increase the performances of the agents but much less than the attacks
+on the environment (see Fig. 8 and 9). First, OACN obtains pretty bad results.
+This is due to the fact that this approach only creates observations that appear
+dangerous to the agent, while the situation is not in the underlying environment
+(since the state did not change, only the observations did). Then, the agent
+only learns to associate observations for dangerous states as safe states, which is
+counterproductive. On the contrary, OAAN improves more the performances of
+the agent than EAAN. This is due to the fact that OAAN creates observations
+that maximize the change in the policy of the agent, which leads the agent to
+take bad decisions that can lead to dangerous situations, which the agent has
+to learn to deal with. Finally, EACN produces states that are bad for the critic,
+according to the estimation of the long term feedback, which can either place
+the agent in immediately difficult situations, or situations that will tend to be
+difficult to manage in future steps. This enables EACN to obtain the best re-
+sults on both environments, with a significant improvement of the performances
+of the agent in complex settings, while being greatly lighter than its adversarial
+RL counterparts such as RARL or FSP. As for other methods, its performances
+are greatly dependent on the intensity of the attacks, which need to be carefully
+tuned via grid-search (but grid-search for this agent is greatly less costly than
+for RARL or FSP which require millions of co-evolution training episodes for
+each tested value).
+
+Evaluating the adversarial trained agents for SC-RARL and SC-FSP,
+on the complex environments. After finding the best amount of disturbance
+ε for RARL and FSP strictly competitive settings, we then trained the agents
+by adversarial training with the semi-competitive setting for comparison pur-
+poses. We use the best ε given in Fig. 8 and 9 and tested for various values of
+cooperation coefficients. We see that for RARL, using semi-competitive rewards
+during the training allows better improvements in the performances of the the
+agents than with strictly competitive rewards (cooperation coefficient = 0) in
+the complex configuration of both Flappybird-v0 and Highway-v0. However for
+FSP, using semi-competitive rewards only improves performances of the agent
+in Highway-v0 but not in FlappyBird-v0 (see Fig. 10 and 11)
+
+Evaluating the best agents learned by adversarial training with the
+different attack methods, by varying complexity of the environment.
+
+To evaluate the different adversarial training methods two know which method
+best improves the robustness of the agent. We keep the best agents which have
+better performances obtained by adversarial training against the different attack
+methods, and tested their performances on a range of complexification levels.
+
+For FlappyBird-v0 we tested each agent in the environment with the gap size
+between obstacles from 100px to 150px. For Highway-v0 we tested each agent in
+the environment with exo-vehicles density between 1 and 2. We can observe that
+in Highway-v0 and FlappyBird-v0 the best method to improve the robustness
+of the agents is EACN (see Fig. 12 and 13), while being greatly lighter than
+adversarial reinforcement methods FSP and RARL.

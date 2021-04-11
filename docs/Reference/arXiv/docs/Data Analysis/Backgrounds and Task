@@ -1,0 +1,81 @@
+
+2.1 Reinforcement Learning
+Reinforcement learning [19] consists of an agent which sequentially chooses ac-
+tions from observations over a sequence of time steps and learns to perform a
+task by trying to maximize cumulative discounted rewards.
+
+The problem is modeled as a Markovian Decision Process (MDP) [2] which
+can be expressed by the tuple (S, A, P, R), where S is the observation space,
+A is the action space, P : S × A × S → [0; 1] is the transition probability
+P(st+1|st, at). R : S × A × S → IR is the reward function R(st, at, st+1). In
+general, agents only get a partial observation xt ∈ X of the state st ∈ S at
+time step t, X being the set of partial observations. In this paper we assume the
+environment is fully-observed xt = st∀t.
+RL algorithms attempt to learn a policy πθ : X × A → [0; 1] which calcu-
+lates the probability πθ(at|xt) to select the action at given the observation xt, θ
+denotes the parameters for the policy π. The goal is to maximize the expected
+cumulative discounted reward Eτ∼πθ
+P∞
+t=1 γ
+t
+rt with rt the reward obtained at
+step t in episode τ , γ ∈]0, 1[ being the discount factor. The policy πθ is learned
+from sequential experiences in the form of transition tuples (st, at, rt+1, st+1).
+In this paper we work with the Proximal Policy Optimization algorithm
+(PPO) [18], while any other RL approach could be considered provided that it
+is composed of a Critic network V (st) in addition to the Actor network πθ(st).
+
+The Critic Network outputs an estimation of the value function Vφ(st) of any
+state st, which corresponds to the expected future cumulative discounted reward
+starting from st, following the current policy πθ, defined by the Actor network.
+In the following, we rely on the knowledge carried by this Critic network to build
+our attacks.
+
+2.2 Task: Anticipate Environment Evolution
+To learn robust policies with reinforcement learning, several approaches have
+been explored. The robust algorithm approach is to use an algorithm which due
+to its structure, will learn policies by minimizing the risks. An example is Robust
+Student Deep Q Network (RS-DQN) [4], this algorithm uses two distinct neural
+networks, the first to learn a policy for the exploration and the second to learn
+the optimal policy. The robust algorithms approach is efficient to learn safe
+policies which avoid the danger areas. Another approach are robust training
+methods. Some of the robust training methods aim to robustify the policy of
+an agent by interfering with the rewards during the training, for instance the
+methods: Reinforcement Learning with perturbed Rewards (RLPR) [20] and
+Adversarial Manipulations on Cost Signals (AMCS) [10]. One of the limits of
+these approaches is that the agent only learns safe policy if the environment stay
+unchanged, but it does not allows to learn a policy which would be robust to
+changes in the environment.
+
+As mentioned in introduction, an important problem when deploying in real-
+world environments RL agents trained on simulation is that the gap, even small,
+between the corresponding MDPs can make the policies very inefficient. This can
+also occur when the environment conditions periodically slightly evolve through
+time, with chaotic dynamics, and that we want a policy learned with some given
+conditions at a given step still be accurate in next steps. More formally, consider
+that the targeted environment is an MDP Ω∗ = (S
+∗
+, A, P∗
+, R∗
+), and assume
+that the only environment we have access during learning is defined by the MDP
+Ω = (S, A, P, R). We assume that the simulator is able to represent every target
+state (i.e., S
+∗ ⊂ S), but some of the states in S
+∗ are not reachable following
+P in Ω given the distribution of initial states. Our aim is to learn an agent
+from Ω which is robust to different conditions from Ω∗
+. We assume that we
+have no knowledge about the changes that will be applied on Ω, but that P
+∗
+follows dynamics similar to those of P (e.g., same physical equations). Thus, to
+anticipate possible evolution of the environment conditions, we need to consider
+slight changes around situations reached during learning. This is the purpose of
+adversarial reinforcement learning approaches, that we focus on in this paper.
+
+In the following, we assume that we have access to features of the simulator that
+allow us to manipulate states s ∈ S, by applying slight modifications to obtain
+new states s
+0
+respecting constraints from the environment (i.e., s
+0 ∈ S).

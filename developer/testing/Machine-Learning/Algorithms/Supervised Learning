@@ -1,0 +1,21 @@
+What is Supervised Learning?
+In Supervised Learning tasks, the training of a model is based on data with known labels. Those models take data as input and yield a prediction as output. The predictions are then compared to the truth, which is depicted by the labels. The objective is to minimize the discrepancy between truth and prediction.
+
+Supervised tasks can be divided into two areas: Classification and Regression. Classification problems predict to which class an input belongs. For instance, predicting whether there is a dog or a cat on an image. You can further differentiate between binary classification, where only two classes are involved or multiclass classification involving multiple classes. On the other hand, Regression problems predict a real-valued number. A typical Regression problem is sales forecasting, e.g., predicting how many products will be sold next month.
+
+Use Case
+Farmers are growing and supplying perishable goods. One of the decisions a tomato farmer has to take after the harvest is how to bundle his product. Tomatoes that look esthetic should be offered to the end-users, while tomatoes with minor beauty flaws can be sold to intermediate producers, e.g., tomato sauce producers. On the other hand, inedible crops should be filtered out and used as a natural fertilizer.
+
+This is a specialized and repetitive job that Machine Learning algorithms can automate easily. The quality of the tomatoes can be classified using Computer Vision. Each tomato is scanned by a sensor and evaluated by a model. The model assigns each tomato to a specific group.
+
+Before using such models in production, they have to be trained on data. Input for the model would be images of tomatoes with corresponding labels (e.g., end-user, intermediate producer, fertilizer). The output of the model would be the probability measuring the model’s certainty. A high probability signals that the model is confident about the classification. In cases where the model is not sure, a human expert could have a second look at it. This way, there is a prefiltering of clear cases, while inconclusive cases have to be determined individually.
+
+Deploying the model could provide a more efficient process of crop classification. Moreover, the use case applies to numerous quality control/management problems.
+
+Frameworks
+The maturity of frameworks for Supervised Learning is high compared to other areas of Machine Learning. Most relevant programming languages have a mature extension dedicated to Supervised Learning tasks. Furthermore, cloud providers and AI platforms reduce the hurdle to benefit from Supervised Learning models with user-friendly interfaces and tools.
+
+Considerations
+For Supervised Learning tasks, labeled data is necessary. In many cases, it is expensive to gather labeled data. E.g., in the use case above, at least one human expert had to label each sample by hand. It gets even more costly when considerable knowledge is expected for labeling, such as recognizing tumors on x-ray images. Therefore, various companies have specialized in providing labeling services. Even the big cloud providers – Microsoft, Amazon, and Google – are offering these services. The most prominent one is Amazon Web Services Mechanical Turk.
+
+However, data are abundant – but often unlabeled. In the field of Unsupervised Learning, algorithms were developed to exploit unlabeled data.

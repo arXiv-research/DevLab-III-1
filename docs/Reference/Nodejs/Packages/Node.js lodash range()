@@ -1,0 +1,12 @@
+
+var lodash = require('lodash');
+var x = lodash.range(4);
+console.log(x);/* w  w  w. j a  va2 s  .  c  o m*/
+var y = lodash.range(1,5);
+console.log(y);
+var z = lodash.range(0,20,5);
+console.log(z);
+var a = lodash.range(0,-4,-1);
+console.log(a);
+var b = lodash.range(1,4,0);
+console.log(b);

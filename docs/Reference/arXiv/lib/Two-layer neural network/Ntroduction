@@ -1,0 +1,74 @@
+We study the following random two-layers neural network model: let f : R
+d → R be a
+random function defined by
+f(x) = 1
+√
+k
+X
+k
+`=1
+a`ψ(w`
+· x), (1)
+
+where ψ : R → R is a fixed non-linearity, the weight vectors w` ∈ R
+d are i.i.d. from a Gaussian distribution N
+
+Our goal is to study the concept of adversarial examples in this random model. We
+say that δ ∈ R
+d
+is an adversarial perturbation at x ∈ R
+d
+if kδk  kxk and sign(f(x)) 6=
+sign(f(x + δ)), and in this case we call x + δ an adversarial example. Our main result is
+that, while |f(x)| ≈ 1 with high probability, a single gradient step on f (i.e., a perturbation
+of the form δ = η∇f(x) for some η ∈ R) suffices to find such adversarial examples, with
+roughly kδk ' kxk
+√
+d
+= 1. We prove this statement for a network with smooth non-linearity and
+subexponential width (e.g., k  exp(o(d))), as well as for the Rectified Linear Unit (ReLU)
+ψ(t) = max(0, t) in the overcomplete and subexponential regime (e.g. d  k  exp(d
+c
+) for
+some constant c > 0).
+
+Theorem 1 Let γ ∈ (0, 1) and ψ be non-constant, Lipschitz and with Lipschtiz deriva-
+tive. There exists constants C1, C2, C3, C4 depending on ψ such that the following holds
+true. Assume k ≥ C1 log3
+(1/γ) and d ≥ C2 log(k/γ) log(1/γ), and let η ∈ R such that
+|η| = C3
+p
+log(1/γ) and sign(η) = −sign(f(x)). Then with probability at least 1 − γ one has:
+sign(f(x)) 6= sign(f(x + η∇f(x))).
+
+Moreover we have kη∇f(x)k ≤ C4
+p
+log(1/γ).
+
+Note that our proof of Theorem 1 in Section 2 easily gives explicit values for C1, C2, C3, C4.
+Also note that the subexponential width condition in the above Theorem is of the form
+k  exp(o(d)).
+
+Theorem 2 Let γ ∈ (0, 1) and ψ(t) = max(0, t). There exists constants C1, C2, C3, C4 such
+that the following holds true. Assume k ≥ C1d log2
+(d) and d
+log(d) ≥ C2 log4
+(k) log(1/γ), and
+let η ∈ R such that |η| = C3
+p
+log(1/γ) and sign(η) = −sign(f(x)). Then with probability at
+least 1 − γ one has:
+sign(f(x)) 6= sign(f(x + η∇f(x))).
+
+Moreover we have kη∇f(x)k ≤ C4
+p
+log(1/γ).
+
+Note that the subexponential condition on the width in the above Theorem is of the form
+k  exp(d
+0.24). In fact by modifying a bit the proof we can get a condition of the form
+k  exp(d
+ρ
+) for any ρ < 1/2, but for the sake of clarity we only prove the weaker version
+stated above.
+

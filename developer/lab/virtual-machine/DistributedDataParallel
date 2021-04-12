@@ -1,0 +1,5 @@
+# train on 8 GPUs (same machine (ie: node))
+trainer = Trainer(gpus=8, accelerator='ddp')
+
+# train on 32 GPUs (4 nodes)
+trainer = Trainer(gpus=8, accelerator='ddp', num_nodes=4)

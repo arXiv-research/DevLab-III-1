@@ -1,0 +1,38 @@
+Conversion Functions
+
+Function	Description
+
+ASCIISTR	Converts x to an ASCII string, where x may be a string in any character set.
+BIN_TO_NUM	Converts a binary number x to a NUMBER.
+CAST(x AS type)	Converts x to a compatible type specified in type.
+CHARTOROWID(x)	Converts x to a ROWID.
+COMPOSE(x)	Converts x to a Unicode string in normalized form.
+CONVERT(x,source_char_set,dest_char_set)	Converts x from source_char_set to dest_char_set.
+DECODE	Use it as if then else statement
+DECOMPOSE(x)	Decomposes the string into the same character set as x and convert x to a Unicode string.
+HEXTORAW(x)	Converts the character x containing hexadecimal digits (base-16) to a binary number (RAW).
+NUMTODSINTERVAL(x)	Converts the number x to an INTERVAL DAY TO SECOND.
+NUMTOYMINTERVAL(x)	Converts the number x to an INTERVAL YEAR TO MONTH.
+NVL	Returns value if x is null; otherwise x is returned.
+NVL2	Returns value1 if x is not null; otherwise value2 is returned.
+RAWTOHEX(x)	Converts the binary number (RAW) x to a VARCHAR2 string in equivalent hexadecimal number.
+RAWTONHEX(x)	Converts the binary number (RAW) x to an NVARCHAR2 string in the equivalent hexadecimal number.
+ROWIDTOCHAR(x)	Converts the ROWID x to a VARCHAR2 string.
+ROWIDTONCHAR(x)	Converts the ROWID x to an NVARCHAR2 string.
+TO_BINARY_DOUBLE(x)	Converts x to a BINARY_DOUBLE.
+TO_BINARY_FLOAT(x)	Converts x to a BINARY_FLOAT.
+TO_BLOB(x)	Converts x to a binary large object (BLOB).
+TO_CHAR	Converts number and date value to string and format
+TO_CLOB(x)	Converts x to a character large object (CLOB). A CLOB is used to store large amounts of character data.
+TO_DATE	Converts string to date value
+TO_DSINTERVAL(x)	Converts the string x to an INTERVAL DAY TO SECOND.
+TO_MULTI_BYTE(x)	Converts the single-byte characters in x to the corresponding multi-byte characters.
+TO_NCHAR(x)	Converts x in the database character set to an NVARCHAR2 string.
+TO_NCLOB(x)	Converts x to a large object NCLOB.
+TO_NUMBER(x [, format]	Converts x to a NUMBER.
+TO_SINGLE_BYTE(x)	Converts the multi-byte characters in x to the corresponding single-byte characters.
+TO_TIMESTAMP(x)	Converts the string x to a TIMESTAMP.
+TO_TIMESTAMP_TZ(x)	Converts the string xto a TIMESTAMP WITH TIME ZONE.
+TO_YMINTERVAL(x)	Converts the string x to an INTERVAL YEAR TO MONTH.
+TRANSLATE(x,from_string, to_string)	Converts all occurrences of from_string in x to to_string.
+UNISTR(x)	Converts the characters in x to an NCHAR character.

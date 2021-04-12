@@ -1,0 +1,14 @@
+Input: A sequence of tasks T
+Output: Objective function value of the optimal
+solution B[|T|][M axT ime]
+ Parameters initialization
+ M axT ime ← timespan
+ foreach i ∈ T do
+ for t = 0 : M axT ime do
+ for k = 0 : i do
+ T empB ← B[i − k][t − di − cti,k] + pi
+ if satisfy all constraints and
+T empB > B[i][t] then
+ B[i][t] ← T empB
+ else
+ B[i][t] ← B[i − 1][t]

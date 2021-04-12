@@ -1,11 +1,16 @@
-# devLab-3
-An Experimental Repository in construction for research and development purposes.
+# devLab-3 pre-release
+An Experimental Repository under heavy construction.....
 
-The repository is an experiment with a plug-n-play integration for fundamental Machine-Learning algorithms and Smart-Contract libraries using multiple DSL's.
+The repository is an experiment with a plug-n-play (removable storage) bluetooth integration for executing fundamental Machine-Learning algorithms, Smart-Contracts with multiple Domain Specific Languages, and Integrated Development Environments.
 
-For further development, testing, and advancement of Machine-Learning and Blockchain Technology. This is a "testing grounds" for integrating with higher level DSL's, and executing smart-contracts and ML libraries acrossed multiple protocols or environments.
+For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
 
+This is the "testing grounds" research and reference library for integrating with higher level DSL's, smart-contracts, and M-L libraries acrossed multiple virtual environments.
 
+The project is for personal research and development, and developers are welcome to contribute, redistribute, use, or fork and clone the repository for their own research and development.
+I will include documentation and tutorials to help guide developers on how to properly utilize this repository for the best results. This repository is for AIS integrations and advancement.
+
+Recommendation: clone/copy the repository to a removable device for future usage and integrations...¹⁹¹⁴
 
 NOTICE:
 CODE_OF_CONDUCT 
@@ -46,6 +51,7 @@ Project maintainers who do not follow or enforce the Code of Conduct in good fai
 
 
 
+NOTICE:
 
 MIT License
 
@@ -70,6 +76,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+NOTICE: LICENSE #2
 
 Cryptographic Autonomy License version 1.0
 
@@ -195,3 +202,6 @@ If any provision of this License is held to be unenforceable, such provision sha
 
 7.7. License for the Text of this License
 The text of this license is released under the Creative Commons Attribution-ShareAlike 4.0 International License, with the caveat that any modifications of this license may not use the name “Cryptographic Autonomy License” or any name confusingly similar thereto to describe any derived work of this License.
+
+
+ Justin Mitchell ©️ MitchellTesla ~2021

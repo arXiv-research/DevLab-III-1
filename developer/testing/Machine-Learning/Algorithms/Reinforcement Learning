@@ -1,0 +1,23 @@
+What is Reinforcement Learning?
+In the Reinforcement setting, an agent is interacting with an environment. The agent observes the state of the environment, and based on its observations, it can choose an action. Depending on the chosen action, it gets a reward. If the action was good, the agent will get a high reward and vice versa. The goal of the agent is to maximize its future cumulative reward. In other words, it has to find the best action for each state.
+
+In many cases, the interaction of the agent with the environment is simulated. That way, the agent can experience millions of states and learn the correct behavior.
+
+Reinforcement Learning 
+Figure 4: Illustration of the learning process in Reinforcement Learning.
+Use Case
+Personalized advertisement can improve the efficiency of a new marketing campaign. Instead of displaying ads with a discount for a product, say a car, internet users could be led down a sales funnel before presenting the final deal. In the first step, the ad could describe the availability of favorable financing terms, then, on the next visit, praise an excellent service department, and in the end, present the final discount. This might lead to more clicks of a user over repeated visits and, if well implemented, to more sales.
+
+In the above-described case, an agent would choose which ad should be shown depending on the user’s profile. The profile is based on the user’s interests and preferences derived from online activity. The agent adjusts his actions – displaying different ads – based on the user’s feedback. In this setting, the agent does not get a signal for each action he takes since it takes a while until the user decides to purchase a car. For instance, showing a specific ad might catch the user’s interest but won’t immediately translate into a sale. This is called the credit assignment problem. But the agent can wait for an amount of time. If the case results in a sale, the probability of the taken actions will be increased given the same input. Otherwise, the agent will be discouraged to take the same actions for the same input.
+
+Frameworks
+Within the field of Reinforcement Learning, various approaches exist. Hence, there is not a standardized framework available. But gym and baselines – both developed by OpenAI, a nonprofit AI research company – establish themselves as important starting points for Reinforcement Learning applications.
+
+Considerations
+The agent is learning based on many interactions with the environment. Conducting these interactions in real-time would take a long time and is often infeasible – e.g., a car autopilot cannot learn in the real world because it is not safe. Therefore, simulations of the real world are created, where the agent can learn through trial and error. To train an agent successfully, the gap between simulation and reality has to be as small as possible.
+
+Apart from the simulation, the conception of the reward is crucial to the agent’s performance. In maximizing his reward, the agent can learn unintended behavior, which leads to higher rewards but does not solve the task.
+
+The learning procedure of the agent is sample inefficient. This means that it needs a lot of interactions to learn a task.
+
+Reinforcement Learning shows promising results in many areas. However, few real-world applications are based on it. This might change in a few years.

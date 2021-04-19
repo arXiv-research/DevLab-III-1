@@ -1,5 +1,5 @@
 # devLab-3 pre-release
-An Experimental Repository under heavy construction.....
+An Experimental Repository and Library under heavy construction.....
 
 For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
 

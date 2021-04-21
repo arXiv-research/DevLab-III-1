@@ -9,7 +9,7 @@ from tensorflow.examples.tutorials.mist import input_data
 from PIL import Image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-from tensorflow.keras.layers import *
+from tensorflow.keras.layers import 
 
 #load data
 

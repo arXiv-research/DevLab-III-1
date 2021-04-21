@@ -1,5 +1,6 @@
 # devLab-3 pre-release
 An Experimental Repository and Library under heavy construction.....
+
 (workflows and actions currently disabled for construction, as of 4-21-2021)*
 
 For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 

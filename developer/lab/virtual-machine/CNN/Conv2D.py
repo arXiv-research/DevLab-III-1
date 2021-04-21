@@ -31,7 +31,7 @@ validation_generator = datagen.flow_from_directory(directory=valid_data_dir,
                 target size=(img_width, img_height),
                 classes=['dogs', 'cats'],
                 class_mode='binary'
-                bateh_size=32)
+                batch_size=32)
 
 # build model
 

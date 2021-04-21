@@ -1,13 +1,13 @@
 #import libraries
 import numpy as np
 import matplotlib.pyplot as pit
-import matplotlib. image as mpimg
+import matplotlib.image as mpimg
 import seaborn as sns
 import tensorflow as tf
-from tensorflow.python, framework import ops
-from tensorflow.examples tutorials.mist import input data
+from tensorflow.python.framework import ops
+from tensorflow.examples.tutorials.mist import input_data
 from PIL import Image
-from tensor flow.keras.preprocessing. image import ImageDataBenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from tensorflow.keras.layers import *
 

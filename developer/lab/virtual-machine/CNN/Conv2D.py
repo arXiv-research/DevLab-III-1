@@ -81,11 +81,11 @@ accuracy = history history['acc']
 epoch_count = range(1, len(training loss) + 1)
       
 # Visualize loss history
-plt. figure(0)
+plt.figure(0)
 plt.plot(epoch_count, training loss, 'r--')
 plt.plot(epoch_count, accuracy, 'b--')
-pit. legend( "Training Loss', 'Accuracy'])
+pit.legend( "Training Loss', 'Accuracy'])
 plt.xlabel('Epoch)
-plt ylabel('History')
+plt.ylabel('History')
 plt.grid(True)
 plt.show(block=True);

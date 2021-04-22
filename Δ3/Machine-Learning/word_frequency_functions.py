@@ -128,4 +128,3 @@ def tf_idf(tf: int, idf: int) -> float:
     0.954
     """
     return round(tf * idf, 3)
-  

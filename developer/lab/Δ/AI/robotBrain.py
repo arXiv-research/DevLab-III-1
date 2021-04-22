@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Robot Brsin
+# Robot Brain
 
 import Robot Interface
 import time

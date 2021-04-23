@@ -1,4 +1,3 @@
-
 inputs_ = tf.placeholder(tf.float32, (None, 28, 28, 1), name='inputs')
 targets_ = tf.placeholder(tf.float32, (None, 28, 28, 1), name='targets')
 

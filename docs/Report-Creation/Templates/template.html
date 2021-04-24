@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+     table {
+        border-style: solid;
+        border-color: #095484;
+        text-align: center
+        border-collapse: collapse;
+      }
+
+      table > caption {
+            font-weight: bold;
+        }
+      th {
+        border: solid #095484;
+        background-color: #d9d9d9;
+        text-align: center
+      }
+      td {
+        border: groove #1c87c9;
+        text-align: center
+      }
+   </style>
+  </head>
+  <body>
+
+ <div class="container">
+      <h1 style="text-align:left;"> {{title}} </h1>
+      <table class="table table=hover testresultsummary">
+        <caption>Test Summary</caption>
+        <th class="text-primary testresultsummary">Test Suite Name</th>
+        <th class="text-primary testresultsummary">Total Test Cases Count</th>
+        <th style="color:green;" class="text-primary testresultsummary">Passed</th>
+        <th style="color:red;" class="text-primary testresultsummary">Failed</th>
+        <th class="text-primary testresultsummary">Pass(%)</th>
+        <tr class="info alert-info">
+        {%for n in range(5)%}
+        {%if n==2%}
+        <td style="color:green;font-weight: bold">{{statusdet[n]}}</td>
+        {%elif n==3%}
+        <td style="color:red;font-weight: bold">{{statusdet[n]}}</td>
+        {%else%}
+            <td>{{statusdet[n]}}</td>
+        {%endif%}
+        {%endfor%}
+        </tr>
+      </table>
+    <hr>
+    <h1 style="text-align:left;"></h1>
+    <table class="table table=hover testresultsummary">
+        <caption>Test Case Details</caption>
+        <tr>
+        <th class="text-primary testresultsummary">Test Info</th>
+        <th colspan={{input_length}} class="text-primary testresultsummary">Test Inputs</th>
+        <th colspan="{{output_camm_messages_length}}" class="text-primary testresultsummary">Expected Outputs</th>
+        {%for (k,v) in output_fields%}
+        <th colspan={{(td.values()| list)[0]["CAMM Responses"][k]|length}} class="text-primary testresultsummary">{{k}}</th>
+        <th colspan={{(td.values()| list)[0]["FIX Responses"][v]|length}} class="text-primary testresultsummary">{{v}}</th>
+        {%endfor%}
+        <th colspan="3" class="text-primary testresultsummary">Results</th>
+        </tr>
+        <tr>
+        <th class="text-primary testresultsummary">Test Case ID</th>
+
+        <!-- Columns for the Test inputs -->
+        {%for input_field in input_fields%}
+        <th class="text-primary testresultsummary">{{input_field}}</th>
+        {%endfor%}
+        <!-- Columns for the Expected Outputs -->
+        {%for output_field in output_camm_messages%}
+        <th class="text-primary testresultsummary">{{output_field}}</th>
+        {%endfor%}
+
+        <!-- Columns for the Actual CAMM Response -->
+        <!-- Columns for the FIX Message Response -->
+        {%for number in range(camm_responses_length)%}
+        {% set camm_items = (td.keys() | list)[number]%}
+        {% set val = ((td[camm_items]['CAMM Responses'].keys() | list)[number]) %}
+        {% set camm_res_elememts = td[camm_items]['CAMM Responses'][val].keys() | list %}
+        {%for item in camm_res_elememts %}
+        <th class="text-primary testresultsummary">{{item}}</th>
+        {%endfor%}
+        {% set val = ((td[camm_items]['FIX Responses'].keys() | list)[number]) %}
+        {% set fix_res_elememts = td[camm_items]['FIX Responses'][val].keys() | list %}
+        {%for item in fix_res_elememts %}
+        <th class="text-primary testresultsummary">{{item}}</th>
+        {%endfor%}
+        {%endfor%}
+
+        <!-- Columns for the Results -->
+        <th class="text-primary testresultsummary">Pass/Fail</th>
+        <th class="text-primary testresultsummary">Actual CAMM Message Received</th>
+        <th class="text-primary testresultsummary">Actual FIX Message Received</th>
+        </tr>
+
+        {%for n in td%}
+        <tr>
+        <td>{{n}}</td>
+        <!-- Filling the Test inputs -->
+        {%for field in input_fields%}
+        <td>{{td[n]["Inputs"][field]}}</td>
+        {%endfor%}
+
+        <!-- Filling the Expected Output -->
+        {%for field in output_camm_messages%}
+        <td>{{td[n]["Expected Outputs"][field]}}</td>
+        {%endfor%}
+
+        <!-- Filling the values for the Actual CAMM Message Received -->
+        {%for number in range(camm_responses_length)%}
+        {% set camm_items = (td.keys() | list)[number]%}
+        {% set val = ((td[n]['CAMM Responses'].keys() | list)[number]) %}
+        {% set dict_val = td[n]["CAMM Responses"][val] %}
+        {% for field in dict_val.values() %}
+        <td>{{field}}</td>
+        {%endfor%}
+        <!-- Filling the values for the Actual FIX Message Recieved -->
+        {% set val = ((td[camm_items]['FIX Responses'].keys() | list)[number]) %}
+        {% set dict_val = td[n]["FIX Responses"][val] %}
+        {% for field in dict_val.values() %}
+        <td>{{field}}</td>
+        {%endfor%}
+        {%endfor%}
+        <!-- Filling the values for the Result -->
+        <td>{{td[n]["Result"]["OverallResult"]}}</td>
+        <td>{{td[n]["Result"]["Actual CAMM Message"]}}</td>
+        <td>{{td[n]["Result"]["Actual FIX Message"]}}</td>
+        </tr>
+        {%endfor%}
+</tr>
+</table>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

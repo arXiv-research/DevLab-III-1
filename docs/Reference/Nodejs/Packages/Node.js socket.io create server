@@ -1,0 +1,14 @@
+var app = require('http').createServer(handler)
+  , io = require('socket.io').listen(app)
+  , port = process.env.PORT || 80;/* w  w w.  j a  v  a 2  s .c om*/
+
+app.listen(port);
+console.log("Listening on port "+port);
+
+function handler (req, res) {
+  console.log("The url of the request is "+req.url);
+}
+
+io.sockets.on('connection', function (socket) {
+  console.log("This is app-server, and I'm connected to someone.");
+});

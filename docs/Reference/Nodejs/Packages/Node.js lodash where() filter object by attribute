@@ -1,0 +1,13 @@
+
+var _ = require('lodash');
+var objects = [{firstName: 'Ford', lastName: 'Prefect', occupation: 'A'},
+               {firstName: 'Arthur', lastName: 'Dent', occupation: 'B'},
+               {firstName: 'Zaphod', lastName: 'HTML', occupation: 'C'},
+               {firstName: 'HTML', occupation: 'D'},
+               {firstName: 'Arthur', lastName: 'Weasley', occupation: 'E'}];
+
+var ford = _.where(objects, {firstName: 'Ford'});
+var arthurs = _.where(objects, {firstName: 'Arthur'});
+
+console.log(ford);//from  ww w. j a  v a 2s .c om
+console.log(arthurs);

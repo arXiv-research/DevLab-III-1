@@ -1,0 +1,94 @@
+Adversarial Reinforcement Learning methods seek at improving robustness of
+neural network policies by formulating the learning problem as a two-player
+game. While the protagonist agent seeks at solving the task, an adversarial agent
+learns to generate disturbances to perturb the protagonist. These approaches can
+be divided in two groups. The first ones generate perturbations in the observa-
+tion space of the agent, in order to make the protagonist more robust w.r.t
+corrupted observations. For autonomous vehicle tasks for instance, this concerns
+corruptions due to sensor failures or hacking. The second approach is to generate
+disturbances directly in the environment. While generating disturbances on the
+observations only changes each x to a given x
+0 with no implications for future
+steps of the episodes, applying adversarial attacks to the environment changes
+any current state from s to s
+0
+, leading the agent to a new situation to solve. A
+given disturbed state s
+0
+remains a valid state of the environment, but may be a
+state impossible to reach following its dynamics and initial conditions. Since the
+set of such possible modifications may be very large, there is a need for strategies
+to generate useful situations, which lead to difficult cases for the agent.
+
+In the following, we present state of the art Adversarial Reinforcement Learn-
+ing methods that generate disturbances in the environment.
+Robust Adversarial Reinforcement Learning (RARL) [17] follows the
+scheme of a zero-sum two-player game by co-training the protagonist and the
+adversary by reinforcement learning. The protagonist learns to perform the task,
+while the adversary learns to disturb the protagonist by applying modifica-
+tions to the environment. The game can be expressed as a two-player zero-
+sum Markov Game [12]. The MDP of this game can be expressed as the tuple
+(S, Ap, Aa, P, Rp,), where S is the state space, Aa and Ap are the action spaces
+of the adversary and the protagonist. P : S × Aa × Ap × S → [0; 1] is the tran-
+sition probability and Rp : S × Aa × Ap × S → IR is the reward function of
+the protagonist agent. In a zero-sum two-player game, the reward get by the
+protagonist is Rp, while the adversary gets the reward Ra = −Rp.
+Semi Competitive Robust Adversarial Reinforcement Learning (SC-
+RARL) [13] is the same as RARL but in a semi-competitive setting. The differ-
+ence with RARL is that it is not a zero-sum game, Ra 6= −Rp. The SC-RARL
+game MDP can be expressed as the tuple (S, Ap, Aa, P, Rp, Ra). In this game,
+while the protagonist gets the reward Rp, the adversary gets a reward which is
+a linear combination of Rp the reward of the protagonist and Rc a cooperative
+reward to reduce the amplitude of the disturbances. The reward of the adver-
+sary is Ra = αRc − (1 − α)Rp, where α is the cooperation coefficient, which is
+used to regulate the proportion of cooperative rewards compared to competitive
+rewards. The goal of using SC-RARL instead of RARL is to generate more re-
+alistic disturbances which can be better captured by the protagonist agent to
+improve its robustness.
+
+Fictitious Self Play (FSP) [7,8] and its Semi Competitive setting (SC-FSP)
+[13] follow the same principle as RARL and SC-RARL, except that the adversary
+is not just an RL agent, but is an agent which uses two models. The adversary
+agent uses an RL Model which learns to produce the most efficient disturbances
+against the protagonist agent, and a Supervised Learning Model which learns
+to produce the average historical strategy of the RL model. During the training
+time of the protagonist agent, the adversary produces halftime an attack based
+on its RL model and halftime an attack based on its SL model. The goal of
+this method is to prevent the protagonist agent from over-fitting its defense
+strategy on the best strategy of the adversary agent, and then better generalize
+to other type of disturbances and keep good performances in situations without
+disturbances.
+
+3.2 Gradient-based Adversarial Attacks of Neural Network Policies
+Other approaches related to our work rely on gradient-based adversarial attacks,
+classically applied on neural networks classifiers (NNC). Gradient-based adver-
+sarial attacks of NNC arise from [6], which showed that NNC are vulnerable
+to adversarial inputs: Small perturbations of the images, even imperceptible for
+human sight can fool an NNC and make it misclassify adversarial examples. Sev-
+eral methods have been proposed, various adversarial attacks of NNC depending
+on different metrics L0, L2 or L∞ such as (see for instance the survey [3]). In
+this paper, we are inspired by prior gradient-based approaches like the Jacobian
+Saliency Map Attack (JSMA) [16].
+
+Applying adversarial attacks of neural networks on RL agents consists of
+crafting adversarial observations x
+0
+to replace the original observations x for
+the agent, and then let the agent choose the action a = π(x
+0
+). For agents with
+discrete action spaces, an attack is successful if the agent changes its decision
+π(x) 6= π(x
+0
+). By having its observations attacked, the agent is led to make
+bad decisions, and then it can fail to achieve its goal. Any adversarial attack
+method developed to fool NNC is usable to fool neural network policies trained
+by reinforcement learning with discrete action space. It has been shown that
+neural networks policies are vulnerable to adversarial attacks which perturb the
+observations of the agent for RL agents that uses images as observations, even
+with small perturbations invisible for human sight [9]. It has also been shown
+that introducing perturbed observations during the training of an agent helps
+the agent to become more robust to such perturbations in its inputs [1]. We
+notice that, to the best of our knowledge, adversarial attacks have never been
+used to generate disturbances in the environment, which we propose to consider
+in the next section...4.1

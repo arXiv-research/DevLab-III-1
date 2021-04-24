@@ -1,0 +1,147 @@
+1. Neptune
+Neptune is the most lightweight experiment management tool available on the market. It’s an excellent tracking platform for any data scientist. The software easily integrates with your workflow and offers an extensive range of tracking features. One can use it to track, retrieve and analyze experiments but also to share them with a team and managers. Additionally, Neptune is very flexible, works with many other frameworks and thanks to its stable user interface, it enables great scalability (to millions of runs).
+
+Main advantages:
+
+Possibility to store, retrieve and analyze a large amount of data
+Tools for efficient team collaboration and project supervision
+Jupyter notebook tracking included
+
+2. Weights & Biases
+Weight & Biases targets the most advanced deep learning teams. It allows them to record experiments and visualize every part of the research. Weight & Biases has been created to facilitate collaboration between data scientists and offers many useful features in this matter. All of it with well-designed user experience.
+
+Main advantages:
+
+Created for deep learning experiment tracking
+Easy integration process
+Customizable visualization and reporting tools
+➡️ See the comparison between Weights & Biases and Neptune.
+
+3. Comet
+Similar to the previously described tools, Comet was built to enable tracking of machine learning projects. The team behind this software has a mission to help data scientists better organize and manage their experiments. Comet provides the possibility to easily compare experiments and keep a record of the collected data, as well as collaborate with other team members.
+
+Main advantages: 
+
+Quick and easy adaptation with any machine 
+Works well with existing ML libraries
+Safeguard IP
+➡️ See the comparison between Comet and Neptune.
+
+4. Sacred + Omniboard
+“Every experiment is sacred…” as they say in the Sacred tool description. Sacred is open-source software and allows machine learning engineers to configure, organize, log and reproduce experiments. Sacred doesn’t come with its proper UI but there are a few dashboarding tools that you can connect to it, such as Omniboard, Sacredboard or Neptune. Also, it doesn’t have the scalability of previous tools and has not been adapted to team collaboration, however, it has great potential when it comes to individual research.
+
+Main advantages: 
+
+Open-source tool 
+Extensive experiment parameters customization options
+Easy integration
+➡️ See the comparison between Sacred + Omniboard and Neptune.
+
+➡️ See also: The Best Sacred + Omniboard Alternatives
+
+5. MLflow
+MLflow is an open-source platform that helps manage the whole machine learning lifecycle. This includes experimentation, but also reproducibility and deployment. Each of these three elements represented by one MLflow component: Tracking, Projects, and Models. That means a data scientist who works with MLflow is able to track an experiment, organize it, describe it for other ML engineers and pack it into a machine learning model. It’s been designed to enable scalability from one person to big organization, however, it works best for an individual user. 
+
+Main advantages: 
+
+Focus on the whole lifecycle of the machine learning process
+Compatible with many additional tools and platforms
+Open interface integrated with any ML library or language
+➡️ See the comparison between MLflow and Neptune.
+
+6. TensorBoard
+TensorBoard is another experiment tracking tool. It’s open-source and offers a suite of tools for visualization and debugging of machine learning models. TensorBoard is the most popular solution on the market and thus it’s widely integrated with many other tools and applications. What’s more, it has an extensive network of engineers using this software and sharing their experience and ideas. This makes a powerful community ready to solve any problem. The software, itself however, is best suited for an individual user.
+
+Main advantages: 
+
+Large library of pre-built tracking tools
+Integration with many other tools and applications
+Well prepared problem-solving materials and community
+➡️ See the comparison between TensorBoard and Neptune.
+
+➡️ See also: The Best TensorBoard Alternatives (2020 Update).
+
+7. Guild AI
+The team behind Guild AI states that “The faster and more effective you can apply experiments, the sooner you’ll complete your work.” In order to make this process well organized they created this open-source experiment tracking software, which is best suited for individual projects. It’s lightweight and equipped with many useful features that make it easier to run, analyze, optimize and recreate machine learning experiments. What’s more, Guild AI includes a variety of analytics tools making the experiments comparison process much easier.
+
+Main advantages: 
+
+The automated machine learning process
+Integrated with any language and library
+Remote training and backup possibility
+➡️ See the comparison between Guild AI and Neptune.
+
+8. Polyaxon
+Polyaxon is a platform that focuses on both, the whole life cycle management of machine learning projects as well as the facilitation of the ML team collaboration. It includes a wide range of features from tracking and optimization of experiments to model management and regulatory compliance. The main goal of its developers is to maximize the results and productivity while saving costs. It’s worth mentioning, however, that Polyaxon needs to be integrated into your infra/cloud before it’s ready to use.
+
+Main advantages: 
+
+Integrated with most popular deep learning frameworks and ML libraries
+Designed to serve different groups of interests including data scientists, team leads and architects
+Team collaboration possibilities
+➡️ See the comparison between Polyaxon and Neptune.
+
+9. Trains
+Trains was built to track the “glorious but messy process of training production-grade deep learning models”, as stated by its creators. The main focus of the software is to help keep track of machine learning and deep learning experiments in an effortless, yet effective way. Trains is an open-source platform that is still in the beta stage, however, it is being constantly developed and upgraded. 
+
+Main advantages: 
+
+Quick and easy implementation process
+Possibility to boost team collaboration
+Useful features designed to track the experiment process and save data to one centralized server
+10. Valohai
+Valohai has been designed with data scientists in mind and its main benefit is that it makes the model building process faster. It does it with large-scale automation but needs to be integrated with your infrastructure/private cloud first. Valohai is compatible with any language or framework, as well as many different tools and apps. The software is also teamwork-oriented and has many features that facilitate it. 
+
+Main advantages: 
+
+Significant acceleration of the model building process
+Helpful customer service and monthly checkup
+Focused on the entire lifecycle of machine learning
+11. Pachyderm
+Pachyderm is a tool that makes it possible for its users to control an end-to-end machine learning cycle. From data lineage, through building and tracking experiments, to scalability options – with Pachyderm, it’s all covered. The software is available in three different versions, Community Edition (open-source, with ability to be used anywhere), Enterprise Edition (complete version-controlled platform) and Hub Edition (still a beta version, combining characteristics of the two previous versions). It needs to be integrated with your infrastructure/private cloud, thus, it’s not as lightweight as some of the other tools mentioned before.
+
+Main advantages: 
+
+Possibility to adapt the software version to your own needs
+End-to-end process support 
+Established and backed by a strong community of experts
+➡️ See the comparison between Pachyderm and Neptune.
+
+12. Kubeflow
+Kubeflow is a software with the main goal of run orchestration and making deployments of machine learning workflows easier. It’s known as the machine learning toolkit for Kubernetes and aims to use the Kubernetes potential to facilitate the scaling of machine learning models. The team behind Kubeflow is constantly developing its features and does its best to make data scientists’ life easier. There are some tracking capabilities but it’s not the main focus of the project. It can be easily used with other tools on this list as a complementary tool.
+
+Main advantages: 
+
+Multi-framework integration
+Perfect for Kubernetes users
+Open-source character
+➡️ See the comparison between Kubeflow and Neptune.
+
+13. Verta.ai
+Verta’s main features can be summarized in four words: track, collaborate, deploy and monitor. As one can see, the software has been created to facilitate the management of the entire machine learning lifecycle. And it’s equipped with the necessary tools to assist ML teams in every stage of the process. The variety of features, however, causes the platform to be more complex and thus, not as lightweight as other options we mention.
+
+Main advantages: 
+
+Compatibility with other ML frameworks
+Assistance in the end-to-end machine learning process 
+User-friendly design
+
+
+14. SageMaker Studio
+SageMaker Studio is an Amazon tool that allows data scientists to manage an entire machine learning lifecycle. From building and training to deploying ML models. The idea behind this software is to make it easier and less time-consuming to develop high-quality experiments. It’s a web-based tool and comes with the whole toolset designed to help data scientists improve their performance.
+
+Main advantages: 
+
+Possibility to track thousands of experiments 
+Integration with a wide range of Amazon tools for ML related tasks
+Fully managed
+➡️ See the comparison between SageMaker Studio and Neptune.
+
+15. DVC
+The last project is an open-source version control system created specifically for machine learning projects. Its aim is to enable data scientists to share the ML models and make them reproducible. DVC user interface can cope with versioning and organization of big amounts of data and store them in a well-organized, accessible way. It focuses on data and pipeline versioning and management but has some (limited) experiment tracking functionalities. It can be easily used with other tools on this list as a complementary tool. 
+
+Main advantages: 
+
+Adaptable to any language and framework
+Possibility to version large amount of data 
+Open-source character

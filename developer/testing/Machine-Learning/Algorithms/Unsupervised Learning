@@ -1,0 +1,31 @@
+What is Unsupervised Learning?
+Unsupervised Learning algorithms focus on solving problems without depending on labeled data. Contrary to Supervised Learning, there is no ground truth available. The performance of the model is evaluated on the input data itself.
+
+This field of Machine Learning can be summarized in three subareas – dimensionality reduction, clustering, and anomaly detection. These subareas are presented in the following.
+
+Datasets can be enormous due to the number of examples and the number of features they contain. In general, the number of examples should be a lot higher than the number of features to ensure that models can find a pattern in the data. There is a problem when features outweigh the number of examples in the data.
+
+Dimensionality reduction algorithms tackle this problem by creating an abstraction of the original dataset while keeping as much information as possible. That means that a dataset with 100 features and just 50 examples can be compressed to a new dataset with 10 features and 50 examples. The new features are constructed in a way that they contain as much information as possible. A small amount of information from the original dataset is sacrificed to ensure that a model yields reliable predictions.
+
+In clustering approaches, we seek to partition the observations into distinct subgroups. The goal is to obtain clusters where observations within clusters are quite similar, while observations in different clusters vary.
+
+Each observation of the dataset can be thought of as a point in a room. The recorded features determine the location of the point. When considering two observations, a distance can be calculated. The distance is then a signal of how similar these two points are.
+
+Clustering algorithms initially create random clusters and iteratively adjust these to minimize the distances of points within a cluster. The resulting clusters contain observations with similar characteristics.
+
+In anomaly detection, the goal is to identify observations that seem strange conditional on the dataset. These observations can also be called outliers or exceptions. An example is fraudulent bank activity, where the payment was attempted from a different country than usual. The attempt is identified as an anomaly and raises a verification process.
+
+Use Case
+Big retail companies often provide loyalty cards to collect value points. After each purchase, the card can be scanned to collect these value points. Each month the customer gets a report about his shopping behavior. Which products did the customer buy most often? What is the share of sustainable products the customer purchased? The customer also gets some kind of discount or cashback voucher. The more points a customer collects, the higher the value of the voucher. This can lead to higher customer loyalty and satisfaction since they get rewarded for their behavior. The collected data about the customers‘ shopping behavior represents a lot of potential value to the retail company.
+
+It is fair to assume that there is some heterogeneity among customers since all have their shopping behavior. Clustering could be used to identify groups with similar preferences. This is an Unsupervised Learning problem because the groups are unknown beforehand.
+
+E.g., three clusters might emerge. One cluster contains customers with a vegetarian diet, meat-eaters, and customers mixing meat and vegetarian substitutes. Based on the three customer profiles, marketing campaigns can be customized cluster-specific.
+
+Clustering
+Figure 2: Clustering customers into three groups based on their shopping behavior.
+Frameworks/Maturity
+Dimensionality reduction, clustering, and anomaly detection algorithms are relatively mature approaches and available in most Machine Learning packages.
+
+Considerations
+Recent research puts a focus on Unsupervised methods. The main reason is that there is an abundance of data available, but just a tiny share is labeled data. Self-Supervised and Semi-Supervised Learning approaches arose from the goal to combine labeled and unlabeled data to learn a task.

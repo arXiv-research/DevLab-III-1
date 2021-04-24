@@ -1,0 +1,13 @@
+input: State at time step t St, available tasks at time
+step t A(St), and the Q-network Q
+output: A selected task from all available tasks at
+ Threshold ε initialization
+ idx ← random()
+ if idx ≤ ε then
+ at ←A task which is randomly chosen from ALt
+ else
+ Calculate Q(St)
+ Q in list ← ∅
+ for al ∈ A(St) do
+ Q in list ← Q in list.append(Q(s, AL[i]))
+ at ← argmax (Q in list)

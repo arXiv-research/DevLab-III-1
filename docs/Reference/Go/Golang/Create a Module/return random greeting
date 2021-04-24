@@ -1,0 +1,71 @@
+In this section, you'll change your code so that instead of returning a single greeting every time, it returns one of several predefined greeting messages.
+
+Note: This topic is part of a multi-part tutorial that begins with Create a Go module.
+
+To do this, you'll use a Go slice. A slice is like an array, except that it's dynamically sized as you add and remove items. It's one of the most useful types in Go. You'll add a small slice to contain three greeting messages, then have your code return one of the messages randomly.
+
+In greetings/greetings.go, change your code so it looks like the following.
+package greetings
+
+import (
+    "errors"
+    "fmt"
+    "math/rand"
+    "time"
+)
+
+// Hello returns a greeting for the named person.
+func Hello(name string) (string, error) {
+    // If no name was given, return an error with a message.
+    if name == "" {
+        return name, errors.New("empty name")
+    }
+    // Create a message using a random format.
+    message := fmt.Sprintf(randomFormat(), name)
+    return message, nil
+}
+
+// init sets initial values for variables used in the function.
+func init() {
+    rand.Seed(time.Now().UnixNano())
+}
+
+// randomFormat returns one of a set of greeting messages. The returned
+// message is selected at random.
+func randomFormat() string {
+    // A slice of message formats.
+    formats := []string{
+        "Hi, %v. Welcome!",
+        "Great to see you, %v!",
+        "Hail, %v! Well met!",
+    }
+
+    // Return a randomly selected message format by specifying
+    // a random index for the slice of formats.
+    return formats[rand.Intn(len(formats))]
+}
+
+
+In this code, you:
+
+Add a randomFormat function that returns a randomly selected format for a greeting message. Note that randomFormat starts with a lowercase letter, making it accessible only to code in its own package (in other words, it's not exported).
+In randomFormat, declare a formats slice with three message formats. When declaring a slice, you omit its size in the brackets, like this: []string. This tells Go that the array underlying a slice can be dynamically sized.
+Use the math/rand package to generate a random number for selecting an item from the slice.
+Add an init function to seed the rand package with the current time. Go executes init functions automatically at program startup, after global variables have been initialized.
+In Hello, call the randomFormat function to get a format for the message you'll return, then use the format and name value together to create the message.
+Return the message (or an error) as you did before.
+Your hello.go needn't change.
+
+At the command line, change to the hello directory, then run hello.go to confirm that the code works. Run it multiple times, noticing that the greeting changes.
+Oh -- don't forget to add Gladys's name (or a different name, if you like) as an argument to the Hello function call in hello.go: greetings.Hello("Gladys")
+
+$ go build
+$ ./hello
+Great to see you, Gladys!
+
+$ ./hello
+Hi, Gladys. Welcome!
+
+$ ./hello
+Hail, Gladys! Well met!
+That's an introduction to a Go slice. To get even more use out of this type, you'll use a slice to greet multiple people. That's in the tutorial's next topic.

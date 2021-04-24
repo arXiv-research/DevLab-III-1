@@ -1,0 +1,29 @@
+The Future of Artificial Intelligence
+
+Artificial Intelligence has come a long way – from rule-based scripts to Machine Learning algorithms that are beating human experts. 
+The field has grown substantially in recent years. Machine Learning models are used to tackle different domain problems, and their 
+impact on our lives is increasing steadily.
+
+Nonetheless, there are still important questions that remain unanswered. To create more reliable models, we have to address these questions.
+
+A crucial point is the measurement of intelligence. We do not have a general definition of intelligence yet. 
+The current models that we describe as artificially intelligent are learning by memorizing the data we provide. That already yields 
+astonishing results. Introducing a metric of intelligence and optimizing it will lead to far more powerful models in the future. 
+
+
+It is exciting to experience the progression in AI and AGI.
+
+Resources
+„Google AI defeats human Go champion“, https://www.bbc.com/news/technology-40042581
+„OpenAI Five Defeats Dota 2 World Champions“, https://openai.com/blog/openai-five-defeats-dota-2-world-champions/#:~:text=Defeats%20Dota%202-,World%20Champions,OG%2C%20at%20Finals%20this%20weekend
+https://www.alexirpan.com/2018/02/14/rl-hard.html
+"20"alphazero"
+
+
+
+References
+Reinforcement Learning, Sutton R. and Barto A., 2018
+
+The 5 Fundamental Machine-Learning Algorithms*
+Editor and Distribution, Justin Mitchell., 2021 
+For Reference and Educational Purposes.", https://github.com/MitchellTesla/DevLab-III/new/main/developer/testing/Machine-Learning/Algorithms

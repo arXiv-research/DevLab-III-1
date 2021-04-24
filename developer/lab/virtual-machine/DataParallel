@@ -1,0 +1,2 @@
+# train on 2 GPUs (using DP mode)
+trainer = Trainer(gpus=2, accelerator='dp')

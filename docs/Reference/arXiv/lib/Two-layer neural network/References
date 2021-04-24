@@ -1,0 +1,37 @@
+Zeyuan Allen-Zhu and Yuanzhi Li. Feature purification: How adversarial training performs
+robust deep learning. arXiv preprint arXiv:2005.10190, 2020.
+Anish Athalye, Nicholas Carlini, and David Wagner. Obfuscated gradients give a false sense
+of security: Circumventing defenses to adversarial examples. In International Conference
+on Machine Learning, 2018.
+G´erard Ben Arous, Eliran Subag, and Ofer Zeitouni. Geometry and temperature chaos in
+mixed spherical spin glasses at low temperature: the perturbative regime. Communications
+on Pure and Applied Mathematics, 73(8):1732–1828, 2020.
+St´ephane Boucheron, G´abor Lugosi, and Pascal Massart. Concentration inequalities: A
+nonasymptotic theory of independence. Oxford university press, 2013.
+Amit Daniely and Hadas Schacham. Most relu networks suffer from `
+2 adversarial pertur-
+bations. arXiv preprint arXiv:2010.14927, 2020.
+Ronen Eldan, Dan Mikulincer, and Tselil Schramm. Non-asymptotic approximations of
+neural networks by gaussian processes. arXiv preprint arXiv:2102.08668, 2021.
+Ian Goodfellow, Jonathon Shlens, and Christian Szegedy. Explaining and harnessing adver-
+sarial examples. In International Conference on Learning Representations, 2015.
+Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian
+Vladu. Towards deep learning models resistant to adversarial attacks. In International
+Conference on Learning Representations, 2018.
+Seyed-Mohsen Moosavi-Dezfooli, Alhussein Fawzi, Jonathan Uesato, and Pascal Frossard.
+Robustness via curvature regularization, and vice versa. In 2019 IEEE/CVF Conference
+on Computer Vision and Pattern Recognition (CVPR), 2019.
+Nicolas Papernot, Patrick McDaniel, Ian Goodfellow, Somesh Jha, Z Berkay Celik, and
+Ananthram Swami. Practical black-box attacks against machine learning. In Proceedings
+of the 2017 ACM on Asia conference on computer and communications security, 2017
+Chongli Qin, James Martens, Sven Gowal, Dilip Krishnan, Krishnamurthy Dvijotham, Al-
+hussein Fawzi, Soham De, Robert Stanforth, and Pushmeet Kohli. Adversarial robustness
+through local linearization. In Advances in Neural Information Processing Systems, 2019.
+Adi Shamir, Itay Safran, Eyal Ronen, and Orr Dunkelman. A simple explanation for
+the existence of adversarial examples with small hamming distance. arXiv preprint
+arXiv:1901.10861, 2019.
+Christian Szegedy, Wojciech Zaremba, Ilya Sutskever, Joan Bruna, Dumitru Erhan, Ian
+Goodfellow, and Rob Fergus. Intriguing properties of neural networks. In International
+Conference on Learning Representations, 2014.
+Martin J Wainwright. High-dimensional statistics: A non-asymptotic viewpoint, volume 48.
+Cambridge University Press, 2019.

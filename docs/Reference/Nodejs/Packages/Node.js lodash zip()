@@ -1,0 +1,5 @@
+
+var lodash = require('lodash');
+var zip1 = lodash.zip(['fred', 'barney'], [30, 40], [true, false]);
+console.log(zip1);/* w  w  w  .  j ava 2s  .  co  m*/
+//  [['fred', 30, true], ['barney', 40, false]]

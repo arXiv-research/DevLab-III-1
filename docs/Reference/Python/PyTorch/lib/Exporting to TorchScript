@@ -1,0 +1,10 @@
+TorchScript allows you to serialize your models in a way that it can be loaded in non-Python environments. The LightningModule has a handy method to_torchscript() that returns a scripted module which you can save or directly use.
+
+model = SimpleModel()
+script = model.to_torchscript()
+
+# save for use in production environment
+torch.jit.save(script, "model.pt")
+
+
+It is recommended that you install the latest supported version of PyTorch to use this feature without limitations.

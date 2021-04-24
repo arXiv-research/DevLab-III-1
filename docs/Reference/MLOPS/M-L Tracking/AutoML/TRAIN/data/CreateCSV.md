@@ -1,4 +1,5 @@
 Create CSV files with video URIs and labels
+
 Once your files have been uploaded to Cloud Storage, you can create CSV files that list all of your training data and the category labels for that data. The CSV files can have any filenames, must be UTF-8 encoded, and must end with the .csv extension.
 
 There are three files that you can use for training and verifying your model:
@@ -20,6 +21,7 @@ Example 2:
 
 
 UNASSIGNED,gs://automl-video-demo-data/traffic_videos/traffic_videos_labels.csv
+
 Training data	
 Used to train the model. Contains URIs to video files, the label identifying the object category, the instance id that identifies the object instance across video frames in a video (optional), the time offset of the labeled video frame, and the object bounding box coordinates.
 
@@ -46,6 +48,7 @@ An instance ID that identifies the object instance across video frames in a vide
 The time offset of the video frame that indicates the duration offset from the beginning of the video. The time offset is a floating number and the units are in second.
 
 The timeoffset of the annotations you provide does not need to align with the frame rate of AutoML Video Object Tracking's system. The annotations are rounded to the timestamp of the nearest frame, which is at most 0.05s away in 10fps videos.
+
 A bounding box for an object in the video frame The bounding box for an object can be specified in two ways:
 
 Using 2 vertices consisting of a set of x,y coordinates if they are diagonally opposite points of the rectangle, as shown in this example:
@@ -57,6 +60,7 @@ x_relative_min, y_relative_min,,,x_relative_max,y_relative_max,,
 Using all 4 vertices:
 
 x_relative_min,y_relative_min,x_relative_max,y_relative_min,x_relative_max,y_relative_max,x_relative_min,y_relative_max
+
 Each vertex is specified by x, y coordinate values. These coordinates must be a float in the 0 to 1 range, where 0 represents the minimum x or y value, and 1 represents the greatest x or y value.
 
 For example, (0,0) represents the top left corner, and (1,1) represents the bottom right corner; a bounding box for the entire image is expressed as (0,0,,,1,1,,), or (0,0,1,0,1,1,0,1).
@@ -64,7 +68,9 @@ For example, (0,0) represents the top left corner, and (1,1) represents the bott
 AutoML Video Object Tracking API does not require a specific vertex ordering. Additionally, if four specified vertices don't form a rectangle parallel to image edges, AutoML Video Object Tracking API specifies vertices that do form such a rectangle.
 
 Note: You can use Cloud Video Intelligence API's Object Tracking feature to help build your dataset by getting more generalized labels and bounding boxes for object tracks in a video.
+
 Examples of CSV dataset files
+
 The following rows demonstrate how to specify data in a dataset. The example includes a path to a video on Cloud Storage, a label for the object, a times offset to begin tracking, and two diagonal vertices.
 
 
@@ -83,12 +89,14 @@ X_RELATIVE_MIN,Y_RELATIVE_MIN are 0.8,0.2,
 X_RELATIVE_MAX,Y_RELATIVE_MIN not specified,
 X_RELATIVE_MAX,Y_RELATIVE_MAX are 0.9,0.3,
 X_RELATIVE_MIN,Y_RELATIVE_MAX are not specified
+
 As stated previously, you can also specify your bounding boxes by providing all four vertices, as shown in the following examples.
 
 
 gs://folder/video1.avi,car,,12.10,0.8,0.8,0.9,0.8,0.9,0.9,0.8,0.9
 gs://folder/video1.avi,car,,12.90,0.4,0.8,0.5,0.8,0.5,0.9,0.4,0.9
 gs://folder/video1.avi,car,,12.10,0.4,0.2,0.5,0.2,0.5,0.3,0.4,0.3
+
 You do not need to specify validation data to verify the results of your trained model. AutoML Video Object Tracking automatically divides the rows identified for training into training and validation data, where 80% is used for training and 20% for validation.
 
 Troubleshooting CSV dataset issues
@@ -98,8 +106,11 @@ Using unicode characters in labels. For example, Japanese characters are not sup
 Using spaces and non-alphanumeric characters in labels
 Empty lines
 Empty columns (lines with two successive commas)
+
 Incorrect capitalization of Cloud Storage video paths
+
 Incorrect access control configured for your video files. Your service account should have read or greater access, or files must be publicly-readable.
+
 References to non-video files (such as PDF or PSD files). Likewise, files that are not video files but that have been renamed with a video extension will cause an error.
 URI of video points to a different bucket than the current project. Only videos in the project bucket can be accessed.
 Non-CSV-formatted files.

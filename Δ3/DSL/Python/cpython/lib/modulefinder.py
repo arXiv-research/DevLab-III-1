@@ -1,4 +1,3 @@
- 
 """Find modules used by a script, using introspection."""
 
 import dis

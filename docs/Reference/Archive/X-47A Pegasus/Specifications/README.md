@@ -20,3 +20,11 @@ Variants
 X-47A
 X-47B
 X-47C: Proposed larger version with a payload of 10,000 lb (4,500 kg) and a wingspan of 172 ft (52.4 m).
+
+The X-47B is planned to be capable for three primary missions; surveillance/reconnaissance, suppression of enemy air defenses (SEAD) and strike and of course all the missions require stealth and consequent survivability.
+
+Surveillance/reconnaissance: The X-47 will have passive and active sensor suites able to cover a large geographic area and have a long loiter time once over the target area.
+
+Suppression of enemy air defense: The X-47 will be capable of defense stimulation, deception and neutralization as well as being remotely networked with theater and national sensor systems. Expect the plane to carry a complement of advanced SEAD ordinance and accurately target multiple enemies simultaneously.
+
+Strike: The X-47 will be extremely survivable and will carry a complement of existing weapons, as well as a synthetic aperture radar and a state of the art electro-optical / infrared suite all the while being interoperable with current C4I systems.

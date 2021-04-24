@@ -1,0 +1,727 @@
+In this section, we consider ψ(t) = max(0, t).
+Lemma 8 With probability at least 1 − γ,
+|f(x)| ≤ p
+2 log(2/γ)
+ 
+1 + r
+log(2/γ)
+k
+!
+,
+and
+k∇f(x)k ≥ 
+1
+2
+−
+r
+2 log(4/γ)
+k
+ 
+1 + r
+log(1/γ)
+k
+!!1/2 
+1 − 5
+r
+log(4/γ)
+d
+!
+.
+Proof. In Lemma 2 and Lemma 4, we can take σ = c = σ
+0 = c
+0 = 1 (since |ψ(X)| ≤ |X|
+and |ψ
+0
+(X)| ≤ 1), which concludes the proof. 
+We now turn to the control of (7). In the smooth case we did so via Lemma 6 and Lemma
+7, which both used crucially the smoothness of the activation function. Here, instead of
+smoothness, we will use that only few activations can change when you make microscopic
+move (i.e., between x + δ and x + δ
+0 with kδ − δ
+0k = o(1)). The key observation is the
+following lemma:
+Lemma 9 For any δ such that kδk ≤ R,
+P(sign(w`
+· x) 6= sign(w`
+· (x + δ))) ≤ R
+r
+2 log(d)
+d
++
+1
+d
+. (13)
+Moreover, for any δ with kδk ≤ √
+d/2, we have
+P(∃δ
+0
+: kδ−δ
+0
+k ≤ ε and sign(w`
+·(x+δ)) 6= sign(w`
+·(x+δ
+0
+))) ≤ 2ε
+ 
+1 + 2r
+log(2/ε)
+d
+!
+. (14)
+Proof. We have:
+P(sign(w`
+· x) 6= sign(w`
+· (x + δ))) ≤ P(|w`
+· δ| ≥ |w`
+· x|) ≤ P(|w`
+· δ| ≥ t) + P(|w`
+· x| ≤ t),
+where the last inequality holds for any threshold t ∈ R. Now, note that w`
+· δ ∼ N (0,
+kδk
+2
+d
+)
+and w`
+· x ∼ N (0, 1). Thus picking t = R
+q2 log(d)
+d
+shows that
+P(sign(w`
+· x) 6= sign(w`
+· (x + δ))) ≤ R
+r
+2 log(d)
+d
++
+1
+d
+,
+which concludes the proof of (13).
+For (14) we have:
+P(∃δ
+0
+: kδ − δ
+0
+k ≤ ε and sign(w`
+· (x + δ)) 6= sign(w`
+· (x + δ
+0
+)))
+≤ P(∃δ
+0
+: kδ − δ
+0
+k ≤ ε and |w`
+· (δ
+0 − δ)| ≥ t) + P(|w`
+· (x + δ)| ≤ t)
+≤ P(kw`k ≥ t/ε) + P(|w`
+· (x + δ)| ≤ t).
+where w`
+·(x+δ) ∼ N (0, σ2
+) with σ
+2 ≥
+1
+2
+since kδk ≤ √
+d/2. Thus picking t = ε
+r
+1 + 4qlog(2/ε)
+d
+and applying (8) concludes the proof. 
+We now give the equivalent of Lemma 6:
+Lemma 10 Fix δ ∈ R
+d
+such that kδk ≤ R (with R ≥ 1) and v ∈ S
+d−1
+. Then with probability
+at least 1 − γ one has:
+1
+√
+k
+X
+k
+`=1
+a`(w`
+·v)(ψ
+0
+(w`
+·x)−ψ
+0
+(w`
+·(x+δ))) ≤ 2
+r
+log(1/γ)
+d
+
+
+ 
+2R
+r
+log(d)
+d
+!1/4
++
+r
+log(1/γ)
+k
+
+ .
+Proof. We apply Bernstein’s inequality with X` = a`(w`
+· v)(ψ
+0
+(w`
+· x) − ψ
+0
+(w`
+· (x + δ))).
+We have E[X`
+] = 0 and (using (13) in Lemma 9)
+E[|X`
+|
+q
+] = E[|w`
+· v|
+q
+|ψ
+0
+(w`
+· x) − ψ
+0
+(w`
+· (x + δ))|
+q
+]
+≤
+p
+E[|w`
+· v|
+2q
+] × P(sign(w`
+· x) 6= sign(w`
+· (x + δ)))
+≤
+r
+(2q)!
+2d
+q
+×
+s
+2R
+r
+log(d)
+d
+≤
+q!
+2
+
+2
+√
+d
+q
+×
+s
+2R
+r
+log(d)
+d
+.
+Thus we can apply Bernstein with σ = √
+2
+d
+×
+
+2R
+qlog(d)
+d
+1/4
+and c = √
+2
+d
+which yields the
+claimed bound. 
+Finally, we give the equivalent of Lemma 7:
+Lemma 11 Let 1 ≤ R ≤
+√
+d/2,
+√
+k ≥ 52 and d ≥ log(1/γ). Then, with probability at least
+1 − γ, one has
+sup
+v∈S
+d−1,δ∈Rd:δ≤R
+1
+√
+k
+X
+k
+`=1
+a`(w`
+· v)(ψ
+0
+(w`
+· x) − ψ
+0
+(w`
+· (x + δ))
+≤ 20 
+R log2
+(Rk)
+r
+log d
+d
+!1/4
++ 40r
+d
+k
+log(Rk).
+Proof. Similarly to the proof of Lemma 7, we define Φ(v, δ) = √
+1
+k
+Pk
+`=1 a`(w`
+· v)(ψ
+0
+(w`
+·
+x) − ψ
+0
+(w`
+· (x + δ))), and Nε an ε-net for Ω = {(v, δ), kvk = 1, kδk ≤ R} (recall that
+|Nε| ≤ (10R/ε)
+2d
+). Using Lemma 10, we obtain with probability at least 1 − γ:
+sup
+(v,δ)∈Ω
+Φ(v, δ) ≤ sup
+(v,δ)∈N
+Φ(v, δ) + sup
+(v,δ),(v
+0
+,δ0)∈Ω:kv−v
+0k+kδ−δ
+0k≤ε
+|Φ(v, δ) − Φ(v
+0
+, δ0
+)|
+≤ 2
+r
+2d log(10R/ε) + log(1/γ)
+d
+
+
+ 
+2R
+r
+log(d)
+d
+!1/4
++
+r
+2d log(10R/ε) + log(1/γ)
+k
+
+
++ sup
+(v,δ),(v
+0
+,δ0)∈Ω:kv−v
+0k+kδ−δ
+0k≤ε
+|Φ(v, δ) − Φ(v
+0
+, δ0
+)| .
+
+Thus, it remains again to estimate the “Lipschitz constant” of the mapping Φ but crucially
+only at scale ε (the crucial point is that we don’t need to argue about infinitesimal scale,
+where a ReLU network is not smooth). For v, v0
+, one has
+|Φ(δ, v) − Φ(δ, v0
+)| ≤ kv − v
+0k
+√
+k
+X
+k
+`=1
+kw`k .
+Using (8), we see that with probability at least 1 − γ, one has for all ` ∈ [k],
+kw`k
+2 ≤ 1 + 4r
+log(k/γ)
+d
+,
+so that in this event we have:
+|Φ(δ, v) − Φ(δ, v0
+)| ≤ kv − v
+0
+k
+s
+k + 4k
+r
+log(k/γ)
+d
+. (16)
+On the other hand, for δ, δ0 we write:
+|Φ(δ, v) − Φ(δ
+0
+, v)| ≤ 1
+√
+k
+
+
+
+
+
+X
+k
+`=1
+1 {sign(w`
+· (x + δ)) > sign(w`
+· (x + δ
+0
+))} a`w`
+· v
+
+
+
+
+
++
+1
+√
+k
+
+
+
+
+
+X
+k
+`=1
+1 {sign(w`
+· (x + δ)) < sign(w`
+· (x + δ
+0
+))} a`w`
+· v
+
+
+
+
+
+≤
+1
+√
+k
+
+
+
+
+
+
+
+
+
+
+X
+k
+`=1
+1 {sign(w`
+· (x + δ)) > sign(w`
+· (x + δ
+0
+))} a`w`
+
+
+
+
+
+
+
+
+
+
++
+1
+√
+k
+
+
+
+
+
+
+
+
+
+
+X
+k
+`=1
+1 {sign(w`
+· (x + δ)) < sign(w`
+· (x + δ
+0
+))} a`w`
+
+
+
+
+
+
+
+
+
+
+(17)
+Letting X`(δ) = 1{∃δ
+0
+: kδ − δ
+0k ≤ ε and sign(w`
+· (x + δ)) 6= sign(w`
+· (x + δ
+0
+))}, we now
+control with exponentially high probability Pk
+`=1 X`(δ). By (14) in Lemma 9, we know that
+X`(δ) is a Bernoulli of parameter at most 2ε
+
+1 + 2qlog(2/ε)
+d
+
+. So we have:
+P
+ X
+k
+`=1
+X`(δ) ≥ s
+!
+≤
+ 
+2kε 
+1 + 2r
+log(2/ε)
+d
+!!s
+.
+And thus, thanks to an union bound, we obtain:
+P
+ 
+∃(v, δ) ∈ Nε :
+X
+k
+`=1
+X`(δ) ≥ s
+!
+≤
+
+10R
+ε
+2d
+ 
+2kε 
+1 + 2r
+log(2/ε)
+d
+!!s
+. (18)
+With s = 4d the latter is upper bounded by (26k
+√
+Rε3d/8
+)
+4d
+(using the fact that √
+ε(1 +
+2
+p
+log 2/ε) ≤ 4ε
+3/8
+, ∀1 ≥ ε > 0). Taking ε = R−4/3k
+−4 we get that this probability is less
+than (26/
+√
+k)
+8d ≤ γ for √
+k ≥ 52 and d ≥ log(1/γ).
+
+Furthermore, we have by another union bound and the concentration of Lipschitz func-
+tions of Gaussians [Boucheron et al., 2013, Theorem 5.5] (k · k is a 1-Lipschitz function):
+P
+ 
+∃S ⊂ [k], |S| ≤ 4d :
+
+
+
+
+
+
+
+
+
+
+1
+√
+k
+X
+i∈S
+aiwi
+
+
+
+
+
+
+
+
+
+
+≥
+r
+|S|
+k
+(1 + t)
+!
+≤ k
+4d
+e
+− dt2
+2
+By setting t = 2q
+log 4k +
+log 8/γ
+d
+, we get that with probability at least 1 − γ/8:
+∀S ⊂ [k], |S| ≤ 4d :
+
+
+
+
+
+
+
+
+
+
+1
+√
+k
+X
+i∈S
+aiwi
+
+
+
+
+
+
+
+
+
+
+≤ 9
+r
+d
+k
+r
+log 4k +
+log 8/γ
+d
+(19)
+Finally, noting that for all (v, δ) ∈ N, kδ
+0 − δk ≤ ε:
+1 {sign(w`
+· (x + δ)) < sign(w`
+· (x + δ
+0
+))} ≤ X`(δ)
+1 {sign(w`
+· (x + δ)) > sign(w`
+· (x + δ
+0
+))} ≤ X`(δ),
+we may combine (16), (17), (18) and (19) to obtain that with probability at least 1 − γ, we
+have for all δ, v, δ0
+, v0 with kδ − δ
+0k ≤ 1
+R4/3k
+4 and kv − v
+0k ≤ 1
+R4/3k
+4
+,
+|Φ(δ, v) − Φ(δ, v0
+)| ≤ 1
+R4/3k
+4
+s
+k + 4k
+r
+log(4k/γ)
+d
+.
+and
+|Φ(δ, v) − Φ(δ
+0
+, v)| ≤ 18r
+d
+k
+r
+log 4k +
+log 8/γ
+d
+.
+Combining this with (15) we obtain with probability at least 1 − γ:
+sup
+(v,δ)∈Ω
+Φ(v, δ)
+≤ 2
+r
+10d log(Rk) + log(2/γ)
+d
+
+
+ 
+2R
+r
+log(d)
+d
+!1/4
++
+r
+10d log(Rk) + log(2/γ)
+k
+
+
++ 20r
+d
+k
+r
+log 4k +
+log 8/γ
+d
+≤ 3
+r
+10d log(Rk) + log(2/γ)
+d
+
+
+ 
+2R
+r
+log(d)
+d
+!1/4
++
+r
+10d log(Rk) + log(2/γ)
+k
+
+ ,
+which concludes the proof up to straightforward algebraic manipulations. 
+Proof.[of Theorem 2] The proof is the same as for Theorem 1 with Lemma 8 instead of
+Lemma 5 and Lemma 11 instead of Lemma 7.
+

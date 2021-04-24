@@ -1,0 +1,23 @@
+
+var fs = require("fs"),
+  config = JSON.parse(fs.readFileSync("files/config.json")),
+  express = require("express"),
+  app = express(),//from  w w  w. j  a  v  a  2 s  .  c  om
+  server = app.listen(config.port, config.host),
+  io = require("socket.io").listen(server);
+
+//Set 'public' directory for easy routing of requests to pages
+app.use(express.static(__dirname + "/views"));
+
+console.log("Defining a socket triggered by a 'connection' event.");
+io.sockets.on("connection", function(socket) {
+  //Send data to the browser with an event type of 'connected'
+  socket.emit("connected", {
+    "source": "backend",
+    "greeting": "Hello browser!"
+  });
+  //Listen for 'frontendEvent's triggered by the browser
+  socket.on("frontendEvent", function(data) {
+    console.log(data);
+  });
+});

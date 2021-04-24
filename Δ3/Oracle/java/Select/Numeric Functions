@@ -1,0 +1,27 @@
+Numeric Functions
+
+Function	Description
+
+abs(x)	absolute value of x
+BITAND(x,y)	a bitwise AND on x and y.
+CEIL	Returns the ceiling value (next highest integer above a number).
+EXP	Returns e raised to a value.
+FLOOR	Returns the floor value (next lowest integer below number).
+LN(n),LOG(m,n)	Natural logarithm, and logarithm base m
+Mod	Returns The Remainder Of N/M Where Both N And M Are Integers.
+POWER	Returns value raised to some exponential power.
+REMAINDER(n1, n2)	Identifies the multiple of n2 that is nearest to n1, and returns the difference between those two values.
+ROUND	Returns the number rounded to nearest value, adjusts precision.
+Sign	Returns 1 If The Argument Is Positive; -1 If The Argument Is Negative; And 0 If The Argument Is Negative.
+Sqrt(x)	Square Root Of x
+TRUNC	Returns the truncated value (removes decimal part of a number, precision adjustable).
+SIN(n),
+COS(n),
+TAN(n)	Sine, cosine, and tangent of n (n expressed in radians)
+ASIN(n),
+ACOS(n),
+ATAN(n)	Arcsine, arccosine, and arctangent of n
+SINH(n),
+COSH(n),
+TANH(n)	Hyperbolic sine, hyperbolic cosine, and hyperbolic tangent of n
+ATAN2(x,y)	Returns the arctangent of x and y.

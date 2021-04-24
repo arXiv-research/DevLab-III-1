@@ -1,16 +1,10 @@
-# devLab-3
-An Experimental Repository under heavy construction.....
-
-The repository is an experiment with a plug-n-play(removable storage) integration - Execute fundamental Machine-Learning algorithms and Smart-Contracts with multiple Domain Specific Languages and Integrated Development Environments.
+# devLab-3 pre-release
+An Experimental Repository and Library under heavy construction.....
 
 For further development, testing, and advancement of Machine-Learning algorithms, Neural Networks, and Blockchain Technology. 
 
-This is the "testing grounds" research and reference library for integrating with higher level DSL's, smart-contracts and ML libraries acrossed multiple protocols or environments.
+This is the "testing grounds" research and reference library for integrating with higher level DSL's, smart-contracts, and M-L libraries acrossed multiple virtual environments.
 
-The project is for personal research and development, but I will add,....developers are welcome to use, contribute, redistribute, or fork.
-I will try to include documentation and tutorials to help guide developers with how to properly utilize the repository for the best results. 
-
-Recommendation: clone/copy the repository to a removable device for future advancements and usage...¹⁹¹⁴
 
 NOTICE:
 CODE_OF_CONDUCT 
@@ -76,7 +70,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-NOTICE: LICENSE 
+NOTICE: LICENSE #2
 
 Cryptographic Autonomy License version 1.0
 
@@ -202,3 +196,6 @@ If any provision of this License is held to be unenforceable, such provision sha
 
 7.7. License for the Text of this License
 The text of this license is released under the Creative Commons Attribution-ShareAlike 4.0 International License, with the caveat that any modifications of this license may not use the name “Cryptographic Autonomy License” or any name confusingly similar thereto to describe any derived work of this License.
+
+
+ Justin Mitchell ©️ MitchellTesla ~2021

@@ -1,0 +1,42 @@
+Binary packages of Solidity are available at solidity/releases.
+
+We also have PPAs for Ubuntu, you can get the latest stable version using the following commands:
+
+sudo add-apt-repository ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install solc
+The nightly version can be installed using these commands:
+
+sudo add-apt-repository ppa:ethereum/ethereum
+sudo add-apt-repository ppa:ethereum/ethereum-dev
+sudo apt-get update
+sudo apt-get install solc
+We are also releasing a snap package, which is installable in all the supported Linux distros. To install the latest stable version of solc:
+
+sudo snap install solc
+If you want to help testing the latest development version of Solidity with the most recent changes, please use the following:
+
+sudo snap install solc --edge
+Arch Linux also has packages, albeit limited to the latest development version:
+
+pacman -S solidity
+We distribute the Solidity compiler through Homebrew as a build-from-source version. Pre-built bottles are currently not supported.
+
+brew update
+brew upgrade
+brew tap ethereum/ethereum
+brew install solidity
+If you need a specific version of Solidity you can install a Homebrew formula directly from Github.
+
+View solidity.rb commits on Github.
+
+Follow the history links until you have a raw file link of a specific commit of solidity.rb.
+
+Install it using brew:
+
+brew unlink solidity
+# Install 0.4.8
+brew install https://raw.githubusercontent.com/ethereum/homebrew-ethereum/77cce03da9f289e5a3ffe579840d3c5dc0a62717/solidity.rb
+Gentoo Linux also provides a solidity package that can be installed using emerge:
+
+emerge dev-lang/solidity

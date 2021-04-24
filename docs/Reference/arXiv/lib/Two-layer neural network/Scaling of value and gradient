@@ -1,0 +1,127 @@
+Here we show how to prove (2) and (3) (in fact, for our purpose, we only need the one-sided
+inequality k∇f(x)k = Ω(1)) under very mild conditions on ψ which will be satisfied for
+both ReLU and smooth activations. We will repeatedly use Bernstein’s inequality which we
+restate here for convenience (see e.g., Theorem 2.10 in Boucheron et al. [2013]):
+Theorem 3 (Bernstein’s inequality) Let (X`) be i.i.d. centered random variables such
+that there exists σ, c > 0 such that for all integers q ≥ 2,
+E[|X`
+|
+q
+] ≤
+q!
+2
+σ
+2
+c
+q−2
+.
+Then with probability at least 1 − γ one has:
+X
+k
+`=1
+X` ≤
+p
+2σ
+2k log(1/γ) + c log(1/γ).
+We will also use repeatedly that EX∼N (0,1)[|X|
+q
+] ≤ (q − 1)!! ≤
+q!
+2
+, as well as the following
+concentration of χ
+2
+random variables (see e.g., (2.19) in Wainwright [2019]): let X1, . . . , Xk
+be i.i.d. standard Gaussians, then with probability at least 1 − γ, one has:
+
+
+
+
+
+X
+k
+`=1
+X
+2
+` − k
+
+
+
+
+
+≤ 4
+p
+k log(2/γ). (8)
+We can now proceed to our various results.
+Lemma 2 Assume that there exists σ, c > 0 such that for all integers q ≥ 2,
+EX∼N (0,1)[|ψ(X)|
+q
+] ≤
+q!
+2
+σ
+2
+c
+q−2
+. (9)
+Then with probability at least 1 − γ one has
+|f(x)| ≤ p
+2σ
+2
+log(1/γ) + c log(1/γ)
+√
+k
+
+Proof. Let X` = a`ψ(w`
+· x). Then E[X`
+] = 0 and
+E[|X`
+|
+q
+] ≤
+q!
+2
+σ
+2
+c
+q−2
+, for all integers q ≥ 2 .
+Thus Bernstein’s inequality states that with probability at least 1 − γ one has
+√
+kf(x) = X
+k
+`=1
+X` ≤
+p
+2σ
+2k log(1/γ) + c log(1/γ).
+
+Lemma 3 Let ψ be differentiable almost everywhere. Then with probability at least 1 − γ
+for 0 < γ < 2/e one has:
+k∇f(x)k ≥ 
+1 − 5
+r
+log(2/γ)
+d
+!vuut
+1
+k
+X
+k
+`=1
+ψ0
+(w`
+· x)
+2
+.
+
+Proof. Let P = Id−
+xx>
+d
+be the projection on the orthogonal complement of the span of x. We
+have k∇f(x)k ≥ kP∇f(x)k. Moreover a`Pw`
+is independent of w`
+·x, and thus conditioning
+on the values (w`
+· x)`∈[k] we obtain (using that a`Pw`
+is distributed as N

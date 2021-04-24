@@ -1,0 +1,59 @@
+The existence of adversarial examples in neural network architectures was first evidenced in
+the seminal paper of Szegedy et al. [2014], where the authors found adversarial examples
+by using the L-BFGS optimization procedure. Shortly after this work, it was hypothesized
+in Goodfellow et al. [2015] that the existence of adversarial examples stems from an exces-
+sive “linearity” of neural network models. This hypothesis was experimentally confirmed
+by showing that a single step of gradient descent suffices to find adversarial perturbations
+(the so-called fast gradient sign method -FGSM-). Our theorems can be thought of as a
+theoretical confirmation of the hypothesis in Goodfellow et al. [2015]. In fact, as we explain
+in Section 1.2 below, our proofs proceed exactly by showing that “most” two-layers neural
+networks behave “mostly” linearly over “vast” regions of input space.
+
+We note that not all networks are susceptible to one-step gradient attacks to find adver-
+sarial examples. Indeed, in Goodfellow et al. [2015], it was shown that adversarial training
+can be used to build networks that are somewhat robust to one-step gradient attacks. Inter-
+estingly in Madry et al. [2018] it was then shown that such models remain in fact susceptible
+to multi-steps gradient attacks, and empirically they demonstrated that better robustness
+can be achieved with adversarial training using multi-steps gradient attacks. Understanding
+this phenomenon theoretically remains a challenge, see for example Allen-Zhu and Li [2020]
+for one proposed approach, and Moosavi-Dezfooli et al. [2019], Qin et al. [2019] for discus-
+sion/algorithmic consequences of the relation with the phenomenon of gradient obfuscation
+(see Athalye et al. [2018], Papernot et al. [2017]).
+
+Our work is a direct follow-up of Daniely and Schacham [2020] (which itself is a follow-
+up on Shamir et al. [2019]). Daniely and Schacham prove that multi-steps gradient descent
+finds adversarial examples for ReLU random networks of the form (1), as long as the number
+of neurons is much smaller than the dimension (i.e., k = o(d)). They explicitly conjecture
+that this condition is not necessary, and indeed we exponentially improve their condition
+to requiring k = exp(o(d))) in Theorem 2 (see below for a discussion of the case where k
+is exponential in the dimension). We note that there remains a small window of widths
+around k ' d where the conjecture of Daniely and Schacham remains open, as we require
+k ≥ d log2
+(d) in Theorem 2. Moreover Daniely and Schacham went beyond two-layers neural
+networks, and they conjecture (and prove for shrinking layers) that gradient descent finds
+adversarial examples on random multi-layers neural networks. We give some experimental
+confirmation of this multi-layer conjecture in Section 4.
+
+
+Finally the ultra-wide case k = exp(Ω(d)) remains open. This exponential size case
+seems of a different nature than the polynomial size we tackle here, at least for the ReLU
+activation function. In particular it is likely that the behavior with exponential width would
+be closely tied to the actual limit case k = +∞, where the random model (1) yields a
+Gaussian process. Namely for k = +∞ one has that f is a Gaussian process indexed by
+the sphere (say if we restrict to inputs x ∈
+√
+d · S
+d−1
+), with f(x) ∼ N (0, EX∼N (0,1)[ψ(X)])
+and E[f(x)f(y)] = EX,Y ∼N (0,1):E[XY ]=x·y[ψ(X)ψ(Y )]. For example if the activation function
+is a Hermite polynomial of degree p, then f would be a spherical p-spin glass model. This
+polynomial case is particularly well-understood, and in fact the landscape we describe below
+in Section 1.2 was already described in this case in Ben Arous et al. [2020] (see in particular
+Corollary 59). It would be interesting to see if the p-spin glass landscape literature can be
+extended to non-polynomial activation functions, and to a finite (but possibly exponential
+in d) k. A step in this latter direction was recently taken in Eldan et al. [2021], where
+convergence rates to the Gaussian process limit where given both for polynomial activations
+and for the ReLU. Finally we note that for a smooth activation it might be that there
+is a more direct argument to remove the subexponential width condition in Theorem 1
+(technically in the proof of Lemma 7 there might a better argument than using the naive
+upper bound on Lip(Φ)).

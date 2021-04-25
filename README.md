@@ -1,14 +1,17 @@
 # devLab-3 pre-release
-An Experimental Repository and Library under heavy construction.
 
-(Workflows and Actions are temporarily disabled for updates)
+Experimental Repository of Machine-Learning Algorithms.
 
-This is the "testing grounds" research and reference library for integrating with higher level DSL's, smart-contracts, and M-L libraries acrossed multiple virtual environments.
+This is the "Testing Grounds" for integrating with higher level DSL's, Smart-Contracts, RaspberryPi, and M-L Libraries/Notebooks.
 
+
+(Github Workflows and Actions are temporarily disabled for Updates)
 
 NOTICE:
 CODE_OF_CONDUCT 
 
+ Justin Mitchell ©️ MitchellTesla ~ 2021
+ 
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 Our Standards
@@ -198,4 +201,3 @@ If any provision of this License is held to be unenforceable, such provision sha
 The text of this license is released under the Creative Commons Attribution-ShareAlike 4.0 International License, with the caveat that any modifications of this license may not use the name “Cryptographic Autonomy License” or any name confusingly similar thereto to describe any derived work of this License.
 
 
- Justin Mitchell ©️ MitchellTesla ~2021

@@ -74,3 +74,10 @@ NaN
 NaN
 6.385066
 NaN
+
+END RESULTS*
+
+For the speed results we can see that LightGBM is on average 5 times faster than the CPU and GPU versions of XGBoost and XGBoost histogram. In regards to the performance, we can see that LightGBM is sometimes better and sometimes worse.
+Analyzing the results of XGBoost in CPU we can see that XGBoost histogram is faster than XGBoost in the Airline, Fraud and HIGGS datasets, but much slower in Planet and BCI dataset. In these two cases there is a memory overhead due to the high number of features. In the case of football dataset, the histogram implementation is slightly slower, we believe that there could be a slight principle of memory overhead.
+Finally, if we look at the results of XGBoost in GPU we see that there are several values missing. This is due to an out of memory of the standard version. In our experiments we observed that XGBoost's memory consumption is around 10 times higher than LightGBM and 5 times higher than XGBoost histogram. We see that the histogram version is faster except in the BCI dataset, where there could be a memory overhead like in the CPU version
+

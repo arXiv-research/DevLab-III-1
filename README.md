@@ -10,7 +10,7 @@ This is the "Testing Grounds" for integrating with higher level DSL's, Smart-Con
 NOTICE:
 CODE_OF_CONDUCT 
 
- Justin Mitchell ©️ MitchellTesla ~ 2021
+Copyright ©️ Justin Mitchell ~ 2021
  
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
@@ -199,5 +199,3 @@ If any provision of this License is held to be unenforceable, such provision sha
 
 7.7. License for the Text of this License
 The text of this license is released under the Creative Commons Attribution-ShareAlike 4.0 International License, with the caveat that any modifications of this license may not use the name “Cryptographic Autonomy License” or any name confusingly similar thereto to describe any derived work of this License.
-
-

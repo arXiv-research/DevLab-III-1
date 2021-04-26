@@ -10,7 +10,7 @@ This is the "Testing Grounds" for integrating with higher level DSL's, Smart-Con
 NOTICE:
 CODE_OF_CONDUCT 
 
-Copyright ©️ Justin Mitchell ~ 2021
+Copyright ©️ MitchellTesla ~ 2021
  
 In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 

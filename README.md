@@ -4,8 +4,30 @@ Experimental Repository of Machine-Learning Algorithms. (WIP)
 
 This is the "Testing Grounds" for integrating with higher level DSL's, Smart-Contracts, RaspberryPi, and M-L Libraries/Notebooks.
 
+# Algorithm Visualizer
 
-(Github Workflows and Actions are temporarily disabled for Updates)
+> Algorithm Visualizer is an interactive online platform that visualizes algorithms from code.
+
+[![GitHub contributors](https://img.shields.io/github/contributors/algorithm-visualizer/algorithm-visualizer.svg?style=flat-square)](https://github.com/algorithm-visualizer/algorithm-visualizer/graphs/contributors)
+[![GitHub license](https://img.shields.io/github/license/algorithm-visualizer/algorithm-visualizer.svg?style=flat-square)](https://github.com/algorithm-visualizer/algorithm-visualizer/blob/master/LICENSE)
+
+Learning an algorithm gets much easier with visualizing it. Don't get what we mean? Check it out:
+
+[**algorithm-visualizer.org**![Screenshot](https://raw.githubusercontent.com/algorithm-visualizer/algorithm-visualizer/master/branding/screenshot.png)](https://algorithm-visualizer.org/)
+
+## Contributing
+
+We have multiple repositories under the hood that comprise the website. Take a look at the contributing guidelines in the repository you want to contribute to.
+
+- [**`algorithm-visualizer`**](https://github.com/algorithm-visualizer/algorithm-visualizer) is a web app written in React. It contains UI components and interprets commands into visualizations. Check out [the contributing guidelines](CONTRIBUTING.md).
+
+- [**`server`**](https://github.com/algorithm-visualizer/server) serves the web app and provides APIs that it needs on the fly. (e.g., GitHub sign in, compiling/running code, etc.)
+
+- [**`algorithms`**](https://github.com/algorithm-visualizer/algorithms) contains visualizations of algorithms shown on the side menu of the website.
+
+- [**`tracers.*`**](https://github.com/search?q=topic%3Avisualization-library+org%3Aalgorithm-visualizer&type=Repositories) are visualization libraries written in each supported language. They extract visualizing commands from code.
+
+
 
 # SLM Lab <br> ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/kengz/slm-lab) ![CI](https://github.com/kengz/SLM-Lab/workflows/CI/badge.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/20c6a124c468b4d3e967/maintainability)](https://codeclimate.com/github/kengz/SLM-Lab/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/20c6a124c468b4d3e967/test_coverage)](https://codeclimate.com/github/kengz/SLM-Lab/test_coverage)
 
@@ -30,29 +52,6 @@ This is the "Testing Grounds" for integrating with higher level DSL's, Smart-Con
 | ![sac doublependulum](https://user-images.githubusercontent.com/8209263/63994879-07c3c680-caab-11e9-974c-06cdd25bfd68.gif) | ![sac pendulum](https://user-images.githubusercontent.com/8209263/63994880-085c5d00-caab-11e9-850d-049401540e3b.gif) | ![sac reacher](https://user-images.githubusercontent.com/8209263/63994881-098d8a00-caab-11e9-8e19-a3b32d601b10.gif) | ![sac walker](https://user-images.githubusercontent.com/8209263/63994882-0abeb700-caab-11e9-9e19-b59dc5c43393.gif) |
 | Inv.DoublePendulum | InvertedPendulum | Reacher | Walker |
 
-
-# Algorithm Visualizer
-
-> Algorithm Visualizer is an interactive online platform that visualizes algorithms from code.
-
-[![GitHub contributors](https://img.shields.io/github/contributors/algorithm-visualizer/algorithm-visualizer.svg?style=flat-square)](https://github.com/algorithm-visualizer/algorithm-visualizer/graphs/contributors)
-[![GitHub license](https://img.shields.io/github/license/algorithm-visualizer/algorithm-visualizer.svg?style=flat-square)](https://github.com/algorithm-visualizer/algorithm-visualizer/blob/master/LICENSE)
-
-Learning an algorithm gets much easier with visualizing it. Don't get what we mean? Check it out:
-
-[**algorithm-visualizer.org**![Screenshot](https://raw.githubusercontent.com/algorithm-visualizer/algorithm-visualizer/master/branding/screenshot.png)](https://algorithm-visualizer.org/)
-
-## Contributing
-
-We have multiple repositories under the hood that comprise the website. Take a look at the contributing guidelines in the repository you want to contribute to.
-
-- [**`algorithm-visualizer`**](https://github.com/algorithm-visualizer/algorithm-visualizer) is a web app written in React. It contains UI components and interprets commands into visualizations. Check out [the contributing guidelines](CONTRIBUTING.md).
-
-- [**`server`**](https://github.com/algorithm-visualizer/server) serves the web app and provides APIs that it needs on the fly. (e.g., GitHub sign in, compiling/running code, etc.)
-
-- [**`algorithms`**](https://github.com/algorithm-visualizer/algorithms) contains visualizations of algorithms shown on the side menu of the website.
-
-- [**`tracers.*`**](https://github.com/search?q=topic%3Avisualization-library+org%3Aalgorithm-visualizer&type=Repositories) are visualization libraries written in each supported language. They extract visualizing commands from code.
 
 
 NOTICE:

@@ -103,3 +103,6 @@ g. You agree that in order for you to form a legally binding contract that you s
 h.  Issuance of DAO tokens may constitute the sale of securities in certain jurisdictions. Seek appropriate legal advice before deploying DAO code.
 
 
+Copyright (c)  Justin Mitchell  2021.  MIT LICENSE
+
+

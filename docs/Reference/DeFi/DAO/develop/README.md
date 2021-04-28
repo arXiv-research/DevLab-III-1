@@ -4,12 +4,13 @@
 
 ## What is it?
 
-Note: this is currently not maintained - do not use it as is.  The repo is for reference purposes. -j.mitchell
-some __init__ files are missing from tests repository 
+Note: this is currently not maintained - do not use it as is.  The repo is for reference purposes to help develop your own DAO. 
 
-A Standard Decentralized Autonomous Organization (DAO) framework written in Solidity to run on the Ethereum blockchain. 
+some __init__ files were removed from the repository. * -J.Mitchell
 
-Feel free to reuse this framework to create your own Decentralized Autonomous Organization.
+An Overview of A Standard Decentralized Autonomous Organization (DAO) framework written in Solidity to run on the Ethereum blockchain. 
+
+Developer's : Feel free to reuse this framework to create your own Decentralized Autonomous Organization.
 
 **Reference:** *"Decentralized autonomous organization to automate governance" -* [White Paper](https://download.slock.it/public/DAO/WhitePaper.pdf) - [Primer](https://blog.slock.it/a-primer-to-the-decentralized-autonomous-organization-dao-69fb125bd3cd)
 

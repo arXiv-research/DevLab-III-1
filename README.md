@@ -248,3 +248,7 @@ If any provision of this License is held to be unenforceable, such provision sha
 7.7. License for the Text of this License
 The text of this license is released under the Creative Commons Attribution-ShareAlike 4.0 International License, with the caveat that any modifications of this license may not use the name “Cryptographic Autonomy License” or any name confusingly similar thereto to describe any derived work of this License.
 
+
+
+Copyright (c)  Justin Mitchell  2021  MIT LICENSE
+

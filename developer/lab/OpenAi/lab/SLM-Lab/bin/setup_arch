@@ -1,0 +1,36 @@
+#!/bin/bash --login
+# This script sets up SLM Lab for Linux Ubuntu
+
+# Fail on the first error; killable by SIGINT
+set -e
+trap "exit" INT
+
+echo "--- Installing system dependencies ---"
+pacman -Suy
+pacman -Sy --needed git cmake gcc
+pacman -Sy --needed zlib libjpeg-turbo xorg-server-xvfb gst-libav xorg-server-devel python-opengl boost sdl swig base-devel gcc-libs hdf5 openblas
+
+echo "--- Installing Conda ---"
+if which conda >/dev/null; then
+  echo "Conda is already installed"
+else
+  pacman -Sy --needed python-conda
+  echo '. /etc/profile.d/conda.sh' >> ~/.bashrc
+  source ~/.bashrc
+fi
+
+echo "--- Installing Conda environment ---"
+if conda env list | grep "^lab " >/dev/null; then
+  echo "conda env lab is already installed"
+else
+  conda create -n lab python=3.7.3 -y
+fi
+
+# remove for reset:
+# conda deactivate
+# conda env remove -n lab -y
+# conda env export > environment.yml
+echo "--- Updating Conda environment ---"
+
+source ~/.bashrc
+echo "--- Lab setup complete ---"

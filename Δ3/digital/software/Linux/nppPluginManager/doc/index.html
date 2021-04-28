@@ -1,0 +1,536 @@
+<html>
+<head>
+  <title>Plugin Manager for Notepad++</title>
+  <style>
+.important {
+  color: #f00;
+  font-weigth: bold;
+}
+</style>
+</head>
+<body>
+<h2>Plugin Manager</h2>
+<hr/>
+<a href="#features">Features</a>&nbsp;&nbsp;
+<a href="#changes">Changes</a>&nbsp;&nbsp;
+<a href="#download">Download</a>&nbsp;&nbsp;
+<a href="#install">Installation</a>&nbsp;&nbsp;
+<a href="#XML">XML File documentation</a>&nbsp;&nbsp;
+<a href="#developer">Plugin Developers</a>&nbsp;&nbsp;
+<a href="#submitting">Submitting changes</a>&nbsp;&nbsp;
+<a href="#credits">Credits</a>&nbsp;&nbsp;
+<a href="#contact">Contact</a>&nbsp;&nbsp;
+
+<hr/>
+<br/><br/>
+Plugin Manager is a plugin for Notepad++ that allows you to install, update and remove plugins 
+from Notepad++.  A centrally hosted XML file holds the list of plugins, that the plugin manager 
+downloads and processes against the list of installed plugins.
+<br/><br/>
+<span class="important">Important note for Vista / Windows 7: </span>
+In order to update the plugin manager to 1.0.8 , you need to run Notepad++ as administrator, update plugin manager, then 
+everything will run properly under a normal user.  Future updates to Plugin Manager will automatically run as administrator.
+<br/>
+<a href="update.htm"><b>Click here for help for update to Plugin Manager 1.0.8</b></a>
+<a name="features"></a>
+<h3>Features</h3>
+
+<ul>
+ <li>Install, Update and Remove all existing plugins</li>
+ <li>Notify when an installed plugin has an update available, and allow the user to update directly</li>
+ <li>Calculate dependencies between plugins, any plugin can depend on another plugin, which 
+     will be installed automatically if the user installs the initial plugin</li>
+ <li>Install all supplemental files as well as the plugin file itself (e.g. config, doc, extra libraries)</li>
+ <li>Automatic installation of the correct version (ANSI/Unicode) for your Notepad++</li>
+ <li>Validation of DLLs copied, against a central list of valid files.  This slightly mitigates the risk of automatically downloading updates.</li>
+ <li>Only plugins that are compatible with your Notepad++ are shown</li>
+ <li>Plugins can be put into categories - a suggestion was made of "Official, Common and Others".  
+     Currently all plugins are in the "Others" category, as I think there needs to be some 
+	 agreement as to what determines an "Official" plugin and which plugins are "Common".</li>
+ <li>Plugin Manager is able to update itself, and will notify the user when an update is available</li>
+ <li>Proxies are supported, just change the setting</li>
+ <li>Updates can be ignored, and the user will not be alerted to that update again, until 
+     a further new version of that plugin is released.</li> 
+ <li>The local plugin list file is only downloaded when something has changed - the MD5sum of the
+ file is compared to the server's version, and if it is different, then a new copy is downloaded.</li>
+ <li>New for 0.9: Works with plugins that are installed multiple times - update them all or individually</li>
+</ul>
+<br/><br/>
+<a name="changes"></a>
+<h3>Changes</h3>
+1.4.12
+<br>
+<ul>
+  <li>Fixed issue #127 NPP v7.5.8 has new directory structure for plugins, so Plugin Manager shows no installed plugins</li>
+  <li>updated build tooling to VS2017 141_xp</li>
+</ul>
+1.4.11
+<br>
+<ul>
+  <li>Fixed issue #99 issue on user drawing of settings button during dialog window resizing</li>
+</ul>
+1.4.10
+<br>
+<ul>
+  <li>PR #66 modified pluginmanager window (thanks @dcomtois)</li>
+  <li>Fixed issue #77 UTF characters not rendered correctly in plugin information</li>
+  <li>Fixed further issues/warnings found by cppcheck</li>
+</ul>
+1.4.9
+<br>
+<ul>
+  <li>Do not force local cache usage when downloading the plugin list (will revalidate file is current each time)</li>
+  <li>New plugin list URL for x64 plugins</li>
+</ul>
+1.4.8
+<br>
+<ul>
+  <li>Minor change to plugin list hash URL for hashes to allow for correct hashes to be used</li>
+  <li>Performance improvements from cppcheck (thanks @chcg)</li>
+</ul>
+1.4.7
+<br>
+<ul>
+  <li>Fix issue with plugin download when hash matches</li>
+  <li>Performance improvements from cppcheck (thanks @chcg)</li>
+  <li>Fix small memory leak (thanks for the report @chcg)</li>
+</ul>
+1.4.6
+<br>
+<ul>
+  <li>Fix handling %APPDATA% plugins when Plugin Manager is installed in %APPDATA%</li>
+</ul>
+1.4.5
+<br>
+<ul>
+  <li>Fix for copies in gpup.exe flattening the directory structor (thanks @oleg-shilo and @CollinChaffin for reporting)</li>
+  <li>Fix compiler warnings and pointer dereference bug (thanks @chcg)</li>
+</ul>
+1.4.4
+<br>
+<ul>
+  <li>Lots of fixes (thanks @chcg)</li>
+  <li>First build with x64 build (huge thanks to @chcg)</li>
+</ul>
+1.4.3
+<br>
+<ul>
+  <li>Change sponsor link to point to english language page (thanks sm4rk0)</li>
+</ul>
+1.4.2
+<br>
+<ul>
+  <li>Fix crash bug when clicking in the update notification window (thanks cmeriaux)</li>
+</ul>
+1.4.1
+<br>
+<ul>
+  <li>Change URL for plugin list (make HTTPS)</li>
+  <li>Add option to use development plugin list</li>
+  <li>Fix installation issues with recursive copies</li>
+  <li>Improve installation security with gpup</li>
+</ul>
+1.3.5
+<br>
+<ul>
+  <li>Ignore cache for file validation</li>
+</ul>
+<br>
+
+1.3.4
+<br>
+<ul>
+  <li>Fix broken fix in gpup.</li>
+</ul>
+<br>
+1.3.3
+<br>
+<ul>
+  <li>Fix gpup version check to accept newer versions of gpup.exe (needed for PM update).
+  <span class="important">This sadly does not fix people updating from 1.0.8, who will still get a warning when updating PM to 1.3.x, that the GPUP version doesn't match.</span></li>
+</ul>
+<br>
+1.3.2
+<br>
+<ul>
+  <li>Remove proxy settings from settings dialog</li>
+</ul>
+<br>
+1.3.1
+<br>
+<ul>
+  <li>Remove unneeded proxy username and password from ini settings file if they're there</li>
+</ul>
+<br>
+1.3.0
+<br>
+<ul>
+	<li>Handle proxy authentication with the system dialog</li>
+</ul>
+<br>
+1.2.0
+<br>
+<ul>
+ <li>Downloads now using WinInet API instead of <a href="http://curl.haxx.se/libcurl/">libcurl</a>. Hence now using system proxy (same as IE and Chrome), and smaller binaries.</li>
+ <li>Better UAC support. If you start Notepad++ as a normal user, then install something, N++ will be restarted as the same user (not as admin as per previous versions)</li>
+</ul>
+<br>
+1.0.8
+<br/><ul>
+<li>Checks gpup.exe version is correct in order to ensure upgrade from previous version was successful
+</ul>
+<br/>
+
+1.0.7
+<br/><ul>
+<li>Fix for updating Plugin Manager itself</li>
+<li>Now uses main FileVersion instead of translated FileVersion to detect plugin version</li>
+</ul>
+<br/>
+
+1.0.5
+<br/><ul>
+<li>"Library" plugins properly supported</li>
+<li>Validation url changed to npppluginmgr project on sourceforge</li>
+</ul>
+<br/>
+
+
+1.0.4
+<br/><ul>
+<li>Fixed crypt32.dll loading dynamically (static link was removed)</li>
+</ul>
+<br/>
+
+1.0.3
+<br/><ul>
+<li>Uninstall fix for appdata plugins</li>
+<li>Infinite loop bug fixed when download location is actually an html site</li>
+<li>Crypt32.dll now loaded dynamically, if it's available (for encrypting proxy authentication details)</li>
+<li>Timeout for connection added when downloading</li>
+</ul>
+<br/>
+
+1.0.2
+<br><ul>
+<li>Support for authenticated proxies (SSPI (windows automatic) authenticated proxies are not supported)</li>
+<li>Plugin list now hosted on sourceforge's file distribution system</li>
+<li>Plugin list now zipped, reducing its size from (currently 120KiB to 29KiB)</li>
+<li>Improved handling for UAC on Windows Vista and above</li>
+<li>Support for the new AppData plugins - Notepad++ 5.9.7 and above</li>
+<li>Improved download support - better recognition of .zip files, and ability to download files as "naked" files</li>
+<li>Basic support for plugin removal steps added (meaning that removal of a plugin should any secondary files)</li>
+<li>Improved Notepad++ restart handling - faster restarts</li>
+<li>Initial support for a "run" install step added</li>
+<li>Recursive copy support</li>
+<li>Option to set how often plugin manager should check for plugin updates - minimum 5 days</li>
+<li>Column headers can now be clicked to sort the plugin in lists in different orders</li>
+<li>Path for plugin config files shown in settings dialog, making it easier to identify the type of installation you have</li>
+</ul>
+<br/>
+0.9.3.1
+<br><ul>
+<li>Fixed issue with Windows 7 / Vista, so you now get a UAC prompt on restart of N++
+<li>Fixed issue with Proxy Server settings being ignored when checking the MD5s of downloaded files
+</ul>
+<br/>
+0.9.3
+<br><ul>
+<li>Fixed issue with extended characters in the Notepad++ path, or the user's home directory
+<li>Added aliases entry to XML file, so a plugin can be known by different names in different versions
+<li>Fixed an issue copying all files from a plugin's zip file (i.e. a *.* copy)
+</ul>
+<br/>
+0.9.2.1
+<br><ul>
+<li>Fixed a minor issue if an variable was badly used in the XML
+<li>Changed "Show Unstable Plugins" to default to off
+</ul>
+0.9.2
+<br><ul>
+<li>Limit the automatic check for updated plugins to once every 3 days, which reduces the load on our servers, and also quickens the startup of Notepad++ for the user.</li>
+<li>Latest update added, so, on future updates, the update notice will be shown on the notify window, and also on the updates tab.
+<li>Stability column added to the list, with the ability to hide the unstable ones (enabled by default)</li>
+<li>Newlines can now be added in the description, using \n, which makes them easier to read</li>
+<li>Ability to highlight a version as unstable (aka "bad"), which means that a lower version number is notified for update.
+<br/>e.g. Plugin version 1.2 is good, then 1.5 is released.  
+      Plugin manager updates to 1.5, then stability reports come in about 1.5 not being stable.  
+     The XML can be updated such that the latest version is 1.2, and 1.5 marked as unstable. 
+	 Anyone who has upgraded to  1.5 will then be asked if they want to "update" back to 1.2.
+	 </li>
+<li>Plugins.xml and the validation database are now hosted on Sourceforge</li>
+<li>Fixed an issue with removing plugins - the plugin file is now removed properly</li>
+<li>Fixed a potential crash issue if a temporary download file could not be opened for writing</li>
+<li>Fixed an issue if the plugin config directory needed multiple levels creating</li>
+<li>A couple of code tidy ups</li>
+</ul>
+0.9
+<br><ul>
+<li>Plugins that are installed multiple times are now supported, and can be updated individually</li>
+<li>The updater (gpup.exe) now shows a progress bar, useful feedback if you've installed or updated a lot of plugins</li>
+<li>User will be presented with a warning if there is an update to the plugin manager that they haven't taken 
+     - it's always best to update the plugin manager first, then install or update other plugins</li>
+<li>Rework of the variable handling in the XML - all variables are now processed at install time</li>
+<li>New variable available, $PLUGINFILENAME$, which is (unsurprisingly) the filename of the installed plugin</li>
+<li>Copy now supports a &quot;toFile&quot; attribute, which copies to a filename rather than a directory</li>
+<li>Added facility in XML to set the name of an unknown plugin based on a hash value - so a plugin that 
+    returns a dynamic name can still be supported (the dynamic name will still be shown in the list 
+	to the user however, but install and update will be possible)
+<li>The user-agent header for all downloads now contains the version number of the plugin manager</li>
+<li>Fixed an issue if the user said no to restarting after removing plugins</li>
+</ul>
+<br/><br/>
+So, I hope you find this plugin useful, and it gives a bit more exposure to plugins, and makes
+it easier to install some of the bigger plugins.
+<br/><br/>
+If you don't see your plugin in the list, let me know (see contact at the end) and I'll make sure it goes in.  
+
+<br/><br/>
+<a name="install"></a>
+<h3>Installation</h3>
+To install the plugin manager, simply download (links below) the .zip, and place the PluginManager.dll 
+file in the Notepad++ plugins directory, and the gpup.exe in the updater directory under your 
+Notepad++ program directory.  (e.g. &quot;C:\Program Files\Notepad++\updater&quot;)
+<br/><br/>
+In fact, if you prefer, you can just add the PluginManager.dll to the plugins directory, then 
+do a reinstall of Plugin Manager from the plugin itself, which will place the file in the right place!
+Of course, if you're already using an earlier version of the plugin manager, you'll be able to just update 
+from the update tab (or when you get the notification that the update has happened).
+
+<br/><br/>
+<a name="download"></a>
+<h3>Download links</h3>
+Official home: <a href="https://github.com/bruderstein/nppPluginManager/releases">https://github.com/bruderstein/nppPluginManager/releases</a>
+<br/>
+Source code is on github: <a href="https://github.com/bruderstein/nppPluginManager">https://github.com/bruderstein/nppPluginManager</a>
+<br/>
+MD5 Sums:
+<br/>b88c99ec9b8413600cdd9edac348666b PluginManager_1.4.3_UNI.zip
+<br/>bed7b9b3c9cd4ae7eacb19f6f64eb55e PluginManager_1.3.5_UNI.zip
+<br/>824573cdf9d08c1a8de369a9a92bce41 PluginManager_1.3.4_UNI.zip
+<br/>931e1d021dc6fc0a80890df75da4a583 PluginManager_1.3.3_UNI.zip
+<br/>5367b29d2be4e40632859bbb4bfb7d57 PluginManager_1.0.8_UNI.zip
+<br/>ad273cfb1b0137a8e79b4df83a1e4d3e PluginManager_1.0.8_ANSI.zip
+<br/>96f96623bc66713c6b7d13522f282f95 PluginManager_1.0.2_ANSI.zip
+<br/>b646aae090998a1901bb04f816ee1372 PluginManager_1.0.2_UNI.zip
+<br/><br/>
+<u>Older versions</u>
+Older versions can be obtained from <a href="http://sourceforge.net/projects/npppluginmgr/files/">http://sourceforge.net/projects/npppluginmgr/files/</a>
+<hr/>
+<a name="XML"></a>
+<h3>XML File Structure and Features</h3>
+<i><b>The XML structure is documented here for completeness.  To edit the XML please use the </b></i><a href="https://npppm.bruderste.in">administration system</a>
+
+<br/><br/>
+The XML file consists of &lt;plugin&gt; elements, each with a name attribute, containing the information about each plugin.  
+The name attribute must match (include case) the name provided by the plugins getName() function, i.e.
+that which appears in the Plugins menu in Notepad++.
+<br/><br/>From 0.9 onwards, a <b>pluginNames</b> element can be used, containing <b>pluginName</b> elements, to 
+specify a plugin's name, if it reports it dynamically.  The MD5sum is given of the file to identify it.
+<br/>e.g.
+<br/>&lt;pluginNames&gt;
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;pluginName md5=&quot;48ae59abb0224ecc252d35e953ce0496&quot; name=&quot;NppExport&quot; comment=&quot;ansi 0.2.8&quot;/&gt;
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;pluginName md5=&quot;ad32f0f59e70823de864387f65debcea&quot; name=&quot;NppExport&quot; comment=&quot;unicode 0.2.8&quot;/&gt;
+<br/>&lt;/pluginNames&gt;
+
+<br/><br/>
+The following elements can be contained within the plugin element(all are optional)
+<ul>
+ <li><b>unicodeVersion</b>: The version number of the latest Unicode version.  If this element is not 
+ present, then the plugin will not be shown to Unicode users</li>
+ <li><b>ansiVersion</b>: The version number of the latest ANSI version.  If this element is not present,
+ then the plugin will not be shown to ANSI users</li>
+ <li><b>description</b>: A description of the plugin, which appears in the box below the list</li>
+ <li><b>author</b>: The authors name (and optionally email address etc), which is also displayed below the list</li>
+ <li><b>homepage</b>: The home page / web site of the plugin, also displayed in the box below the list</li>
+ <li><b>sourceUrl</b>: The URL of the source of the plugin</li>
+ <li><b>latestUpdate</b>: The latest updates the plugin has had. Shown on the notification of an update, and on the updates tab.</li>
+ <li><b>stability</b>: If included, and not "Good", then the plugin is excluded if the user has "Show Unstable Plugins" disabled.  Shown in the plugin list.
+ <li><b>badVersions</b>: Contains a list of unstable version numbers, that will always come below the latest version identified in unicodeVersion or ansiVersion tags.
+ <br/><ul><li><b>version</b>: Attribute <b>number</b> identifies the version number as bad, attribute <b>report</b> is the status report, which is shown in the updates tab, and the notify window.</li></ul>
+ </li>
+ <li><b>aliases</b>: A list of <b>alias</b> elements with a <b>name</b> attribute, identifying other names this plugin is known by.
+ <li><b>install</b>: This is the set of install steps.
+ <br/>The steps can be contained in &lt;ansi&gt; or &lt;unicode&gt; elements, which means 
+ that the steps are only performed for the relevant version.  A step which is not inside a unicode
+ or ansi element will be performed for both.  Steps are run in the order in which they are listed
+ in the XML.
+ <br/>The steps that are available at the moment are:
+ <ul>
+		<li><b>download</b>:  This downloads from the URL contained within the elment. A zip file 
+		is automatically unzipped to a temporary location.
+		<br/>If the URL points to an HTML page which contains a direct link (like the old SourceForge
+		download system... guess when I wrote this!) then the direct link can be searched for, and will
+		be followed.  To do this, just add a filename attribute to the download element, containing the 
+		filename that the direct link ends in.</li>
+		<li><b>copy</b>:  This copies files from the temporary unzipped location to a destination
+		directory.  A destination directory must start with a variable, either $PLUGINDIR$, $CONFIGDIR$
+		or $NPPDIR$ which refer to the plugins directory, plugin config directory and the Notepad++ directory
+		respectively.  In 0.9, a variable $PLUGINFILENAME$ is available that is the current installed filename 
+		of the plugin.  Note that this will be empty if the plugin is not installed.
+		Directories that do not exist will automatically be created.  The <b>from</b> attribute
+		can be wildcarded, and the <b>to</b> attribute <i>must</i> be a directory.
+		<br/>
+		If <b>validate=&quot;true&quot;</b> is included in the copy, then the file's MD5sum is 
+		checked against a known list of valid files at the server - an &quot;ok&quot; response lets
+		it continue, and &quot;unknown&quot; response means the user is prompted that the file is
+		unknown, and should not be copied.  The user can copy the file anyway, if they want. A 
+		&quot;banned&quot; response means that the user is prompted that this file has been marked as
+		dangerous or unstable, so should not be copied.  They can still choose to copy the file if they
+		wish.
+		<br/>
+		If <b>backup=&quot;true&quot;</b> is include in the copy element, then if the destination
+		file exists, it will be backed up to the same filename with &quot;.backup&quot; appended.  If
+		the backup file exists, it will be backed up to a &quot;.backup2&quot; file, and so on.  This is 
+		normally used for config files, such that user's config is not lost, but a &quot;good&quot; config 
+		can be installed.
+		<br/>
+		In 0.9 onwards, the <b>toFile</b> attribute (case sensitive) can be used instead of the <b>to</b> attribute, to specify
+		that the destination is a file, rather than a directory.  If <b>toFile</b> specifies an existing directory,
+		or the name ends in a backslash (\), the destination is assumed to be a directory, and hence the file is 
+		simply copied with the same name.  This can be used in conjunction with the $PLUGINFILENAME$ variable, 
+		to support plugins that can be installed multiple times. e.g.
+		<br/>
+		&lt;copy from=&quot;ThePlugin.dll&quot; toFile=&quot;$PLUGINDIR$\$PLUGINFILENAME$&quot; /&gt;
+		<br/>
+		This will install normally (as toFile will spot that &quot;$PLUGINDIR$\&quot; is an existing directory,
+		so copy the file as ThePlugin.dll, but updates will copy &quot;ThePlugin.dll&quot; to whatever that
+		instance of the plugin is installed as (e.g. ThePlugin_Copy1.dll).
+		<br/>
+		If the <b>recursive</b> attribute is 'true', then all files in child directories are copied.
+		</li>
+</ul>
+</li>
+<li><b>versions</b>:  A collection of <b>version</b> elements that identify a version if the 
+DLL does not report a version (or reports an incorrect version). Each <b>version</b> element contains 
+a <b>number</b> attribute, which is the correct version number, and an <b>md5</b> attribute which
+is the md5sum of the file. Optionally a <b>comment</b> attribute can be included to name the version 
+(e.g. ANSI, UNICODE etc), which can help with maintaining the XML file.
+</li></ul>
+<br/><br/>
+Here's an example plugin definition, using f0dder's switcher plugin to switch between related files,
+such s .h and .cpp :
+<pre>
+&lt;plugin name=&quot;switcher&quot;&gt;
+		&lt;unicodeVersion&gt;1.0&lt;/unicodeVersion&gt;
+		&lt;ansiVersion&gt;1.0&lt;/ansiVersion&gt;
+		&lt;homepage&gt;http://f0dder.dcmembers.com/npp_plugins/&lt;/homepage&gt;
+		&lt;description&gt;Switcher: a plugin to switch between 'associated' files. Currently it handles switching between asm&amp;lt;&amp;gt;inc, cpp&amp;lt;&amp;gt;h, cc&amp;lt;&amp;gt;h and c&amp;lt;&amp;gt;h. Useful when assigned to a hotkey.&lt;/description&gt;
+		&lt;author&gt;f0dder&lt;/author&gt;
+		&lt;versions&gt;
+			&lt;version number=&quot;1.0&quot; md5=&quot;301c72341ba758b3cdfc8a56d576c7f0&quot; comment=&quot;ansi&quot;/&gt;
+			&lt;version number=&quot;1.0&quot; md5=&quot;5a19bd60aa18e4454f1c4a6432ae5a72&quot; comment=&quot;unicode&quot;/&gt;
+		&lt;/versions&gt;
+		&lt;aliases&gt;
+			&lt;alias name=&quot;Extension Switcher&quot; /&gt;
+		&lt;/aliases&gt;
+		&lt;install&gt;
+			&lt;download&gt;http://f0dder.dcmembers.com/npp_plugins/npp_plugins.zip&lt;/download&gt;
+			&lt;ansi&gt;
+				&lt;copy from=&quot;ansi\switcher.dll&quot; to=&quot;$PLUGINDIR$&quot; validate=&quot;true&quot;/&gt;
+			&lt;/ansi&gt;
+			&lt;unicode&gt;
+				&lt;copy from=&quot;unicode\switcher.dll&quot; to=&quot;$PLUGINDIR$&quot; validate=&quot;true&quot;/&gt;
+			&lt;/unicode&gt;
+			&lt;copy from=&quot;readme.txt&quot; to=&quot;$PLUGINDIR$\doc\switcher&quot;/&gt;
+		&lt;/install&gt;
+&lt;/plugin&gt;
+</pre>
+<br/><br/>Note that you can have as many steps as you like within the &lt;ansi&gt; and &lt;unicode&gt;
+elements, and you can have as many of these as you like also.
+So:
+<pre>
+&lt;install&gt;
+			&lt;unicode&gt;
+				&lt;download&gt;http://downloads.sourceforge.net/sourceforge/npp-plugins/SpeechPlugin_0_2_1_dll.zip&lt;/download&gt;
+				&lt;copy from=&quot;SpeechPlugin_0_2_1_dll\SpeechPlugin.dll&quot; to=&quot;$PLUGINDIR$&quot; validate=&quot;true&quot;/&gt;
+			&lt;/unicode&gt;
+			&lt;ansi&gt;
+				&lt;download&gt;http://downloads.sourceforge.net/sourceforge/npp-plugins/SpeechPlugin_0_2_dll.zip&lt;/download&gt;
+				&lt;copy from=&quot;SpeechPlugin_0_2_dll\SpeechPlugin.dll&quot; to=&quot;$PLUGINDIR$&quot; validate=&quot;true&quot;/&gt;
+			&lt;/ansi&gt;
+&lt;/install&gt;
+</pre>
+<br/>
+is just as valid as, and does the same job as 
+<br/>
+<pre>
+&lt;install&gt;
+			&lt;unicode&gt;
+				&lt;download&gt;http://downloads.sourceforge.net/sourceforge/npp-plugins/SpeechPlugin_0_2_1_dll.zip&lt;/download&gt;
+			&lt;/unicode&gt;
+			&lt;ansi&gt;
+				&lt;download&gt;http://downloads.sourceforge.net/sourceforge/npp-plugins/SpeechPlugin_0_2_dll.zip&lt;/download&gt;
+			&lt;/ansi&gt;
+			
+			&lt;unicode&gt;
+				&lt;copy from=&quot;SpeechPlugin_0_2_1_dll\SpeechPlugin.dll&quot; to=&quot;$PLUGINDIR$&quot; validate=&quot;true&quot;/&gt;
+			&lt;/unicode&gt;
+			&lt;ansi&gt;
+				&lt;copy from=&quot;SpeechPlugin_0_2_dll\SpeechPlugin.dll&quot; to=&quot;$PLUGINDIR$&quot; validate=&quot;true&quot;/&gt;
+			&lt;/ansi&gt;
+&lt;/install&gt;
+</pre>
+<br/> The second is obviously just longer, and the first would probably be preferred.
+<hr/>
+<a name="developer"></a>
+<h3>Plugin developers</h3>
+There's a web based system for adding or updating your plugin - please use this to update your plugin. See below for how to register.
+<br><br>
+<h4>How to get your plugin listed</h4>
+Make an announcement on the <a href="https://notepad-plus-plus.org/community/category/5/plugin-development">
+Plugin Development forum</a> of the Notepad++ project.   Then enter your plugin (or update to your plugin) on the administration system.
+Your update will go out with the next batch of updates, which is every two weeks on Monday at 20:00UTC.
+
+This eases the burden on testing, and also means that the XML isn't downloaded by 1-2 million users TOO often 
+(that's nearly 200GB download every time we update).  
+<hr/>
+<a name="submitting"></a>
+<h3>Submitting changes to the XML Plugin List</h3>
+As of October 2011, there's a new web based system for plugin developers and maintainers to update and add their plugins.  
+<br>This system was kindly developed and donated by Pedro Sland, and I'm very grateful for his work on it.
+<br/><br/>
+Plugin developers and maintainers and welcome to register for an account at <a href="https://npppm.bruderste.in">https://npppm.bruderste.in/</a>
+
+<br/><br/>
+<strong>IMPORTANT: Testing</strong>. 
+<br>Once your new plugin or update is listed in the admin system, go to your Notepad++, open Plugin Manager, click 
+settings, and click the option to use the development plugin list. This list is 2-3 minutes behind the admin system, so you
+can test that your updates install pretty much immediately. It also means "early adopters" can try your version out almost
+straight away. If there are any issues installing, fix them in the admin system, wait 2 minutes, and restart Notepad++ to
+redownload the list.  
+<br><br>
+The list is automatically promoted every two weeks on Monday at 20:00UTC.  (Specifically, odd number weeks, under unix "<code>date +%W</code>")
+<br/><br/>
+
+
+<b>The old git based XML modification system has been discontinued, and we are now exclusively using the web based system</b>
+<hr/>
+
+
+Enjoy, and please let me know what you think, any feedback is gratefully received!  You can either post 
+a comment to the Plugin Development forum, or an issue or pull request on the <a href="https://github.com/bruderstein/nppPluginManager">github project</a>.  
+
+<a name="credits"></a>
+<hr/>
+<h3>Credits</h3>
+I must say a big thank you to Joce, who helped a lot in the development of this plugin.  
+<br/>A big thanks to Pedro Sland, for developing the <a href="https://npppm.bruderste.in">administration system</a>. 
+This has massively reduced the workload for updating the list, and enabled all plugin developers to 
+<br/>The good people on #notepad++ (especially joce and Thell) who've helped out with ideas and code reviews
+<br/>Don Ho and all the contributors, for bringing us this great editor, and providing such a neat plugin architecture that developers can easily add stuff
+</body>
+</html>
+
+<a name="contact"></a>
+<hr/>
+<h3>Contact</h3>
+Dave Brotherstone
+<br>Email is <img src="email.png" />
+<a href="https://github.com/bruderstein">github.com/bruderstein</a>
+
+		
+		
+		
+		
+<br/>

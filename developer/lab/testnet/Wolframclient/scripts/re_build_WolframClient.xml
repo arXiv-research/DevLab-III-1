@@ -1,0 +1,170 @@
+<project name='WolframClientForPython' basedir='..'>
+
+	<property name='component' value='${ant.project.name}' />
+	<property name='system_id' value='### Must be set by Jenkins ###' />
+
+	<property name='app.name' value='${component}' />
+	<property name='inputDir' value='${basedir}/docs' />
+	<property name='language' value='### Must be set by Jenkins ###' />
+
+	<property name="appPath" value="${appPath.default}" />
+
+	<property environment='env' />
+	<import file='${env.RE_ANTLIBRARY_HOME}/ant-lib.xml' />
+
+	<!--
+		Component build (platform-independent)
+	-->
+	<target name='Component.WolframClientForPython.execute' extensionOf='Component.execute'>
+
+		<!-- Copy all files and the wolframclient folder in base directory -->
+		<copy todir='${files_directory}/${component}'>
+			<fileset dir='${basedir}' >
+				<exclude name='.*' />
+				<exclude name='scripts/' />
+				<exclude name='docs/' />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<!--
+		Paclet
+	-->
+
+	<target name='Paclet.WolframClientForPython.init.custom' extensionOf='Paclet.init.custom'>
+
+		<!--
+			Prevent Paclet.clean from deleting files_directory,
+			since CopyAndUnarchiveArtifact just put all the paclet
+			files in there....
+		-->
+
+		<property name='keep.files_directory' value='true' />
+
+	</target>
+
+	<target name='Paclet.WolframClientForPython.execute' extensionOf='Paclet.execute'>
+		<mathematica exe="${mathExe}" fresh="true" quit="true"><![CDATA[
+
+			Print["$Version: ", $Version];
+			Print["$InstallationDirectory: ", $InstallationDirectory];
+
+			Unset[$MessagePrePrint];
+			Needs["PacletManager`"];
+
+			src = FileNameJoin[{AntProperty["files_directory"], "WolframClientForPython"}];
+			dest = FileNameJoin[AntProperty["output_directory"]];
+			PackPaclet[src, dest];
+
+			SetDirectory[dest]
+			If [TrueQ[FileExistsQ[FileNames["*WolframClientForPython*.paclet"][[1]]]],
+				Print[FileNames["WolframClientForPython*.paclet"][[1]] " ... OK"],
+				AntFail["Paclet not produced" ]];
+
+		]]></mathematica>
+
+	</target>
+
+	<!--
+		Installer Package
+	-->
+
+	<target name='Installer.WolframClientForPython.execute' extensionOf='Deploy.execute'>
+
+		<!-- Ensure all necessary modules are installed -->
+		<exec executable="python">
+			<arg value="-m" />
+			<arg value="pip" />
+			<arg value="install" />
+			<arg value="--user" />
+			<arg value="--upgrade" />
+			<arg value="setuptools" />
+			<arg value="wheel" />
+		</exec>
+
+		<!-- Run setup script -->
+		<exec executable="python">
+			<arg value="setup.py" />
+			<arg value="sdist" />
+			<arg value="bdist_wheel" />
+		</exec>
+
+		<!-- Copy produced files to Files dir -->
+		<copy todir='${files_directory}'>
+			<fileset dir='${basedir}/dist'>
+				<include name="*.whl"/>
+				<include name="*.tar.gz"/>
+			</fileset>
+		</copy>
+
+	</target>
+
+	<!--
+		Static Web Pages
+	-->
+
+	<target name='Web.WolframClientForPython.execute.check-custom' extensionOf='Web.execute.check-custom' >
+
+		<property name='Web.execute.has-custom' value='true' />
+
+	</target>
+
+	<target name='Web.WolframClientForPython.execute.custom' extensionOf='Web.execute.custom'>
+
+		<!-- Create a virtual environment to build docs in -->
+		<exec executable="python3.6">
+			<arg value="-m" />
+			<arg value="venv" />
+			<arg value="${tmp_directory}/venv" />
+		</exec>
+
+		<!-- Install pygments-mathematica and sphinx modules -->
+		<exec executable="${tmp_directory}/venv/bin/python">
+			<arg value="-m" />
+			<arg value="pip" />
+			<arg value="install" />
+			<arg value="numpy" />
+			<arg value="pygments-mathematica" />
+			<arg value="sphinx" />
+			<arg value="zmq" />
+		</exec>
+
+		<!-- Build docs using Bash script -->
+		<exec dir= "${basedir}/docs" executable="build_docs.sh">
+			<arg value="-b" />
+			<arg value="${files_directory}" />
+			<env key="PATH" path="${env.PATH}:${tmp_directory}/venv/bin"/>
+		</exec>
+
+	</target>
+
+	<!--
+		Deploy Web Pages
+	-->
+
+	<target name='Deploy.WolframClientForPython.execute' extensionOf='Deploy.execute'>
+
+		<path id='ghpages.id'> 
+			<fileset dir='${checkout_directory}'>
+				<include name="ghpages/*"/>
+			</fileset>
+		</path>
+
+		<property name='pages' refid='ghpages.id'/> 
+		<property name='src' value='${pages}' />
+
+		<property name='host' value='buildmgr@webtst4.wolfram.com' />
+		<property name='dest' value='/www/sites/reference.wolfram.com/htdocs/language/WolframClientForPython' />
+
+		<condition property='scp.cmd' value='pscp' else='scp'>
+			<os family='windows'/>
+		</condition>
+
+		<echo message="copy ${src} to ${host}:${dest}" />
+		<exec executable='${scp.cmd}' failonerror='true' searchpath='true'>
+			<arg line='${args} ${src} ${host}:${dest}' />
+		</exec>
+	</target>
+
+</project>

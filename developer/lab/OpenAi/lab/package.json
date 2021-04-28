@@ -1,0 +1,46 @@
+{
+  "name": "openai_lab",
+  "version": "1.0.0",
+  "description": "An experimentation system for Reinforcement Learning using OpenAI and Keras",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "grunt",
+    "test": "python3 setup.py test",
+    "posttest": "rm -rf .cache __pycache__ */__pycache__ *egg-info htmlcov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kengz/openai_lab.git"
+  },
+  "keywords": [
+    "openai",
+    "gym",
+    "lab",
+    "reinforcement",
+    "learning"
+  ],
+  "author": "keng, laura",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kengz/openai_lab/issues"
+  },
+  "homepage": "https://github.com/kengz/openai_lab#readme",
+  "dependencies": {
+    "config": "^1.25.1",
+    "grunt": "^1.0.1",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-shell": "^2.1.0",
+    "grunt-sync": "^0.6.2",
+    "load-grunt-tasks": "^3.5.2",
+    "lodash": "^4.17.4",
+    "resolve-dir": "^1.0.0",
+    "snyk": "^1.41.1"
+  },
+  "snyk": true
+}

@@ -1,6 +1,6 @@
 # devLab-3 pre-release
 
-Experimental Repository of Machine-Learning Algorithms.
+Experimental Repository of Machine-Learning Algorithms. (WIP)
 
 This is the "Testing Grounds" for integrating with higher level DSL's, Smart-Contracts, RaspberryPi, and M-L Libraries/Notebooks.
 

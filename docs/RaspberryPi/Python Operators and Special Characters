@@ -1,0 +1,36 @@
+With Python and for computers in general it helps to think of information as being one of the following data types: number, string, or Boolean. You also use computers to operate on that information, meaning to do any necessary math or comparisons or searches or whatever to help you find information and organize it in a way that makes sense to you.
+
+Python offers many different operators and special characters for working with and comparing types of information. Here we just summarize them all for future reference, without going into great detail.
+
+Special Characters
+#	comment
+"""	string literal
+\n	new line
+\char	escape character
+Numeric Operators (in Order of Precedence)
+()	grouping
+**	exponent
+–	negation
+*	multiplication
+/	division
+%	modulus
+//	floor division
++	addition
+–	subtraction
+Comparison Operators
+==	equal
+!=	not equal
+>	greater than
+<	less than
+>=	greater than or equal to
+<=	less than or equal to
+and	logical and
+or	logical or
+not	logical not
+f strings
+number	width
+.2f	1234.56
+,.2f	1,234,56
+.1%	6.5%
+:	align left
+^	center

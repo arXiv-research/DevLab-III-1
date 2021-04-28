@@ -1,0 +1,53 @@
+#!/bin/bash --login
+# This script runs the same sequence as the Docker build
+# Run this as:
+# bin/setup
+
+
+# Fail on the first error; killable by SIGINT
+set -e
+trap "exit" INT
+
+read -p "
+------------------------------------------------
+
+Welcome to the SLM Lab setup script;
+This will invoke sudo; alternatively,
+inspect bin/setup_ubuntu or bin/setup_macOS and run the lines manually.
+
+Press enter to continue, Ctrl+c to quit:
+
+------------------------------------------------
+"
+
+# copy config file if not already exist
+BIN_DIR=`pwd`/bin
+
+# Run setup by OS
+if [ $(uname) == "Darwin" ]; then
+  $BIN_DIR/setup_macOS
+elif [ -f '/etc/arch-release' ]; then
+  $BIN_DIR/setup_arch
+else
+  $BIN_DIR/setup_ubuntu
+fi
+
+# Run extra setup
+if [ "$1" == "extra" ]; then
+  echo "Running extra optional setup"
+  if [ $(uname) == "Darwin" ]; then
+    $BIN_DIR/setup_macOS_extra
+  elif [ -f '/etc/arch-release' ]; then
+    $BIN_DIR/setup_arch_extra
+  else
+    $BIN_DIR/setup_ubuntu_extra
+  fi
+fi
+
+echo "
+------------------------------------------------
+
+Installation complete.
+
+------------------------------------------------
+"

@@ -4,7 +4,7 @@
 
 ## What is it?
 
-Note: this is currently not maintained - do not use it as is.
+Note: this is currently not maintained - do not use it as is.  The repo is for reference purposes. -j.mitchell
 
 A Standard Decentralized Autonomous Organization (DAO) framework written in Solidity to run on the Ethereum blockchain. 
 

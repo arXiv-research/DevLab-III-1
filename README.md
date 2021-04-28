@@ -1,6 +1,6 @@
 # devLab-3 pre-release
 
-Experimental Repository of Machine-Learning Algorithms. (WIP)
+Advanced Machine-Learning Algorithms and Reinforcement Learning. (WIP)
 
 This is the "Testing Grounds" for integrating with higher level DSL's, Modular Deep Reinforcement Learning, Smart-Contracts, RaspberryPi, and M-L algorithm Libraries/Notebooks.
 

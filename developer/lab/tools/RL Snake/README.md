@@ -81,3 +81,4 @@ Type
 python3 play.py
 ```
 to start playing. Use your arrow keys on the keyboard to move around. You can pass the parameters `--x NUMBER_OF_HORIZONTAL_TILES` and `--y NUMBER_OF_VERTICAL_TILES` to change the size of the field.
+
